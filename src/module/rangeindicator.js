@@ -31,25 +31,25 @@ export function drawReachIndicator (token) {
 			const graphics = new PIXI.Graphics();
 
 			graphics.lineStyle(2, lineColor, lineAplha)
-                    .drawCircle (0, 0, rangeCRadius)
-                    .drawCircle (0, 0, range1Radius)
-                    .drawCircle (0, 0, range2Radius)
-					.lineStyle(0, lineColor, 0)
-					.beginFill(frontColor, fillAplha)
-					.arc(0, 0, range2Radius * 1.2, faceAngels.start, faceAngels.front)
-					.endFill()
-					.beginFill(sideColor, fillAplha)
-					.arc(0, 0, range2Radius * 1.2, faceAngels.front, faceAngels.right)
-					.lineTo(0,0)
-					.endFill()
-					.beginFill(backColor, fillAplha)
-					.arc(0, 0, range2Radius * 1.2, faceAngels.right, faceAngels.back)
-					.lineTo(0,0)
-					.endFill()
-					.beginFill(sideColor, fillAplha)
-					.arc(0, 0, range2Radius * 1.2, faceAngels.back, faceAngels.left)
-					.lineTo(0,0)
-					.endFill();
+				.drawCircle (0, 0, rangeCRadius)
+				.drawCircle (0, 0, range1Radius)
+				.drawCircle (0, 0, range2Radius)
+				.lineStyle(0, lineColor, 0)
+				.beginFill(frontColor, fillAplha)
+				.arc(0, 0, range2Radius * 1.2, faceAngels.start, faceAngels.front)
+				.endFill()
+				.beginFill(sideColor, fillAplha)
+				.arc(0, 0, range2Radius * 1.2, faceAngels.front, faceAngels.right)
+				.lineTo(0,0)
+				.endFill()
+				.beginFill(backColor, fillAplha)
+				.arc(0, 0, range2Radius * 1.2, faceAngels.right, faceAngels.back)
+				.lineTo(0,0)
+				.endFill()
+				.beginFill(sideColor, fillAplha)
+				.arc(0, 0, range2Radius * 1.2, faceAngels.back, faceAngels.left)
+				.lineTo(0,0)
+				.endFill();
 
 			//update the rotation of the indicator
 			container.angle = tokenDirection - 90;
@@ -65,7 +65,7 @@ export function drawReachIndicator (token) {
 			container.angle = tokenDirection - 90;
 		}
 
-        token.reachIndicator.graphics.visible = (game.gurpsGridLess.showRangeIndicator && token.controlled) || game.gurpsGridLess.showRangeIndicatorAll;
+		token.reachIndicator.graphics.visible = (game.gurpsGridLess.showRangeIndicator && token.controlled) || game.gurpsGridLess.showRangeIndicatorAll;
 	} catch (error) {
 		console.error(
 			`GURPS gridless | Error drawing the reach indicator for token ${token.name} (ID: ${token.id}, Type: ${
