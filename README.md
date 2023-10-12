@@ -1,16 +1,32 @@
-<!--
-SPDX-FileCopyrightText: 2022 Johannes Loher
-
-SPDX-License-Identifier: MIT
--->
-
 # gurps-gridless
 
-Please add your description here.
+This Module adds some Tools for gridless play to the GURPS Game Aid System. :
+
+1. Replaces the border shown on the selected token and on mouse hover on a token with a border indicating facing.
+2. Displays an indicator for reach and front, side, back angles on a key press (Default: R for the current token, shift + R for all tokens). 
+You can change the key binds under "configure Controls" in Foundry.
+
+At the moment this works for 1 hex creature. I plan to support multi hex creatures in the future.
+
+The Module requires the GURPS Game Aid System and the About Face Module.
+
+### Tips for gridless play
+In the Foundry scene set the Grid Type to gridless, the Grid Scale to 1, the Grid Unit to Yd and the Grid Size to the number of pixel for 1 yard.
+Note that most maps for foundry are made with an unrealistic large scale to allow play with the 5 feet grid of DnD. That is in most cases unnecessary for GURPS gridless play. 
+I usually set the number of pixels given for one DnD 5 feet square for 1 yard and get a realistic scale. Individual maps may require adjustments.
+
+### Legal
+
+The material presented here is my original creation, intended for use with the [GURPS](http://www.sjgames.com/gurps) system from [Steve Jackson Games](ttp://www.sjgames.com). This material is not official and is not endorsed by Steve Jackson Games.
+
+[GURPS](http://www.sjgames.com/gurps) is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This tool is the original creation of Stefan Leng and is released for free distributionunder the permissions granted in the [Steve Jackson Games Online Policy](http://www.sjgames.com/general/online_policy.html)
+
 
 ## Installation
 
-Please add your installation instructions here.
+This moduel is not yet added to teh Foundry Package Manager.
+To install it manually, user thhis Manifest URL.
+https://github.com/StefanLeng/gurps-gridless/releases/latest/download/module.json
 
 ## Development
 

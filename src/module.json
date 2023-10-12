@@ -27,8 +27,22 @@
     }
   ],
   "relationships": {
-    "systems": [],
-    "requires": [],
+    "systems": [
+      {
+        "id": "gurps",
+        "type": "system",
+        "manifest": "https://raw.githubusercontent.com/crnormand/gurps/release/system.json",
+        "compatibility": {}
+      }
+    ],
+    "requires": [
+      {
+        "id": "about-face",
+        "type": "module",
+        "manifest": "https://github.com/mclemente/about-face/releases/latest/download/module.json",
+        "compatibility": {}
+      }
+    ],
     "conflicts": []
   },
   "socket": false,
