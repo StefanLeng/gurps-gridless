@@ -2,9 +2,9 @@ export const defaultColors = {
   lineAplha: 0.5,
   fillAplha: 0.1,
   lineColor: 0x000000,
-  frontColor: 0x00FF00,
-  sideColor: 0xFFFF00,
-  backColor: 0xFF0000,
+  frontColor: 0x00ff00,
+  sideColor: 0xffff00,
+  backColor: 0xff0000,
 };
 
 export const faceAngels = {

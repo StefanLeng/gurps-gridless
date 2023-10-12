@@ -1,15 +1,15 @@
 // Import JavaScript modules
-import { registerSettings, GURPSGridLess, MODULE_ID } from './settings.js';
+import { registerSettings, GURPSGridLess } from './settings.js';
 import { preloadTemplates } from './preloadTemplates.js';
-import {drawReachIndicator, drawEachReachIndicator } from "./modules/rangeindicator.js";
-import {doborder } from "./modules/borders.js";
+import { drawReachIndicator } from "./modules/rangeindicator.js";
+import { doborder } from "./modules/borders.js";
 
 // Initialize module
 Hooks.once('init', async () => {
   console.log('gurps-gridless | Initializing gurps-gridless');
 
   // Assign custom classes and constants here
-	game.gurpsGridLess = new GURPSGridLess();
+  game.gurpsGridLess = new GURPSGridLess();
 
   // Register custom module settings
   registerSettings();
@@ -33,9 +33,9 @@ Hooks.once('ready', async () => {
 
 // Add any additional hooks if necessary
 Hooks.on("canvasReady", async () => {
-	if (canvas.scene?.tokens) {
-		canvas.scene.tokens.forEach((tokenDocument) => drawReachIndicator(tokenDocument.object));
-	}
+  if (canvas.scene?.tokens) {
+    canvas.scene.tokens.forEach((tokenDocument) => drawReachIndicator(tokenDocument.object));
+  }
 });
 
 Hooks.on("createToken", (tokenDocument, options, userId) => drawReachIndicator(tokenDocument.object));
