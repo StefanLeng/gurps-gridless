@@ -1,6 +1,6 @@
-import { drawEachReachIndicator } from "./modules/rangeindicator.js";
+import { drawEachReachIndicator } from './modules/rangeindicator.js';
 
-export const MODULE_ID = "gurps-gridless";
+export const MODULE_ID = 'gurps-gridless';
 
 export class GURPSGridLess {
   showRangeIndicator;
@@ -13,9 +13,9 @@ export class GURPSGridLess {
 
 export function registerSettings() {
 
-  game.keybindings.register(MODULE_ID, "showRangeIndicator", {
-    name: "gurps-gridless.keybindings.showRangeIndicator.name",
-    hint: "gurps-gridless.keybindings.showRangeIndicator.hint",
+  game.keybindings.register(MODULE_ID, 'showRangeIndicator', {
+    name: 'gurps-gridless.keybindings.showRangeIndicator.name',
+    hint: 'gurps-gridless.keybindings.showRangeIndicator.hint',
     onDown: () => {
       game.gurpsGridLess.showRangeIndicator = true;
             drawEachReachIndicator();
@@ -28,9 +28,9 @@ export function registerSettings() {
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
 
-  game.keybindings.register(MODULE_ID, "showRangeIndicatorAll", {
-    name: "gurps-gridless.keybindings.showRangeIndicatorAll.name",
-    hint: "gurps-gridless.keybindings.showRangeIndicatorAll.hint",
+  game.keybindings.register(MODULE_ID, 'showRangeIndicatorAll', {
+    name: 'gurps-gridless.keybindings.showRangeIndicatorAll.name',
+    hint: 'gurps-gridless.keybindings.showRangeIndicatorAll.hint',
     onDown: () => {
       game.gurpsGridLess.showRangeIndicatorAll = true;
             drawEachReachIndicator();
