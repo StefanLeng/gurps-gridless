@@ -22,7 +22,7 @@ export function registerSettings() {
     onUp: () => {
       game.gurpsGridLess.showRangeIndicator = false;
       drawEachReachIndicator();
-    },    
+    },
     restricted: false,
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
@@ -37,7 +37,7 @@ export function registerSettings() {
     onUp: () => {
       game.gurpsGridLess.showRangeIndicatorAll = false;
       drawEachReachIndicator();
-    },    
+    },
     restricted: false,
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
