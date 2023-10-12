@@ -6,25 +6,24 @@ export class GURPSGridLess {
   constructor() {
     this.showRangeIndicator = false;
     this.showRangeIndicatorAll = false;
-  };
+  }
   showRangeIndicator;
   showRangeIndicatorALL;
 }
 
 export function registerSettings() {
-
   game.keybindings.register(MODULE_ID, 'showRangeIndicator', {
     name: 'gurps-gridless.keybindings.showRangeIndicator.name',
     hint: 'gurps-gridless.keybindings.showRangeIndicator.hint',
     onDown: () => {
       game.gurpsGridLess.showRangeIndicator = true;
-            drawEachReachIndicator();
+      drawEachReachIndicator();
     },
     onUp: () => {
       game.gurpsGridLess.showRangeIndicator = false;
-            drawEachReachIndicator();
+      drawEachReachIndicator();
     },    
-        restricted: false,
+    restricted: false,
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
 
@@ -33,14 +32,13 @@ export function registerSettings() {
     hint: 'gurps-gridless.keybindings.showRangeIndicatorAll.hint',
     onDown: () => {
       game.gurpsGridLess.showRangeIndicatorAll = true;
-            drawEachReachIndicator();
+      drawEachReachIndicator();
     },
     onUp: () => {
       game.gurpsGridLess.showRangeIndicatorAll = false;
-            drawEachReachIndicator();
+      drawEachReachIndicator();
     },    
-        restricted: false,
+    restricted: false,
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
-  
 }
