@@ -8,7 +8,7 @@ export function drawReachIndicator(token) {
     // Create or update the range indicator
     if (!token.reachIndicator || token.reachIndicator._destroyed) {
       const { w: width, h: height } = token;
-      const container = new PIXI.Container({ name: 'reachIndicator', width, height });
+      const container = new PIXI.Container({ name: 'reachIndicator', width, height }); //eslint-disable-line no-undef
       container.name = 'reachIndicator';
       container.width = width;
       container.height = height;
@@ -21,7 +21,7 @@ export function drawReachIndicator(token) {
       const rangeCRadius = gridSize / 2;
       const range1Radius = gridSize / 2 + gridSize;
       const range2Radius = gridSize / 2 + 2 * gridSize;
-      const graphics = new PIXI.Graphics();
+      const graphics = new PIXI.Graphics(); //eslint-disable-line no-undef
 
       graphics
         .lineStyle(2, lineColor, lineAplha)

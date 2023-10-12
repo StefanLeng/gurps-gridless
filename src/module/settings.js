@@ -6,7 +6,7 @@ export class GURPSGridLess {
   constructor() {
     this.showRangeIndicator = false;
     this.showRangeIndicatorAll = false;
-  }
+  };
   showRangeIndicator;
   showRangeIndicatorALL;
 }
