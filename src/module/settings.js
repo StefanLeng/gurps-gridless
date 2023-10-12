@@ -1,4 +1,4 @@
-import { drawEachReachIndicator } from './modules/rangeindicator.js';
+import { drawEachReachIndicator } from './rangeindicator.js';
 
 export const MODULE_ID = 'gurps-gridless';
 

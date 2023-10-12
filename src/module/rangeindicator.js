@@ -1,6 +1,6 @@
-import { defaultColors, faceAngels }  from './constants.js';
+import { defaultColors, faceAngels } from './constants.js';
 
-export function drawReachIndicator (token) {
+export function drawReachIndicator(token) {
   try {
     //get the rotation of the token
     const tokenDirection = token.document.flags['about-face']?.direction ?? 90;
@@ -8,7 +8,7 @@ export function drawReachIndicator (token) {
     // Create or update the range indicator
     if (!token.reachIndicator || token.reachIndicator._destroyed) {
       const { w: width, h: height } = token;
-      const container = new PIXI.Container({ name: 'reachIndicator', width, height});
+      const container = new PIXI.Container({ name: 'reachIndicator', width, height });
       container.name = 'reachIndicator';
       container.width = width;
       container.height = height;
@@ -23,10 +23,11 @@ export function drawReachIndicator (token) {
       const range2Radius = gridSize / 2 + 2 * gridSize;
       const graphics = new PIXI.Graphics();
 
-      graphics.lineStyle(2, lineColor, lineAplha)
-        .drawCircle (0, 0, rangeCRadius)
-        .drawCircle (0, 0, range1Radius)
-        .drawCircle (0, 0, range2Radius)
+      graphics
+        .lineStyle(2, lineColor, lineAplha)
+        .drawCircle(0, 0, rangeCRadius)
+        .drawCircle(0, 0, range1Radius)
+        .drawCircle(0, 0, range2Radius)
         .lineStyle(0, lineColor, 0)
         .beginFill(frontColor, fillAplha)
         .arc(0, 0, range2Radius * 1.2, faceAngels.start, faceAngels.front)
@@ -58,17 +59,18 @@ export function drawReachIndicator (token) {
       container.angle = tokenDirection - 90;
     }
 
-    token.reachIndicator.graphics.visible = (game.gurpsGridLess.showRangeIndicator && token.controlled) || game.gurpsGridLess.showRangeIndicatorAll;
+    token.reachIndicator.graphics.visible =
+      (game.gurpsGridLess.showRangeIndicator && token.controlled) || game.gurpsGridLess.showRangeIndicatorAll;
   } catch (error) {
     console.error(
       `GURPS gridless | Error drawing the reach indicator for token ${token.name} (ID: ${token.id}, Type: ${
         token.document?.actor?.type ?? null
       })`,
-      error
+      error,
     );
   }
 }
 
-export function drawEachReachIndicator () {
-     canvas.tokens.objects.children.forEach(drawReachIndicator)
+export function drawEachReachIndicator() {
+  canvas.tokens.objects.children.forEach(drawReachIndicator)
 }
