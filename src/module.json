@@ -1,0 +1,38 @@
+{
+  "id": "gurps-gridless",
+  "title": "Tools for gridless GURPS",
+  "description": "Helpers for gridless GURPS play with the GURPS Game Aid",
+  "authors": [
+    {
+      "name": "Stefan Leng",
+      "email": "stefan.leng@gmx.de"
+    }
+  ],
+  "url": "This is auto replaced",
+  "license": "LICENSE.txt",
+  "version": "This is auto replaced",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10"
+  },
+  "scripts": [],
+  "esmodules": ["module/gurps-gridless.js"],
+  "styles": ["styles/gurps-gridless.css"],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "relationships": {
+    "systems": [],
+    "requires": [],
+    "conflicts": []
+  },
+  "socket": false,
+  "manifest": "This is auto replaced",
+  "download": "This is auto replaced",
+  "library": false
+}

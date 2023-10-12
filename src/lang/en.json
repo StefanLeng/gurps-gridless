@@ -1,0 +1,6 @@
+{
+    "gurps-gridless.keybindings.showRangeIndicator.name": "Show range indicator",
+    "gurps-gridless.keybindings.showRangeIndicator.hint": "Schow range indicator for controled token",
+    "gurps-gridless.keybindings.showRangeIndicatorAll.name": "Show range indicator for all",
+    "gurps-gridless.keybindings.showRangeIndicatorAll.hint": "Schow range indicator for all tokens"
+}
