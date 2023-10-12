@@ -10,10 +10,10 @@ export function doborder(token) {
   token.border.y = token.document.y + height / 2;
   token.border.clear();
 
-  const borderColor = token._getBorderColor();//null if there should be no border
+  const borderColor = token._getBorderColor( );//null if there should be no border
 
   const innerWidth = 3;
-  const outerWidth = 2
+  const outerWidth = 2;
   const gridSize = canvas.grid.size;
   const innerBorder = gridSize / 2;
   const outerBorder = innerBorder + innerWidth;
@@ -21,16 +21,16 @@ export function doborder(token) {
   if ( borderColor)
   {
     token.border
-    .lineStyle(innerWidth, borderColor, 1)
-    .drawCircle(0, 0, innerBorder)
-    .lineStyle(outerWidth, frontColor, 1)
-    .arc(0, 0, outerBorder,faceAngels.start, faceAngels.front)
-    .lineStyle(outerWidth, sideColor, 1)
-    .arc(0, 0, outerBorder, faceAngels.front, faceAngels.right)
-    .lineStyle(outerWidth, backColor, 1)
-    .arc(0, 0, outerBorder, faceAngels.right, faceAngels.back)
-    .lineStyle(outerWidth, sideColor, 1)
-    .arc(0, 0, outerBorder, faceAngels.back, faceAngels.left);
+      .lineStyle(innerWidth, borderColor, 1)
+      .drawCircle(0, 0, innerBorder)
+      .lineStyle(outerWidth, frontColor, 1)
+      .arc(0, 0, outerBorder,faceAngels.start, faceAngels.front)
+      .lineStyle(outerWidth, sideColor, 1)
+      .arc(0, 0, outerBorder, faceAngels.front, faceAngels.right)
+      .lineStyle(outerWidth, backColor, 1)
+      .arc(0, 0, outerBorder, faceAngels.right, faceAngels.back)
+      .lineStyle(outerWidth, sideColor, 1)
+      .arc(0, 0, outerBorder, faceAngels.back, faceAngels.left);
   }
 
   token.border.angle = tokenDirection - 90;
