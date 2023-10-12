@@ -72,5 +72,5 @@ export function drawReachIndicator(token) {
 }
 
 export function drawEachReachIndicator() {
-  canvas.tokens.objects.children.forEach(drawReachIndicator)
+  canvas.tokens.objects.children.forEach(drawReachIndicator);
 }

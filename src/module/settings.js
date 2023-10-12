@@ -3,12 +3,12 @@ import { drawEachReachIndicator } from './rangeindicator.js';
 export const MODULE_ID = 'gurps-gridless';
 
 export class GURPSGridLess {
-  showRangeIndicator;
-  showRangeIndicatorALL;
   constructor() {
     this.showRangeIndicator = false;
     this.showRangeIndicatorAll = false;
   }
+  showRangeIndicator;
+  showRangeIndicatorALL;
 }
 
 export function registerSettings() {
