@@ -1,17 +1,17 @@
-import { defaultColors, faceAngels } from "./constants.js";
+import { defaultColors, faceAngels } from './constants.js';
 
-export function doborder(token) { 
-  const tokenDirection = token.document.flags["about-face"]?.direction ?? 90;
+export function doborder(token) {
+  const tokenDirection = token.document.flags['about-face']?.direction ?? 90;
 
-  const {_, __, ___, frontColor, sideColor, backColor } = defaultColors;
+  const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = defaultColors;
 
   const { w: width, h: height } = token;
   token.border.x = token.document.x + width / 2;
   token.border.y = token.document.y + height / 2;
   token.border.clear();
-	
-	const borderColor = token._getBorderColor();//null if there should be no border
-  
+
+  const borderColor = token._getBorderColor();//null if there should be no border
+
   const innerWidth = 3;
   const outerWidth = 2
   const gridSize = canvas.grid.size;
