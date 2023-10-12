@@ -18,8 +18,7 @@ export function doborder(token) {
   const innerBorder = gridSize / 2;
   const outerBorder = innerBorder + innerWidth;
 
-  if (borderColor)
-  {
+  if (borderColor) {
     token.border
       .lineStyle(innerWidth, borderColor, 1)
       .drawCircle(0, 0, innerBorder)
