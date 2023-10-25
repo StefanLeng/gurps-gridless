@@ -33,6 +33,12 @@
         "type": "system",
         "manifest": "https://raw.githubusercontent.com/crnormand/gurps/release/system.json",
         "compatibility": {}
+      },
+      {
+          "id": "gcsga",
+          "type": "system",
+          "manifest": "https://github.com/gcsga/gcsga/releases/latest/download/system.json",
+          "compatibility": {}
       }
     ],
     "requires": [
