@@ -41,11 +41,10 @@ export function registerSettings() {
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
 
-  
   game.settings.register(MODULE_ID, "maxReachShown", {
     name: 'gurps-gridless.settings.maxReachShown.name',
     hint: 'gurps-gridless.settings.maxReachShown.description',
-    scope: "world",
+    scope: 'world',
     config: true,
     default: 2.0,
     type: Number,
