@@ -10,12 +10,12 @@ export function drawReachIndicator(token) {
 
     const maxReach = game.settings.get(MODULE_ID, 'maxReachShown');
 
-    if (maxReach != lastMaxReach && token.reachIndicator ) {
+    if (maxReach != lastMaxReach && token.reachIndicator ){
       token.reachIndicator.destroy();
     }
 
     // Create or update the range indicator
-    if (!token.reachIndicator || token.reachIndicator._destroyed){
+    if (!token.reachIndicator || token.reachIndicator._destroyed ){
       lastMaxReach = maxReach;
       const { w: width, h: height } = token;
       const container = new PIXI.Container({ name: 'reachIndicator', width, height }); //eslint-disable-line no-undef
@@ -32,12 +32,11 @@ export function drawReachIndicator(token) {
       const facingRadius = rangeCRadius + (maxReach + 0.5) * gridSize;
       const graphics = new PIXI.Graphics(); //eslint-disable-line no-undef
 
-      graphics
-        .lineStyle(2, lineColor, lineAplha)
+      graphics.lineStyle(2, lineColor, lineAplha)
         .drawCircle(0, 0, rangeCRadius);
 
       for (let r = 1; r <= maxReach; r++) {
-        graphics.drawCircle(0, 0, rangeCRadius + r * gridSize);        
+        graphics.drawCircle(0, 0, rangeCRadius + r * gridSize);
       }
 
       graphics

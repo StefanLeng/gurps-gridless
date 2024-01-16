@@ -41,7 +41,7 @@ export function registerSettings() {
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
 
-  game.settings.register(MODULE_ID, "maxReachShown", {
+  game.settings.register(MODULE_ID, 'maxReachShown', {
     name: 'gurps-gridless.settings.maxReachShown.name',
     hint: 'gurps-gridless.settings.maxReachShown.description',
     scope: 'world',
@@ -49,10 +49,9 @@ export function registerSettings() {
     default: 2.0,
     type: Number,
     range: {
-        min: 0.0,
-        max: 15.0,
-        step: 1.0
-    }
+      min: 0.0,
+      max: 15.0,
+      step: 1.0
+    },
   });
-
 }
