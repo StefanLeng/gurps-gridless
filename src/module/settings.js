@@ -1,6 +1,5 @@
 import { drawEachReachIndicator } from './rangeindicator.js';
-
-export const MODULE_ID = 'gurps-gridless';
+import { MODULE_ID } from './constants.js';
 
 export class GURPSGridLess {
   constructor() {
@@ -41,4 +40,20 @@ export function registerSettings() {
     restricted: false,
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
+
+  
+  game.settings.register(MODULE_ID, "maxReachShown", {
+    name: 'gurps-gridless.settings.maxReachShown.name',
+    hint: 'gurps-gridless.settings.maxReachShown.description',
+    scope: "world",
+    config: true,
+    default: 2.0,
+    type: Number,
+    range: {
+        min: 0.0,
+        max: 15.0,
+        step: 1.0
+    }
+  });
+
 }

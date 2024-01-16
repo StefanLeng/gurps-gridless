@@ -1,6 +1,8 @@
 {
-    "gurps-gridless.keybindings.showRangeIndicator.name": "Show range indicator",
-    "gurps-gridless.keybindings.showRangeIndicator.hint": "Schow range indicator for controled token",
-    "gurps-gridless.keybindings.showRangeIndicatorAll.name": "Show range indicator for all",
-    "gurps-gridless.keybindings.showRangeIndicatorAll.hint": "Schow range indicator for all tokens"
+    "gurps-gridless.keybindings.showRangeIndicator.name": "Show reach indicator",
+    "gurps-gridless.keybindings.showRangeIndicator.hint": "Show reach indicator for controled token",
+    "gurps-gridless.keybindings.showRangeIndicatorAll.name": "Show reach indicator for all",
+    "gurps-gridless.keybindings.showRangeIndicatorAll.hint": "Show reach indicator for all tokens",
+    "gurps-gridless.settings.maxReachShown.name": "Maximal reach shown",
+    "gurps-gridless.settings.maxReachShown.description": "Maximal Reach shown in reach indicator"
 }

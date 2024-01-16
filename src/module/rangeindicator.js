@@ -1,12 +1,22 @@
 import { defaultColors, faceAngels } from './constants.js';
+import { MODULE_ID } from './constants.js';
+
+var lastMaxReach = 2;
 
 export function drawReachIndicator(token) {
   try {
     //get the rotation of the token
     const tokenDirection = token.document.flags['about-face']?.direction ?? 90;
 
+    const maxReach = game.settings.get(MODULE_ID, "maxReachShown");
+
+    if  (maxReach != lastMaxReach && token.reachIndicator ) {
+      token.reachIndicator.destroy();
+    }
+
     // Create or update the range indicator
-    if (!token.reachIndicator || token.reachIndicator._destroyed) {
+    if (!token.reachIndicator || token.reachIndicator._destroyed)  {
+      lastMaxReach = maxReach;
       const { w: width, h: height } = token;
       const container = new PIXI.Container({ name: 'reachIndicator', width, height }); //eslint-disable-line no-undef
       container.name = 'reachIndicator';
@@ -19,29 +29,33 @@ export function drawReachIndicator(token) {
 
       const gridSize = canvas.grid.size;
       const rangeCRadius = gridSize / 2;
-      const range1Radius = gridSize / 2 + gridSize;
-      const range2Radius = gridSize / 2 + 2 * gridSize;
+      const facingRadius = rangeCRadius + (maxReach+0.5) * gridSize;
       const graphics = new PIXI.Graphics(); //eslint-disable-line no-undef
 
       graphics
         .lineStyle(2, lineColor, lineAplha)
-        .drawCircle(0, 0, rangeCRadius)
-        .drawCircle(0, 0, range1Radius)
-        .drawCircle(0, 0, range2Radius)
+        .drawCircle(0, 0, rangeCRadius);
+
+      for (let r = 1; r <= maxReach; r++) {
+        graphics
+           .drawCircle(0, 0,  rangeCRadius + r * gridSize);        
+      }
+      
+      graphics
         .lineStyle(0, lineColor, 0)
         .beginFill(frontColor, fillAplha)
-        .arc(0, 0, range2Radius * 1.2, faceAngels.start, faceAngels.front)
+        .arc(0, 0, facingRadius, faceAngels.start, faceAngels.front)
         .endFill()
         .beginFill(sideColor, fillAplha)
-        .arc(0, 0, range2Radius * 1.2, faceAngels.front, faceAngels.right)
+        .arc(0, 0, facingRadius, faceAngels.front, faceAngels.right)
         .lineTo(0, 0)
         .endFill()
         .beginFill(backColor, fillAplha)
-        .arc(0, 0, range2Radius * 1.2, faceAngels.right, faceAngels.back)
+        .arc(0, 0, facingRadius, faceAngels.right, faceAngels.back)
         .lineTo(0, 0)
         .endFill()
         .beginFill(sideColor, fillAplha)
-        .arc(0, 0, range2Radius * 1.2, faceAngels.back, faceAngels.left)
+        .arc(0, 0, facingRadius, faceAngels.back, faceAngels.left)
         .lineTo(0, 0)
         .endFill();
 
