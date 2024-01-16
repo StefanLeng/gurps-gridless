@@ -51,7 +51,7 @@ export function registerSettings() {
     range: {
       min: 0.0,
       max: 15.0,
-      step: 1.0
+      step: 1.0,
     },
   });
 }
