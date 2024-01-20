@@ -41,18 +41,18 @@ export function drawReachIndicator(token) {
       graphics
         .lineStyle(0, lineColor, 0)
         .beginFill(frontColor, fillAplha)
-        .arc(0, 0, facingRadius, faceAngels.start, faceAngels.front)
+        .arc(0, 0, facingRadius, faceAngels.frontStart, faceAngels.frontEnd)
         .endFill()
         .beginFill(sideColor, fillAplha)
-        .arc(0, 0, facingRadius, faceAngels.front, faceAngels.right)
+        .arc(0, 0, facingRadius, faceAngels.frontEnd, faceAngels.rightEnd)
         .lineTo(0, 0)
         .endFill()
         .beginFill(backColor, fillAplha)
-        .arc(0, 0, facingRadius, faceAngels.right, faceAngels.back)
+        .arc(0, 0, facingRadius, faceAngels.rightEnd, faceAngels.backEnd)
         .lineTo(0, 0)
         .endFill()
         .beginFill(sideColor, fillAplha)
-        .arc(0, 0, facingRadius, faceAngels.back, faceAngels.left)
+        .arc(0, 0, facingRadius, faceAngels.backEnd, faceAngels.leftEnd)
         .lineTo(0, 0)
         .endFill();
 
