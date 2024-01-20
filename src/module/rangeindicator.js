@@ -14,16 +14,13 @@ export function drawReachIndicator(token) {
       token.reachIndicator.destroy();
     }
 
+    const { w: width, h: height } = token;
+
     // Create or update the range indicator
     if (!token.reachIndicator || token.reachIndicator._destroyed) {
       lastMaxReach = maxReach;
-      const { w: width, h: height } = token;
       const container = new PIXI.Container({ name: 'reachIndicator', width, height }); //eslint-disable-line no-undef
       container.name = 'reachIndicator';
-      container.width = width;
-      container.height = height;
-      container.x = width / 2;
-      container.y = height / 2;
 
       const { lineAplha, fillAplha, lineColor, frontColor, sideColor, backColor } = defaultColors;
 
@@ -56,20 +53,21 @@ export function drawReachIndicator(token) {
         .lineTo(0, 0)
         .endFill();
 
-      //update the rotation of the indicator
-      container.angle = tokenDirection - 90;
       //add the graphics to the container
       container.addChild(graphics);
       container.graphics = graphics;
       token.reachIndicator = container;
       //add the container to the token
       token.addChild(container);
-    } else {
-      const container = token.reachIndicator;
-      //update the rotation of the indicator
-      container.angle = tokenDirection - 90;
-    }
-
+    } 
+    
+    token.reachIndicator.width = width;
+    token.reachIndicator.height = height;
+    token.reachIndicator.x = width / 2;
+    token.reachIndicator.y = height / 2;
+    //update the rotation of the indicator
+    token.reachIndicator.angle = tokenDirection - 90;
+    
     token.reachIndicator.graphics.visible =
       (game.gurpsGridLess.showRangeIndicator && token.controlled) || game.gurpsGridLess.showRangeIndicatorAll;
   } catch (error) {
