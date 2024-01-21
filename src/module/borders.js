@@ -1,38 +1,48 @@
 import { defaultColors, faceAngels } from './constants.js';
 
-function longBodyShape(border, width, height, lineWidth, frontColor, sideColor, backColor) {
+function longBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
   const radius = width / 2;
   const side = (height - width) / 2;
-  border
-    .lineStyle(lineWidth, frontColor, 1)
+  drawing
+    .moveTo(radius, side)
+    .lineStyle(lineWidth, frontColor, lineAplha)
     .arc(0, side, radius, faceAngels.frontStart, faceAngels.frontEnd)
-    .lineStyle(lineWidth, sideColor, 1)
+    .lineStyle(lineWidth, sideColor, lineAplha)
     .lineTo(-radius, -side)
     .arc(0, -side, radius, faceAngels.frontEnd, faceAngels.rightEnd)
-    .lineStyle(lineWidth, backColor, 1)
+    .lineStyle(lineWidth, backColor, lineAplha)
     .arc(0, -side, radius, faceAngels.rightEnd, faceAngels.backEnd)
-    .lineStyle(lineWidth, sideColor, 1)
+    .lineStyle(lineWidth, sideColor, lineAplha)
     .arc(0, -side, radius, faceAngels.backEnd, faceAngels.leftEnd)
     .lineTo(radius, side)
 }
 
-function wideBodyShape(border, width, height, lineWidth, frontColor, sideColor, backColor)  {
+function wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha)  {
   const radius = height / 2;
   const side = (width - height) / 2;
-  border
-    .lineStyle(lineWidth, frontColor, 1)
+  drawing
+    .moveTo(-side, radius)
+    .lineStyle(lineWidth, frontColor, lineAplha)
     .arc( -side, 0, radius,  faceAngels.forward, faceAngels.frontEnd)
-    .lineStyle(lineWidth, sideColor, 1)
+    .lineStyle(lineWidth, sideColor, lineAplha)
     .arc( -side, 0, radius,  faceAngels.frontEnd, faceAngels.rightEnd)
-    .lineStyle(lineWidth, backColor, 1)
+    .lineStyle(lineWidth, backColor, lineAplha)
     .arc( -side, 0, radius, faceAngels.rightEnd, faceAngels.backward)
     .lineTo(side, -radius)
     .arc(side, 0, radius, faceAngels.backward, faceAngels.backEnd)
-    .lineStyle(lineWidth, sideColor, 1)
+    .lineStyle(lineWidth, sideColor, lineAplha)
     .arc(side, 0, radius, faceAngels.backEnd,faceAngels.leftEnd)
-    .lineStyle(lineWidth, frontColor, 1)
+    .lineStyle(lineWidth, frontColor, lineAplha)
     .arc(side, 0, radius, faceAngels.leftEnd, faceAngels.forward)
     .lineTo(-side, radius);
+}
+
+export function bodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha)  {
+  if (width > height) {
+    wideBodyShape(drawing, width , height, lineWidth, frontColor, sideColor, backColor, lineAplha);
+   } else {
+    longBodyShape(drawing, width , height, lineWidth, frontColor, sideColor, backColor, lineAplha);
+  }
 }
 
 export function doborder(token) {
@@ -51,13 +61,8 @@ export function doborder(token) {
   const outerWidth = 2;
  
   if (borderColor) {
-      if (width > height) {
-        wideBodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor);
-        wideBodyShape(token.border, width + 2 * innerWidth, height + 2 * innerWidth, outerWidth, frontColor, sideColor, backColor);
-       } else {
-        longBodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor);
-        longBodyShape(token.border, width + 2 * innerWidth, height + 2 * innerWidth, outerWidth, frontColor, sideColor, backColor);
-      }
+    bodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor, 1);
+    bodyShape(token.border, width + 2 * innerWidth, height + 2 * innerWidth, outerWidth, frontColor, sideColor, backColor, 1);
   }
 
   token.border.angle = tokenDirection - 90;

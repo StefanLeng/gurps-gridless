@@ -1,4 +1,5 @@
 import { defaultColors, faceAngels } from './constants.js';
+import { bodyShape } from './borders.js';
 import { MODULE_ID } from './constants.js';
 
 var lastMaxReach = 2;
@@ -32,7 +33,8 @@ export function drawReachIndicator(token) {
       graphics.lineStyle(2, lineColor, lineAplha).drawCircle(0, 0, rangeCRadius);
 
       for (let r = 1; r <= maxReach; r++) {
-        graphics.drawCircle(0, 0, rangeCRadius + r * gridSize);
+        //graphics.drawCircle(0, 0, rangeCRadius + r * gridSize);
+        bodyShape(graphics, width + r * gridSize, height + r * gridSize, 2, lineColor, lineColor, lineColor, lineAplha)
       }
 
       graphics
