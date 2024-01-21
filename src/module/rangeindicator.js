@@ -1,5 +1,5 @@
 import { defaultColors, faceAngels } from './constants.js';
-import { bodyShape } from './borders.js';
+import { bodyShape, facingShape } from './borders.js';
 import { MODULE_ID } from './constants.js';
 
 var lastMaxReach = 2;
@@ -37,7 +37,8 @@ export function drawReachIndicator(token) {
         bodyShape(graphics, width + r * gridSize, height + r * gridSize, 2, lineColor, lineColor, lineColor, lineAplha)
       }
 
-      graphics
+      facingShape(graphics, width + (maxReach + 0.5) * gridSize, height + (maxReach + 0.5) * gridSize, frontColor, sideColor, backColor, fillAplha);
+      /*graphics
         .lineStyle(0, lineColor, 0)
         .beginFill(frontColor, fillAplha)
         .arc(0, 0, facingRadius, faceAngels.frontStart, faceAngels.frontEnd)
@@ -53,7 +54,7 @@ export function drawReachIndicator(token) {
         .beginFill(sideColor, fillAplha)
         .arc(0, 0, facingRadius, faceAngels.backEnd, faceAngels.leftEnd)
         .lineTo(0, 0)
-        .endFill();
+        .endFill();*/
 
       //add the graphics to the container
       container.addChild(graphics);

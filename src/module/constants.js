@@ -2,7 +2,7 @@ export const MODULE_ID = 'gurps-gridless';
 
 export const defaultColors = {
   lineAplha: 0.5,
-  fillAplha: 0.1,
+  fillAplha: 0.15,
   lineColor: 0x000000,
   frontColor: 0x00ff00,
   sideColor: 0xffff00,
