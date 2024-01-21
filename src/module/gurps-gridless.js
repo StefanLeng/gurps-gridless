@@ -31,13 +31,4 @@ Hooks.once('ready', async () => {
   // Do anything once the module is ready
 });
 
-// Add any additional hooks if necessary
-Hooks.on('canvasReady', async () => {
-  if (canvas.scene?.tokens) {
-    canvas.scene.tokens.forEach((tokenDocument) => drawReachIndicator(tokenDocument.object));
-  }
-});
-
-Hooks.on('createToken', (tokenDocument) => drawReachIndicator(tokenDocument.object));
-Hooks.on('updateToken', (tokenDocument) => drawReachIndicator(tokenDocument.object));
 Hooks.on('refreshToken', (token) => doborder(token));
