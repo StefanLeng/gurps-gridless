@@ -1,8 +1,9 @@
 // Import JavaScript modules
 import { registerSettings, GURPSGridLess } from './settings.js';
 import { preloadTemplates } from './preloadTemplates.js';
-import { drawReachIndicator } from './rangeindicator.js';
+import { drawEachReachIndicator, drawReachIndicator } from './rangeindicator.js';
 import { doborder } from './borders.js';
+import { drawHitArea } from './hitArea.js';
 
 // Initialize module
 Hooks.once('init', async () => {
@@ -32,3 +33,12 @@ Hooks.once('ready', async () => {
 });
 
 Hooks.on('refreshToken', (token) => doborder(token));
+Hooks.on('preUpdateToken', (token) => {
+  game.gurpsGridLess.showRangeIndicator = false;
+  game.gurpsGridLess.showRangeIndicatorAll = false;
+  drawEachReachIndicator();
+});
+Hooks.on('drawToken', drawHitArea);
+Hooks.on('updateToken', (tokenDokument) => drawHitArea(tokenDokument.object));
+
+
