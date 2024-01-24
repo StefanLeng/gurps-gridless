@@ -4,5 +4,15 @@
     "gurps-gridless.keybindings.showRangeIndicatorAll.name": "Show reach indicator for all",
     "gurps-gridless.keybindings.showRangeIndicatorAll.hint": "Show reach indicator for all tokens",
     "gurps-gridless.settings.maxReachShown.name": "Maximal reach shown",
-    "gurps-gridless.settings.maxReachShown.description": "Maximal Reach shown in reach indicator"
+    "gurps-gridless.settings.maxReachShown.description": "Maximal Reach shown in reach indicator",
+    "gurps-gridless.settings.innerBorderWidth.name": "Inner border width",
+    "gurps-gridless.settings.innerBorderWidth.description": "Widht of the inner border in px",
+    "gurps-gridless.settings.outerBorderWidth.name": "Outer border width",
+    "gurps-gridless.settings.outerBorderWidth.description": "Widht of the outer border in px",
+    "gurps-gridless.settings.reachLineAlpha.name": "reach line opacity",
+    "gurps-gridless.settings.reachLineAlpha.description": "Opacity of the reach lines in the reach indicator",
+    "gurps-gridless.settings.facingAlpha.name": "facing area opacity",
+    "gurps-gridless.settings.facingAlpha.description": "Opacity of the facing areas in the reach indicator",
+    "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
+    "gurps-gridless.tokenSettings.tab.name": "GURPS Gridless"
 }

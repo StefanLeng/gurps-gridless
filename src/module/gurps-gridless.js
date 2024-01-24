@@ -1,7 +1,7 @@
 // Import JavaScript modules
-import { registerSettings, GURPSGridLess } from './settings.js';
+import { registerSettings, GURPSGridLess, injectTokenConfig } from './settings.js';
 import { preloadTemplates } from './preloadTemplates.js';
-import { drawEachReachIndicator, drawReachIndicator } from './rangeindicator.js';
+import { drawEachReachIndicator } from './rangeindicator.js';
 import { doborder } from './borders.js';
 import { fixTokenScale } from './tokenScale.js';
 import { drawHitArea } from './hitArea.js';
@@ -23,15 +23,17 @@ Hooks.once('init', async () => {
 });
 
 // Setup module
-Hooks.once('setup', async () => {
+//Hooks.once('setup', async () => {
   // Do anything after initialization but before
   // ready
-});
+//});
 
 // When ready
-Hooks.once('ready', async () => {
+//Hooks.once('ready', async () => {
   // Do anything once the module is ready
-});
+//});
+
+Hooks.on('renderTokenConfig', injectTokenConfig);
 
 Hooks.on('refreshToken', doborder);
 Hooks.on('refreshToken', fixTokenScale);

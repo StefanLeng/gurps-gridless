@@ -11,7 +11,7 @@ export function fixTokenScale(token) {
     if (token.document.lockRotation || display.width === display.height) {
       scale = Math.min(rect.width, rect.height) / Math.max(mesh.texture.width, mesh.texture.height); //fit into bounding box
     } else {
-      scale = (display.width > display.height) ? rect.width / mesh.texture.width :  rect.height / mesh.texture.height; // fit into longest token dimencion
+      scale = (display.width > display.height) ? rect.width / mesh.texture.width :  rect.height / mesh.texture.height; // fit into longest token dimension
     }
    
     display.scaleX *= scale;

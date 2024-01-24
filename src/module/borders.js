@@ -1,10 +1,11 @@
-import { defaultColors } from './constants.js';
 import { bodyShape } from './shapes.js';
+import { MODULE_ID } from './constants.js';
+import { getcolorConfig } from'./rangeindicator.js';
 
 export function doborder(token) {
   const tokenDirection = token.document.flags['about-face']?.direction ?? 90;
 
-  const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = defaultColors;
+  const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
   const { w: width, h: height } = token;
   token.border.x = token.document.x + width / 2;
@@ -13,8 +14,8 @@ export function doborder(token) {
 
   const borderColor = token._getBorderColor(); //null if there should be no border
 
-  const innerWidth = 3;
-  const outerWidth = 2;
+  const innerWidth = game.settings.get(MODULE_ID, 'innerBorderWidth') ?? 6;
+  const outerWidth = game.settings.get(MODULE_ID, 'outerBorderWidth') ?? 6;
  
   if (borderColor) {
     bodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor, 1);

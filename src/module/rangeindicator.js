@@ -1,6 +1,13 @@
-import { defaultColors, faceAngels } from './constants.js';
 import { bodyShape, facingShape } from './shapes.js';
 import { MODULE_ID } from './constants.js';
+import { defaultColors } from './constants.js';
+
+export function getcolorConfig() {
+  const config = Object.assign({}, defaultColors);
+  config.lineAlpha = game.settings.get(MODULE_ID, 'reachLineAlpha') ?? defaultColors.lineAlpha;
+  config.fillAlpha = game.settings.get(MODULE_ID, 'facingAlpha') ?? defaultColors.fillAlpha;
+  return config;
+}
 
 export function drawReachIndicator(token) {
   try {
@@ -25,7 +32,7 @@ export function drawReachIndicator(token) {
     //get the rotation of the token
     const tokenDirection = token.document.flags['about-face']?.direction ?? 90;
 
-    const maxReach = game.settings.get(MODULE_ID, 'maxReachShown');
+    const maxReach = token.document.flags[MODULE_ID]?.maxReachShown ?? game.settings.get(MODULE_ID, 'maxReachShown');
     
     token.reachIndicator.width = width;
     token.reachIndicator.height = height;
@@ -35,15 +42,15 @@ export function drawReachIndicator(token) {
     const graphics = token.reachIndicator.graphics;
     graphics.clear();
 
-    const { lineAplha, fillAplha, lineColor, frontColor, sideColor, backColor } = defaultColors;
+    const { lineAlpha, fillAlpha, lineColor, frontColor, sideColor, backColor } = getcolorConfig();
 
     const gridSize = canvas.grid.size;
 
     for (let r = 1; r <= maxReach; r++) {
-      bodyShape(graphics, width + r * gridSize, height + r * gridSize, 2, lineColor, lineColor, lineColor, lineAplha)
+      bodyShape(graphics, width + r * gridSize, height + r * gridSize, 2, lineColor, lineColor, lineColor, lineAlpha)
     }
 
-    facingShape(graphics, width + (maxReach + 0.5) * gridSize, height + (maxReach + 0.5) * gridSize, frontColor, sideColor, backColor, fillAplha);
+    facingShape(graphics, width + (maxReach + 0.5) * gridSize, height + (maxReach + 0.5) * gridSize, frontColor, sideColor, backColor, fillAlpha);
 
   
     //update the rotation of the indicator
