@@ -142,6 +142,32 @@ export function injectTokenConfig(app, html, data) {
         max: '15.0',
         step: '1.0',
     },
+    centerOffsetY: {
+      type: 'number',
+      label: game.i18n.localize('gurps-gridless.tokenSettings.centerOffsetY.name'),
+      default: '0',
+      min: '-10.0',
+      max: '10.0',
+      step: '0.1',
+  },
+  centerOffsetX: {
+    type: 'number',
+    label: game.i18n.localize('gurps-gridless.tokenSettings.centerOffsetX.name'),
+    notes: game.i18n.localize('gurps-gridless.tokenSettings.centerOffset.notes'),
+    default: '0',
+    min: '-10.0',
+    max: '10.0',
+    step: '0.1',
+  },
+  artRotation: {
+    type: 'number',
+    label: game.i18n.localize('gurps-gridless.tokenSettings.artRotation.name'),
+    notes: game.i18n.localize('gurps-gridless.tokenSettings.artRotation.notes'),
+    default: '0',
+    min: '-90.0',
+    max: '+90.0',
+    step: '1',
+},
 });
 
 }

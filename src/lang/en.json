@@ -14,5 +14,10 @@
     "gurps-gridless.settings.facingAlpha.name": "facing area opacity",
     "gurps-gridless.settings.facingAlpha.description": "Opacity of the facing areas in the reach indicator",
     "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
+    "gurps-gridless.tokenSettings.centerOffsetY.name": "Center Offset Y",
+    "gurps-gridless.tokenSettings.centerOffsetX.name": "Center Offset X",
+    "gurps-gridless.tokenSettings.centerOffset.notes": "Shifts the center of rotation. The center of rotation in foundry defaults to the center of the object. With GURPS it should be at the head of the creature",
+    "gurps-gridless.tokenSettings.artRotation.name": "Art rotation",
+    "gurps-gridless.tokenSettings.artRotation.notes": "Rotate art to face in the right direction (downward). Do not use About Face rotation offset, it dosn't work with GURPS Gridless",
     "gurps-gridless.tokenSettings.tab.name": "GURPS Gridless"
 }

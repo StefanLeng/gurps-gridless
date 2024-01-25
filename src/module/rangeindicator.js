@@ -54,7 +54,9 @@ export function drawReachIndicator(token) {
 
   
     //update the rotation of the indicator
-    token.reachIndicator.angle = tokenDirection - 90;
+    token.reachIndicator.pivot.y = gridSize * (token.document.flags[MODULE_ID]?.centerOffsetY ?? 0);
+    token.reachIndicator.pivot.x = gridSize * (token.document.flags[MODULE_ID]?.centerOffsetX ?? 0);
+    token.reachIndicator.angle = token.mesh.angle;
     
     token.reachIndicator.graphics.visible =
       (game.gurpsGridLess.showRangeIndicator && token.controlled) || game.gurpsGridLess.showRangeIndicatorAll;

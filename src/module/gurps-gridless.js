@@ -35,12 +35,16 @@ Hooks.once('init', async () => {
 
 Hooks.on('renderTokenConfig', injectTokenConfig);
 
-Hooks.on('refreshToken', doborder);
-Hooks.on('refreshToken', fixTokenScale);
+Hooks.on('refreshToken', (token) => {
+  fixTokenScale(token);
+  doborder(token);
+});
+
 Hooks.on('preUpdateToken', (token) => {
   game.gurpsGridLess.showRangeIndicator = false;
   game.gurpsGridLess.showRangeIndicatorAll = false;
   drawEachReachIndicator();
 });
+
 Hooks.on('drawToken', drawHitArea);
 Hooks.on('updateToken', (tokenDokument) => drawHitArea(tokenDokument.object));

@@ -3,7 +3,6 @@ import { MODULE_ID } from './constants.js';
 import { getcolorConfig } from'./rangeindicator.js';
 
 export function doborder(token) {
-  const tokenDirection = token.document.flags['about-face']?.direction ?? 90;
 
   const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
@@ -22,5 +21,7 @@ export function doborder(token) {
     bodyShape(token.border, width + 2 * innerWidth, height + 2 * innerWidth, outerWidth, frontColor, sideColor, backColor, 1);
   }
 
-  token.border.angle = tokenDirection - 90;
+  token.border.pivot.y = canvas.grid.size * (token.document.flags[MODULE_ID]?.centerOffsetY ?? 0);
+  token.border.pivot.x = canvas.grid.size * (token.document.flags[MODULE_ID]?.centerOffsetX ?? 0);
+  token.border.angle = (token.document.lockRotation ? (token.document.flags['about-face']?.direction ?? 90) - 90 : (token.mesh.angle - (token.document.flags[MODULE_ID]?.artRotation ?? 0)));
 }
