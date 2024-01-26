@@ -3,10 +3,22 @@
 This Module adds some Tools for gridless play to the GURPS Game Aid System. :
 
 1. Replaces the border shown on the selected token and on mouse hover on a token with a border indicating facing.
+![border example](border.png "Border example")
 2. Displays an indicator for reach and front, side, back angles on a key press (Default: R for the current token, shift + R for all tokens). 
 You can change the key binds under "configure Controls" in Foundry.
+![range indicator example](rangeIndicator.png "Range Indicator example")
+3. Support for non square tokens and all token sizes.
+4. Foundry rotates tokens around its center, with GURPS the token should rotate around its head. Therefor, this module allows you to shift the center of rotation.
+5. The default Foundry scaling for token images is wired for non square tokens. This module changes so that the token image scales with tihe longest token dimension.  
+6. Rotate token art to face in the right direction (downward) inside the token border. The About Face rotation offset will instead rotate the wohle token incl. border.
 
-At the moment this works for 1 hex creature. I plan to support multi hex creatures in the future.
+Configuration:
+
+![Configuration](configuration.png "Configuration")
+
+Token configuration:
+
+![token configuration](tokenConfiguration.png "Token Configuration")
 
 The Module requires the GURPS Game Aid System and the About Face Module.
 
@@ -24,7 +36,7 @@ The material presented here is my original creation, intended for use with the [
 
 ## Installation
 
-This moduel is not yet added to teh Foundry Package Manager.
+This moduel can be installed via the Foundry Package Manager.
 To install it manually, user thhis Manifest URL.
 https://github.com/StefanLeng/gurps-gridless/releases/latest/download/module.json
 

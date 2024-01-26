@@ -18,6 +18,6 @@
     "gurps-gridless.tokenSettings.centerOffsetX.name": "Center Offset X",
     "gurps-gridless.tokenSettings.centerOffset.notes": "Shifts the center of rotation. The center of rotation in foundry defaults to the center of the object. With GURPS it should be at the head of the creature.",
     "gurps-gridless.tokenSettings.artRotation.name": "Art rotation",
-    "gurps-gridless.tokenSettings.artRotation.notes": "Rotate art to face in the right direction (downward) inside the tolken border. The About Face rotation offset will instead rotate the wohle token incl. border.",
+    "gurps-gridless.tokenSettings.artRotation.notes": "Rotate token art to face in the right direction (downward) inside the token border. The About Face rotation offset will instead rotate the wohle token incl. border.",
     "gurps-gridless.tokenSettings.tab.name": "GURPS Gridless"
 }
