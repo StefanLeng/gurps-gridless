@@ -17,7 +17,7 @@ You can change the key binds under "configure Controls" in Foundry.
 
 5. The default Foundry scaling for token images is wired for non square tokens. This module changes so that the token image scales with tihe longest token dimension.  
 
-6. Rotate token art to face in the right direction (downward) inside the token border. The About Face rotation offset will instead rotate the wohle token incl. border.
+6. Rotate token art to face in the correct direction (downward) inside the token border. The About Face rotation offset will instead rotate the wohle token incl. border.
 
 Configuration:
 
