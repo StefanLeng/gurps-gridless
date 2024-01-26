@@ -18,8 +18,8 @@ export function registerSettings() {
     hint: 'gurps-gridless.keybindings.showRangeIndicator.hint',
     editable: [
       {
-        key: "KeyR"
-      }
+        key: 'KeyR',
+      },
     ],
     onDown: () => {
       game.gurpsGridLess.showRangeIndicator = true;
@@ -38,11 +38,11 @@ export function registerSettings() {
     hint: 'gurps-gridless.keybindings.showRangeIndicatorAll.hint',
     editable: [
       {
-        key: "KeyR",
-        modifiers: [ "SHIFT" ]
-      }
+        key: 'KeyR',
+        modifiers: ['SHIFT'],
+      },
     ],
-   onDown: () => {
+    onDown: () => {
       game.gurpsGridLess.showRangeIndicatorAll = true;
       drawEachReachIndicator();
     },
@@ -67,7 +67,7 @@ export function registerSettings() {
       step: 1.0,
     },
   });
-  
+
   game.settings.register(MODULE_ID, 'reachLineAlpha', {
     name: 'gurps-gridless.settings.reachLineAlpha.name',
     hint: 'gurps-gridless.settings.reachLineAlpha.description',
@@ -125,22 +125,22 @@ export function registerSettings() {
   });
 }
 
-export function injectTokenConfig(app, html, data) {
-  const injHtml = injectConfig.inject(app, html, {
+export function injectTokenConfig(app, html) {
+  injectConfig.inject(app, html, {
     moduleId: MODULE_ID,
     tab: {
-        name: MODULE_ID,
-        label: game.i18n.localize('gurps-gridless.tokenSettings.tab.name'),
-        icon: 'far fa-circle',
+      name: MODULE_ID,
+      label: game.i18n.localize('gurps-gridless.tokenSettings.tab.name'),
+      icon: 'far fa-circle',
     },
     maxReachShown: {
-        type: 'number',
-        label: game.i18n.localize('gurps-gridless.settings.maxReachShown.name'),
-        default: '',
-        placeholder: game.i18n.localize('gurps-gridless.tokenSettings.maxReachShown.placeholder'),
-        min: '0.0',
-        max: '15.0',
-        step: '1.0',
+      type: 'number',
+      label: game.i18n.localize('gurps-gridless.settings.maxReachShown.name'),
+      default: '',
+      placeholder: game.i18n.localize('gurps-gridless.tokenSettings.maxReachShown.placeholder'),
+      min: '0.0',
+      max: '15.0',
+      step: '1.0',
     },
     centerOffsetY: {
       type: 'number',
@@ -149,26 +149,24 @@ export function injectTokenConfig(app, html, data) {
       min: '-10.0',
       max: '10.0',
       step: '0.1',
-  },
-  centerOffsetX: {
-    type: 'number',
-    label: game.i18n.localize('gurps-gridless.tokenSettings.centerOffsetX.name'),
-    notes: game.i18n.localize('gurps-gridless.tokenSettings.centerOffset.notes'),
-    default: '0',
-    min: '-10.0',
-    max: '10.0',
-    step: '0.1',
-  },
-  artRotation: {
-    type: 'number',
-    label: game.i18n.localize('gurps-gridless.tokenSettings.artRotation.name'),
-    notes: game.i18n.localize('gurps-gridless.tokenSettings.artRotation.notes'),
-    default: '0',
-    min: '-90.0',
-    max: '+90.0',
-    step: '1',
-},
-});
-
+    },
+    centerOffsetX: {
+      type: 'number',
+      label: game.i18n.localize('gurps-gridless.tokenSettings.centerOffsetX.name'),
+      notes: game.i18n.localize('gurps-gridless.tokenSettings.centerOffset.notes'),
+      default: '0',
+      min: '-10.0',
+      max: '10.0',
+      step: '0.1',
+    },
+    artRotation: {
+      type: 'number',
+      label: game.i18n.localize('gurps-gridless.tokenSettings.artRotation.name'),
+      notes: game.i18n.localize('gurps-gridless.tokenSettings.artRotation.notes'),
+      default: '0',
+      min: '-90.0',
+      max: '+90.0',
+      step: '1',
+    },
+  });
 }
-

@@ -23,14 +23,13 @@ Hooks.once('init', async () => {
 });
 
 // Setup module
-//Hooks.once('setup', async () => {
-  // Do anything after initialization but before
-  // ready
+//Hooks.once('setup', async () => {// Do anything after initialization but before
+// ready
 //});
 
 // When ready
 //Hooks.once('ready', async () => {
-  // Do anything once the module is ready
+// Do anything once the module is ready
 //});
 
 Hooks.on('renderTokenConfig', injectTokenConfig);
@@ -40,7 +39,7 @@ Hooks.on('refreshToken', (token) => {
   doborder(token);
 });
 
-Hooks.on('preUpdateToken', (token) => {
+Hooks.on('preUpdateToken', () => {
   game.gurpsGridLess.showRangeIndicator = false;
   game.gurpsGridLess.showRangeIndicatorAll = false;
   drawEachReachIndicator();

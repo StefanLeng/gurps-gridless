@@ -11,10 +11,10 @@ export const defaultColors = {
 
 export const faceAngels = {
   frontStart: 0,
-  forward: Math.PI/2,
+  forward: Math.PI / 2,
   frontEnd: Math.PI,
   rightEnd: Math.PI + Math.PI / 3,
-  backward:  Math.PI + Math.PI/2,
+  backward: Math.PI + Math.PI / 2,
   backEnd: Math.PI + (Math.PI / 3) * 2,
   leftEnd: 2 * Math.PI,
 };
