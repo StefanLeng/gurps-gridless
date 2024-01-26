@@ -1,8 +1,10 @@
 // Import JavaScript modules
-import { registerSettings, GURPSGridLess } from './settings.js';
+import { registerSettings, GURPSGridLess, injectTokenConfig } from './settings.js';
 import { preloadTemplates } from './preloadTemplates.js';
-import { drawReachIndicator } from './rangeindicator.js';
+import { drawEachReachIndicator } from './rangeindicator.js';
 import { doborder } from './borders.js';
+import { fixTokenScale } from './tokenScale.js';
+import { drawHitArea } from './hitArea.js';
 
 // Initialize module
 Hooks.once('init', async () => {
@@ -21,23 +23,27 @@ Hooks.once('init', async () => {
 });
 
 // Setup module
-Hooks.once('setup', async () => {
-  // Do anything after initialization but before
-  // ready
-});
+//Hooks.once('setup', async () => {// Do anything after initialization but before
+// ready
+//});
 
 // When ready
-Hooks.once('ready', async () => {
-  // Do anything once the module is ready
+//Hooks.once('ready', async () => {
+// Do anything once the module is ready
+//});
+
+Hooks.on('renderTokenConfig', injectTokenConfig);
+
+Hooks.on('refreshToken', (token) => {
+  fixTokenScale(token);
+  doborder(token);
 });
 
-// Add any additional hooks if necessary
-Hooks.on('canvasReady', async () => {
-  if (canvas.scene?.tokens) {
-    canvas.scene.tokens.forEach((tokenDocument) => drawReachIndicator(tokenDocument.object));
-  }
+Hooks.on('preUpdateToken', () => {
+  game.gurpsGridLess.showRangeIndicator = false;
+  game.gurpsGridLess.showRangeIndicatorAll = false;
+  drawEachReachIndicator();
 });
 
-Hooks.on('createToken', (tokenDocument) => drawReachIndicator(tokenDocument.object));
-Hooks.on('updateToken', (tokenDocument) => drawReachIndicator(tokenDocument.object));
-Hooks.on('refreshToken', (token) => doborder(token));
+Hooks.on('drawToken', drawHitArea);
+Hooks.on('updateToken', (tokenDokument) => drawHitArea(tokenDokument.object));

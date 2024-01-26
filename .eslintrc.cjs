@@ -19,7 +19,12 @@ module.exports = {
   plugins: [],
 
   rules: {
-    // Specify any specific ESLint rules.
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 
   overrides: [

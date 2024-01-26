@@ -1,9 +1,9 @@
-import { defaultColors, faceAngels } from './constants.js';
+import { bodyShape } from './shapes.js';
+import { MODULE_ID } from './constants.js';
+import { getcolorConfig, getDirection } from './rangeindicator.js';
 
 export function doborder(token) {
-  const tokenDirection = token.document.flags['about-face']?.direction ?? 90;
-
-  const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = defaultColors;
+  const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
   const { w: width, h: height } = token;
   token.border.x = token.document.x + width / 2;
@@ -12,25 +12,24 @@ export function doborder(token) {
 
   const borderColor = token._getBorderColor(); //null if there should be no border
 
-  const innerWidth = 3;
-  const outerWidth = 2;
-  const gridSize = canvas.grid.size;
-  const innerBorder = gridSize / 2;
-  const outerBorder = innerBorder + innerWidth;
+  const innerWidth = game.settings.get(MODULE_ID, 'innerBorderWidth') ?? 6;
+  const outerWidth = game.settings.get(MODULE_ID, 'outerBorderWidth') ?? 6;
 
   if (borderColor) {
-    token.border
-      .lineStyle(innerWidth, borderColor, 1)
-      .drawCircle(0, 0, innerBorder)
-      .lineStyle(outerWidth, frontColor, 1)
-      .arc(0, 0, outerBorder, faceAngels.start, faceAngels.front)
-      .lineStyle(outerWidth, sideColor, 1)
-      .arc(0, 0, outerBorder, faceAngels.front, faceAngels.right)
-      .lineStyle(outerWidth, backColor, 1)
-      .arc(0, 0, outerBorder, faceAngels.right, faceAngels.back)
-      .lineStyle(outerWidth, sideColor, 1)
-      .arc(0, 0, outerBorder, faceAngels.back, faceAngels.left);
+    bodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor, 1);
+    bodyShape(
+      token.border,
+      width + 2 * innerWidth,
+      height + 2 * innerWidth,
+      outerWidth,
+      frontColor,
+      sideColor,
+      backColor,
+      1,
+    );
   }
 
-  token.border.angle = tokenDirection - 90;
+  token.border.pivot.y = canvas.grid.size * (token.document.flags[MODULE_ID]?.centerOffsetY ?? 0);
+  token.border.pivot.x = canvas.grid.size * (token.document.flags[MODULE_ID]?.centerOffsetX ?? 0);
+  token.border.angle = getDirection(token);
 }
