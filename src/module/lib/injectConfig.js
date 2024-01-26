@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+/* eslint-disable prettier/prettier */
 //injectConfig library by @theripper93
 //License: MIT
 //Documentation: https://github.com/theripper93/injectConfig
