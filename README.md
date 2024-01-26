@@ -3,6 +3,7 @@
 This Module adds some Tools for gridless play to the GURPS Game Aid System. :
 
 1. Replaces the border shown on the selected token and on mouse hover on a token with a border indicating facing.
+
 ![border example](border.png "Border example")
 2. Displays an indicator for reach and front, side, back angles on a key press (Default: R for the current token, shift + R for all tokens). 
 You can change the key binds under "configure Controls" in Foundry.
