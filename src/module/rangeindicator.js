@@ -9,6 +9,14 @@ export function getcolorConfig() {
   return config;
 }
 
+export  function getDirectionFromAbautFace(token) {
+  return (token.document.flags['about-face']?.direction ?? 90) + (token.document.flags['about-face']?.rotationOffset ?? 0) - 90;
+}
+
+export  function getDirection(token) {
+  return(token.document.lockRotation ? getDirectionFromAbautFace(token) : (token.mesh.angle - (token.document.flags[MODULE_ID]?.artRotation ?? 0)));
+}
+
 export function drawReachIndicator(token) {
   try {
     
@@ -28,9 +36,6 @@ export function drawReachIndicator(token) {
       //add the container to the token
       token.addChild(container);
     } 
-
-    //get the rotation of the token
-    const tokenDirection = token.document.flags['about-face']?.direction ?? 90;
 
     const maxReach = token.document.flags[MODULE_ID]?.maxReachShown ?? game.settings.get(MODULE_ID, 'maxReachShown');
     
@@ -52,14 +57,13 @@ export function drawReachIndicator(token) {
 
     facingShape(graphics, width + (maxReach + 0.5) * gridSize, height + (maxReach + 0.5) * gridSize, frontColor, sideColor, backColor, fillAlpha);
 
-  
     //update the rotation of the indicator
     token.reachIndicator.pivot.y = gridSize * (token.document.flags[MODULE_ID]?.centerOffsetY ?? 0);
     token.reachIndicator.pivot.x = gridSize * (token.document.flags[MODULE_ID]?.centerOffsetX ?? 0);
-    token.reachIndicator.angle = token.mesh.angle;
+    token.reachIndicator.angle = getDirection(token);
     
-    token.reachIndicator.graphics.visible =
-      (game.gurpsGridLess.showRangeIndicator && token.controlled) || game.gurpsGridLess.showRangeIndicatorAll;
+    token.reachIndicator.graphics.visible = (game.gurpsGridLess.showRangeIndicator && token.controlled) || game.gurpsGridLess.showRangeIndicatorAll;
+
   } catch (error) {
     console.error(
       `GURPS gridless | Error drawing the reach indicator for token ${token?.name} (ID: ${token?.id}, Type: ${

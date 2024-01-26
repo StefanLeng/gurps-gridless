@@ -1,6 +1,6 @@
 import { bodyShape } from './shapes.js';
 import { MODULE_ID } from './constants.js';
-import { getcolorConfig } from'./rangeindicator.js';
+import { getcolorConfig, getDirection } from'./rangeindicator.js'
 
 export function doborder(token) {
 
@@ -23,5 +23,5 @@ export function doborder(token) {
 
   token.border.pivot.y = canvas.grid.size * (token.document.flags[MODULE_ID]?.centerOffsetY ?? 0);
   token.border.pivot.x = canvas.grid.size * (token.document.flags[MODULE_ID]?.centerOffsetX ?? 0);
-  token.border.angle = (token.document.lockRotation ? (token.document.flags['about-face']?.direction ?? 90) - 90 : (token.mesh.angle - (token.document.flags[MODULE_ID]?.artRotation ?? 0)));
+  token.border.angle = getDirection(token);
 }
