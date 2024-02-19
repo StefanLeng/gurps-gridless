@@ -57,13 +57,22 @@ export function drawReachIndicator(token) {
     const gridSize = canvas.grid.size;
 
     for (let r = 1; r <= maxReach; r++) {
-      bodyShape(graphics, width + r * gridSize, height + r * gridSize, 2, lineColor, lineColor, lineColor, lineAlpha);
+      bodyShape(
+        graphics,
+        width + r * 2 * gridSize,
+        height + r * 2 * gridSize,
+        2,
+        lineColor,
+        lineColor,
+        lineColor,
+        lineAlpha,
+      );
     }
 
     facingShape(
       graphics,
-      width + (maxReach + 0.5) * gridSize,
-      height + (maxReach + 0.5) * gridSize,
+      width + (maxReach * 2 + 1) * gridSize,
+      height + (maxReach * 2 + 1) * gridSize,
       frontColor,
       sideColor,
       backColor,
