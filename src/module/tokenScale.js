@@ -5,31 +5,31 @@ export function fixTokenScale(token) {
 
   if (mesh._destroyed || mesh.texture === PIXI.Texture.EMPTY) return; //eslint-disable-line no-undef
 
-  const display = mesh.getDisplayAttributes();
+  //const display = mesh.getDisplayAttributes();
 
   // Size the texture
-  const rect = canvas.grid.grid.getRect(display.width, display.height);
+  const rect = canvas.grid.grid.getRect(mesh.width, mesh.height);
 
   var scale = 1;
-  if (token.document.lockRotation || display.width === display.height) {
+  if (token.document.lockRotation || mesh.width === mesh.height) {
     scale = Math.min(rect.width, rect.height) / Math.max(mesh.texture.width, mesh.texture.height); //fit into bounding box
   } else {
-    scale = display.width > display.height ? rect.width / mesh.texture.width : rect.height / mesh.texture.height; // fit into longest token dimension
+    scale = mesh.width > mesh.height ? rect.width / mesh.texture.width : rect.height / mesh.texture.height; // fit into longest token dimension
   }
 
-  display.scaleX *= scale;
-  display.scaleY *= scale;
+  const scaleX = mesh.scale.x * scale;
+  const scaleY = mesh.scale.y * scale;
 
   // Assign scale and attributes
-  mesh.scale.set(display.scaleX, display.scaleY);
+  mesh.scale.set(scaleX, scaleY);
 
   // Compute x/y by taking into account scale and mesh anchor
-  const px = display.x + (rect.width - mesh.width) * mesh.anchor.x + mesh.anchor.x * mesh.width;
-  const py = display.y + (rect.height - mesh.height) * mesh.anchor.y + mesh.anchor.y * mesh.height;
-  mesh.setPosition(px, py);
+  const px = mesh.x + (rect.width - mesh.width) * mesh.anchor.x + mesh.anchor.x * mesh.width;
+  const py = mesh.y + (rect.height - mesh.height) * mesh.anchor.y + mesh.anchor.y * mesh.height;
+  mesh.position.set(px, py);
 
   // Update the texture data for occlusion
-  mesh.updateTextureData();
+  //mesh.updateTextureData();
 
   const artRotation = token.document.flags[MODULE_ID]?.artRotation ?? 0;
 
@@ -46,6 +46,6 @@ export function fixTokenScale(token) {
   mesh.pivot.y = pivot.y;
   mesh.pivot.x = pivot.x;
 
-  const angle = (token.document.lockRotation ? 0 : display.rotation) + artRotation;
+  const angle = (token.document.lockRotation ? 0 : mesh.rotation) + artRotation;
   mesh.angle = angle;
 }

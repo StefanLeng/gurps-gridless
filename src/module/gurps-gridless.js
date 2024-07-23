@@ -35,7 +35,7 @@ Hooks.once('init', async () => {
 Hooks.on('renderTokenConfig', injectTokenConfig);
 
 Hooks.on('refreshToken', (token) => {
-  fixTokenScale(token);
+  //fixTokenScale(token);
   doborder(token);
 });
 

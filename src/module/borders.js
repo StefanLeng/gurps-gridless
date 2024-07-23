@@ -6,8 +6,8 @@ export function doborder(token) {
   const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
   const { w: width, h: height } = token;
-  token.border.x = token.document.x + width / 2;
-  token.border.y = token.document.y + height / 2;
+  token.border.x = width / 2;
+  token.border.y = height / 2;
   token.border.clear();
 
   const borderColor = token._getBorderColor(); //null if there should be no border
