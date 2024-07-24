@@ -6,8 +6,9 @@ export function doborder(token) {
   const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
   const { w: width, h: height } = token;
-  token.border.x = width / 2;
-  token.border.y = height / 2;
+  const { anchorX, anchorY } = token.document.texture;
+  token.border.x = width * 0.5;
+  token.border.y = height * 0.5;
   token.border.clear();
 
   const borderColor = token._getBorderColor(); //null if there should be no border
@@ -29,7 +30,7 @@ export function doborder(token) {
     );
   }
 
-  token.border.pivot.y = canvas.grid.size * (token.document.flags[MODULE_ID]?.centerOffsetY ?? 0);
-  token.border.pivot.x = canvas.grid.size * (token.document.flags[MODULE_ID]?.centerOffsetX ?? 0);
+  token.border.pivot.y = height * (anchorY - 0.5);
+  token.border.pivot.x = width * (anchorX - 0.5);
   token.border.angle = getDirection(token);
 }

@@ -3,7 +3,7 @@ import { registerSettings, GURPSGridLess, injectTokenConfig } from './settings.j
 import { preloadTemplates } from './preloadTemplates.js';
 import { drawEachReachIndicator } from './rangeindicator.js';
 import { doborder } from './borders.js';
-import { fixTokenScale } from './tokenScale.js';
+//import { fixTokenScale } from './tokenScale.js';
 import { drawHitArea } from './hitArea.js';
 
 // Initialize module
