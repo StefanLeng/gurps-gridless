@@ -13,14 +13,14 @@ You can change the key binds under "configure Controls" in Foundry.
 
 3. Support for non square tokens and all token sizes.
 
-With version 0.6 for Foundry 12 I had to remove the following fetures 
+With version 0.6 for Foundry 12 I had to remove the following features 
 
 1. _Shift the center of rotation_. With Foundry 12 the center of rotation can nativly shifted with the Anchor X and Y settings on the appearace tab. 
 
-2. _fixing Foundry scaling for token images that the token image scales with tihe longest token dimension_. This is not longer possible and not desirable anyway. 
-Foundry 12 will scale the image to fit into the token dimension. If your token immage has the same aspect ratio as the token, this will be OK. If your immage is square (common for token art meant for D&D) you have to adjust the scale of the immage by the aspect ratio. See below for examples.
+2. _fixing Foundry scaling for token images that the token image scales with the longest token dimension_. This is not longer possible and not desirable anyway. 
+Foundry 12 will scale the image to fit into the token dimension. If your token image has the same aspect ratio as the token, this will be OK. If your image is square (common for token art meant for D&D) you have to adjust the scale of the image by the aspect ratio. See below for examples.
 
-3. _Rotate token art to face in the correct direction (downward) inside the token border_. This is not longer possible with Foundry 12 in some situations. It was quite hacky anyway. Use downward facing Token Images as recommendet by Foundry. if nessesary use an image editing programm to rotate the images beforhand.      
+3. _Rotate token art to face in the correct direction (downward) inside the token border_. This is not longer possible with Foundry 12 in some situations. It was quite hacky anyway. Use downward facing Token images as recomendet by Foundry. if nessesary use an image editing programm to rotate the images beforhand.      
 
 Configuration:
 
@@ -37,19 +37,24 @@ In the Foundry scene set the Grid Type to gridless, the Grid Scale to 1, the Gri
 Note that most maps for foundry are made with an unrealistic large scale to allow play with the 5 feet grid of DnD. That is in most cases unnecessary for GURPS gridless play. 
 I usually set the number of pixels given for one DnD 5 feet square for 1 yard and get a realistic scale. Individual maps may require adjustments.
 
-### Konfiguration of tokens
-If you use portrait style tokens just set the dimension of the Token on the Appearance tab and look Rotation on the Identity tab.
+### Configuration of tokens
+If you use portrait style tokens just set the dimension of the Token on the Appearance tab and "Look rotation" on the Identity tab.
 
 For rotating top down style tokens set the dimension of the Token on the Appearance tab. 
-If the aspect ratio of the immage differs from the aspect ratio of the token, you may have to adjust the scale to compensate for foundry scaling to fit the immage into the token dimensions.
-For multi Hex tokens adjust the Anchor settings to move center of rotation to the head of the creature, if nessesary.
+If the aspect ratio of the image differs from the aspect ratio of the token, you may have to adjust the scale to compensate for foundry scaling it to fit the image into the token dimensions.
+For multi hex tokens adjust the Anchor settings to move center of rotation to the head of the creature, if nessesary.
 
 Examples:
-One Hex creatures like humans: Width: 1, Height: 1, Anchor X: 0.5, Anchor Y: 0.5, no Scale Adjustment.
-Long two Hex creature like a lion: Width: 1, Height: 2, Anchor X: 0.5, Anchor Y: 0.75, If using a square immage, adjust the scale by a factor of 2. 
-Broad two Hex creature like an large humanoid: Width: 2,  Height: 1, Anchor X: 0.5, Anchor Y: 0.5, If using a square immage, adjust the scale by a factor of 2. 
-Long tree Hex creatures like an horse: Width: 1, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square immage, adjust the scale by a factor of 3.
-Long 2 x 3 Hex crature: Width: 2, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square immage, adjust the scale by a factor of 3/2.
+
+One hex creatures like humans: Width: 1, Height: 1, Anchor X: 0.5, Anchor Y: 0.5, no Scale Adjustment.
+
+Long two hex creature like a lion: Width: 1, Height: 2, Anchor X: 0.5, Anchor Y: 0.75, If using a square image, adjust the scale by a factor of 2. 
+
+Broad two hex creature like an large humanoid: Width: 2,  Height: 1, Anchor X: 0.5, Anchor Y: 0.5, If using a square image, adjust the scale by a factor of 2. 
+
+Long tree hex creatures like an horse: Width: 1, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, adjust the scale by a factor of 3.
+
+Long 2 x 3 hex crature: Width: 2, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, adjust the scale by a factor of 3/2.
 
 ### Legal
 
