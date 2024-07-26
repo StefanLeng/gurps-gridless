@@ -54,7 +54,7 @@ Broad two hex creature like an large humanoid: Width: 2,  Height: 1, Anchor X: 0
 
 Long tree hex creatures like an horse: Width: 1, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, adjust the scale by a factor of 3.
 
-Long 2 x 3 hex crature: Width: 2, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, adjust the scale by a factor of 3/2.
+Long 2 x 3 hex creature: Width: 2, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, adjust the scale by a factor of 3/2.
 
 ### Legal
 
