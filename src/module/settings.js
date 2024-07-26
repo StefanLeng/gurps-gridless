@@ -142,14 +142,5 @@ export function injectTokenConfig(app, html) {
       max: '15.0',
       step: '1.0',
     },
-    artRotation: {
-      type: 'number',
-      label: game.i18n.localize('gurps-gridless.tokenSettings.artRotation.name'),
-      notes: game.i18n.localize('gurps-gridless.tokenSettings.artRotation.notes'),
-      default: '0',
-      min: '-90.0',
-      max: '+90.0',
-      step: '1',
-    },
   });
 }

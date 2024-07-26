@@ -18,9 +18,7 @@ export function getDirectionFromAbautFace(token) {
 }
 
 export function getDirection(token) {
-  return token.document.lockRotation
-    ? getDirectionFromAbautFace(token)
-    : token.mesh.angle - (token.document.flags[MODULE_ID]?.artRotation ?? 0);
+  return token.document.lockRotation ? getDirectionFromAbautFace(token) : token.mesh.angle;
 }
 
 export function drawReachIndicator(token) {
@@ -34,7 +32,7 @@ export function drawReachIndicator(token) {
 
       const g = new PIXI.Graphics(); //eslint-disable-line no-undef
 
-      //add the graphics to the container
+      //add the graphics to the containerS
       container.addChild(g);
       container.graphics = g;
       token.reachIndicator = container;

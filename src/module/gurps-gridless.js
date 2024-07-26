@@ -3,7 +3,6 @@ import { registerSettings, GURPSGridLess, injectTokenConfig } from './settings.j
 import { preloadTemplates } from './preloadTemplates.js';
 import { drawEachReachIndicator } from './rangeindicator.js';
 import { doborder } from './borders.js';
-//import { fixTokenScale } from './tokenScale.js';
 import { drawHitArea } from './hitArea.js';
 
 // Initialize module
@@ -35,7 +34,6 @@ Hooks.once('init', async () => {
 Hooks.on('renderTokenConfig', injectTokenConfig);
 
 Hooks.on('refreshToken', (token) => {
-  //fixTokenScale(token);
   doborder(token);
 });
 
@@ -46,4 +44,7 @@ Hooks.on('preUpdateToken', () => {
 });
 
 Hooks.on('drawToken', drawHitArea);
-Hooks.on('updateToken', (tokenDokument) => drawHitArea(tokenDokument.object));
+Hooks.on('updateToken', (tokenDokument, changes) => {
+  //fixTokenScale(tokenDokument.object);
+  drawHitArea(tokenDokument.object, changes);
+});
