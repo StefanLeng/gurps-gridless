@@ -12,8 +12,8 @@
   "license": "LICENSE.txt",
   "version": "This is auto replaced",
   "compatibility": {
-    "minimum": "10",
-    "verified": "11"
+    "minimum": "12",
+    "verified": "12"
   },
   "scripts": [],
   "esmodules": ["module/gurps-gridless.js"],
