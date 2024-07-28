@@ -6,7 +6,7 @@ export function doborder(token) {
   const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
   const { w: width, h: height } = token;
-  const { anchorX, anchorY } = token.document.texture;
+  const { anchorX, anchorY, scaleY, scaleX } = token.document.texture;
   token.border.x = width * 0.5;
   token.border.y = height * 0.5;
   token.border.clear();
@@ -30,7 +30,7 @@ export function doborder(token) {
     );
   }
 
-  token.border.pivot.y = height * (anchorY - 0.5);
-  token.border.pivot.x = width * (anchorX - 0.5);
+  token.border.pivot.y = height * (anchorY - 0.5) * scaleY;
+  token.border.pivot.x = width * (anchorX - 0.5) * scaleX;
   token.border.angle = getDirection(token);
 }

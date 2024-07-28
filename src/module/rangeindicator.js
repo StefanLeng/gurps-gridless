@@ -24,6 +24,7 @@ export function getDirection(token) {
 export function drawReachIndicator(token) {
   try {
     const { w: width, h: height } = token;
+    const { anchorX, anchorY, scaleY, scaleX } = token.document.texture;
 
     // Create or update the range indicator
     if (!token.reachIndicator || token.reachIndicator._destroyed) {
@@ -44,8 +45,8 @@ export function drawReachIndicator(token) {
 
     token.reachIndicator.width = width;
     token.reachIndicator.height = height;
-    token.reachIndicator.x = width / 2;
-    token.reachIndicator.y = height / 2;
+    token.reachIndicator.x = width * 0.5; //(1 - anchorX);
+    token.reachIndicator.y = height * 0.5; //(1 - anchorY);
 
     const graphics = token.reachIndicator.graphics;
     graphics.clear();
@@ -78,8 +79,8 @@ export function drawReachIndicator(token) {
     );
 
     //update the rotation of the indicator
-    token.reachIndicator.pivot.y = gridSize * (token.document.flags[MODULE_ID]?.centerOffsetY ?? 0);
-    token.reachIndicator.pivot.x = gridSize * (token.document.flags[MODULE_ID]?.centerOffsetX ?? 0);
+    token.reachIndicator.pivot.x = width * (anchorX - 0.5) * scaleX;
+    token.reachIndicator.pivot.y = height * (anchorY - 0.5) * scaleY;
     token.reachIndicator.angle = getDirection(token);
 
     token.reachIndicator.graphics.visible =
