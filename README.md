@@ -50,7 +50,7 @@ I don't think any differnt aspect ratio will work.
 For multi hex tokens adjust the Anchor settings to move center of rotation to the head of the creature, if nessesary.
 To move the the center of rotation to center of the first hex of a token of lenght X (in hexes), set the Anchor Y to <br/>1 - 0.5 / x
 
-If you have to scale your token image, this will be interfer with the translation, because the anchor is used as the center of scaling. In this case, the formular will become <br/>(1 - 0.5 / x) / scale + 0.5
+If you have to scale your token image, this will be interfer with the translation, because the anchor is used as the center of scaling. In this case, the formular will become <br/>(0.5 - 0.5 / x) / scale + 0.5
 
 Examples:
 
