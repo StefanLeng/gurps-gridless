@@ -11,14 +11,16 @@ You can change the key binds under "configure Controls" in Foundry.
 
 ![range indicator example](rangeIndicator.png "Range Indicator example")
 
-3. Support for non square tokens and all token sizes.
+3. Support for non square tokens and all token sizes with proper Gurps movement (centerd on the head of the creature with the body following). See below how to set up the token. 
+
+The module can also be used to get this movement on hex grids, but it will only work properly on "Hexagonal Columns - even".
 
 With version 0.6 for Foundry 12 I had to remove the following features 
 
 1. _Shift the center of rotation_. With Foundry 12 the center of rotation can nativly shifted with the Anchor X and Y settings on the appearace tab. 
 
 2. _fixing Foundry scaling for token images that the token image scales with the longest token dimension_. This is not longer possible and not desirable anyway. 
-Foundry 12 will scale the image to fit into the token dimension. If your token image has the same aspect ratio as the token, this will be OK. If your image is square (common for token art meant for D&D) you have to adjust the scale of the image by the aspect ratio. See below for examples.
+Foundry 12 will scale the image to fit into the token dimension, accouding to the Immage Fit Mode you select on the Apeareance tab. If your token image has the same aspect ratio as the token, any of ten modes will work. If your image is square (common for token art meant for D&D) you have to chose Full Width or Full Height corresponding to the larger demension of the token.
 
 3. _Rotate token art to face in the correct direction (downward) inside the token border_. This is not longer possible with Foundry 12 in some situations. It was quite hacky anyway. Use downward facing Token images as recomendet by Foundry. if nessesary use an image editing programm to rotate the images beforhand.      
 
@@ -41,20 +43,28 @@ I usually set the number of pixels given for one DnD 5 feet square for 1 yard an
 If you use portrait style tokens just set the dimension of the Token on the Appearance tab and "Look rotation" on the Identity tab.
 
 For rotating top down style tokens set the dimension of the Token on the Appearance tab. 
-If the aspect ratio of the image differs from the aspect ratio of the token, you may have to adjust the scale to compensate for foundry scaling it to fit the image into the token dimensions.
+If the token image has the same aspect ratio as the token, use the Image Fit Mode "Contain".
+If the token image is square, use the image fit mode "Full Height" for long tokens and "Full Width" for wide tokens.
+I don't think any differnt aspect ratio will work.
+
 For multi hex tokens adjust the Anchor settings to move center of rotation to the head of the creature, if nessesary.
+To move the the center of rotation to center of the first hex of a token of lenght X (in hexes), set the Anchor Y to 1 - 0.5 / x
+
+If you have to scale your token image, this will be interfer with the transaltion, because the anchor is used as the center of scaling. In this case, the formular will become (1 - 0.5 / x) / scale + 0.5
 
 Examples:
 
-One hex creatures like humans: Width: 1, Height: 1, Anchor X: 0.5, Anchor Y: 0.5, no Scale Adjustment.
+One hex creatures like humans: Width: 1, Height: 1, Anchor X: 0.5, Anchor Y: 0.5, Image Fit Mode: Contain.
 
-Long two hex creature like a lion: Width: 1, Height: 2, Anchor X: 0.5, Anchor Y: 0.75, If using a square image, adjust the scale by a factor of 2. 
+Long two hex creature like a lion: Width: 1, Height: 2, Anchor X: 0.5, Anchor Y: 0.75, If using a square image, Image Fit Mode: Full Height. 
 
-Broad two hex creature like an large humanoid: Width: 2,  Height: 1, Anchor X: 0.5, Anchor Y: 0.5, If using a square image, adjust the scale by a factor of 2. 
+Broad two hex creature like an large humanoid: Width: 2,  Height: 1, Anchor X: 0.5, Anchor Y: 0.5, If using a square image, Image Fit Mode: Full Width. 
 
-Long tree hex creatures like an horse: Width: 1, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, adjust the scale by a factor of 3.
+Long tree hex creatures like an horse: Width: 1, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, Image Fit Mode: Full Height.
 
-Long 2 x 3 hex creature: Width: 2, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, adjust the scale by a factor of 3/2.
+Long 2 x 3 hex creature: Width: 2, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, Image Fit Mode: Full Height.
+
+Long tree hex creatures with an image scaling of 1.5: Width: 1, Height: 3, Anchor X: 0.5, Anchor Y: 0.72, If using a square image, Image Fit Mode: Full Height.
 
 ### Legal
 

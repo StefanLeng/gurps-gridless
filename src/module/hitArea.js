@@ -15,9 +15,9 @@ export function drawHitArea(token) {
   const tokenDirection = (tokenDirectionDegree / 180) * Math.PI;
 
   var mat = new PIXI.Matrix(); //eslint-disable-line no-undef
-  mat.translate(-width * anchorX * scaleX, -height * anchorY * scaleY);
+  mat.translate(-width * (0.5 + (anchorX - 0.5) * scaleX), -height * (0.5 + (anchorY - 0.5) * scaleY));
   mat.rotate(tokenDirection);
-  mat.translate(width * 0.5 * scaleX, height * 0.5 * scaleY);
+  mat.translate(width * 0.5, height * 0.5);
 
   const rotatedPoints = points.map((p) => mat.apply(p));
 

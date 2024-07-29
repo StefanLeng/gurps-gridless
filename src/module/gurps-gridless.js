@@ -34,6 +34,7 @@ Hooks.once('init', async () => {
 Hooks.on('renderTokenConfig', injectTokenConfig);
 
 Hooks.on('refreshToken', (token) => {
+  drawHitArea(token);
   doborder(token);
 });
 
@@ -44,7 +45,6 @@ Hooks.on('preUpdateToken', () => {
 });
 
 Hooks.on('drawToken', drawHitArea);
-Hooks.on('updateToken', (tokenDokument, changes) => {
-  //fixTokenScale(tokenDokument.object);
-  drawHitArea(tokenDokument.object, changes);
+Hooks.on('updateToken', (tokenDokument) => {
+  drawHitArea(tokenDokument.object);
 });
