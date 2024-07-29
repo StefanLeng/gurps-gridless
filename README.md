@@ -11,7 +11,7 @@ You can change the key binds under "configure Controls" in Foundry.
 
 ![range indicator example](rangeIndicator.png "Range Indicator example")
 
-3. Support for non square tokens and all token sizes with proper Gurps movement (centerd on the head of the creature with the body following). See below how to set up the token. 
+3. Support for non square tokens and all token sizes with proper Gurps movement (centered on the head of the creature with the body following). See below how to set up the token. 
 
 The module can also be used to get this movement on hex grids, but it will only work properly on "Hexagonal Columns - even".
 
@@ -48,9 +48,9 @@ If the token image is square, use the image fit mode "Full Height" for long toke
 I don't think any differnt aspect ratio will work.
 
 For multi hex tokens adjust the Anchor settings to move center of rotation to the head of the creature, if nessesary.
-To move the the center of rotation to center of the first hex of a token of lenght X (in hexes), set the Anchor Y to 1 - 0.5 / x
+To move the the center of rotation to center of the first hex of a token of lenght X (in hexes), set the Anchor Y to <br/>1 - 0.5 / x
 
-If you have to scale your token image, this will be interfer with the transaltion, because the anchor is used as the center of scaling. In this case, the formular will become (1 - 0.5 / x) / scale + 0.5
+If you have to scale your token image, this will be interfer with the translation, because the anchor is used as the center of scaling. In this case, the formular will become <br/>(1 - 0.5 / x) / scale + 0.5
 
 Examples:
 
