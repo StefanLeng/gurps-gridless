@@ -20,7 +20,7 @@ With version 0.6 for Foundry 12 I had to remove the following features
 1. _Shift the center of rotation_. With Foundry 12 the center of rotation can nativly shifted with the Anchor X and Y settings on the appearace tab. 
 
 2. _fixing Foundry scaling for token images that the token image scales with the longest token dimension_. This is not longer possible and not desirable anyway. 
-Foundry 12 will scale the image to fit into the token dimension, accouding to the Immage Fit Mode you select on the Apeareance tab. If your token image has the same aspect ratio as the token, any of ten modes will work. If your image is square (common for token art meant for D&D) you have to chose Full Width or Full Height corresponding to the larger demension of the token.
+Foundry 12 will scale the image to fit into the token dimension, according to the Image Fit Mode you select on the Appearance tab. If your token image has the same aspect ratio as the token, any of the modes will work. If your image is square (common for token art meant for D&D) you have to chose Full Width or Full Height corresponding to the larger demension of the token.
 
 3. _Rotate token art to face in the correct direction (downward) inside the token border_. This is not longer possible with Foundry 12 in some situations. It was quite hacky anyway. Use downward facing Token images as recomendet by Foundry. if nessesary use an image editing programm to rotate the images beforhand.      
 
@@ -64,7 +64,7 @@ Long tree hex creatures like an horse: Width: 1, Height: 3, Anchor X: 0.5, Ancho
 
 Long 2 x 3 hex creature: Width: 2, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If using a square image, Image Fit Mode: Full Height.
 
-Long tree hex creatures with an image scaling of 1.5: Width: 1, Height: 3, Anchor X: 0.5, Anchor Y: 0.72, If using a square image, Image Fit Mode: Full Height.
+Long three hex creatures with an image scaling of 1.5: Width: 1, Height: 3, Anchor X: 0.5, Anchor Y: 0.72, If using a square image, Image Fit Mode: Full Height.
 
 ### Legal
 
