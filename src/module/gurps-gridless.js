@@ -47,4 +47,5 @@ Hooks.on('preUpdateToken', () => {
 Hooks.on('drawToken', drawHitArea);
 Hooks.on('updateToken', (tokenDokument) => {
   drawHitArea(tokenDokument.object);
+  doborder(tokenDokument.object);
 });
