@@ -10,6 +10,7 @@ export function doborder(token) {
   token.border.x = width * 0.5;
   token.border.y = height * 0.5;
   token.border.clear();
+  token.border.tint = 0xffffff;
 
   const borderColor = token._getBorderColor(); //null if there should be no border
 
