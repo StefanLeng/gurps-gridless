@@ -13,8 +13,6 @@ You can change the key binds under "configure Controls" in Foundry.
 
 3. Support for non square tokens and all token sizes with proper Gurps movement (centered on the head of the creature with the body following). See below how to set up the token. 
 
-The module can also be used to get this movement on hex grids, but it will only work properly on "Hexagonal Columns - even".
-
 With version 0.6 for Foundry 12 I had to remove the following features 
 
 1. _Shift the center of rotation_. With Foundry 12 the center of rotation can nativly shifted with the Anchor X and Y settings on the appearace tab. 
@@ -22,7 +20,9 @@ With version 0.6 for Foundry 12 I had to remove the following features
 2. _fixing Foundry scaling for token images that the token image scales with the longest token dimension_. This is not longer possible and not desirable anyway. 
 Foundry 12 will scale the image to fit into the token dimension, according to the Image Fit Mode you select on the Appearance tab. If your token image has the same aspect ratio as the token, any of the modes will work. If your image is square (common for token art meant for D&D) you have to chose Full Width or Full Height corresponding to the larger demension of the token.
 
-3. _Rotate token art to face in the correct direction (downward) inside the token border_. This is not longer possible with Foundry 12 in some situations. It was quite hacky anyway. Use downward facing Token images as recomendet by Foundry. if nessesary use an image editing programm to rotate the images beforhand.      
+3. _Rotate token art to face in the correct direction (downward) inside the token border_. This is not longer possible with Foundry 12 in some situations. It was quite hacky anyway. Use downward facing Token images as recomendet by Foundry. if nessesary use an image editing programm to rotate the images beforhand.     
+
+Foundry 12 also broke the ability to use the movement adjustments for bigger, none square, creatures on hex maps. I am trying to figure out a way the get that functionality back.
 
 Configuration:
 
