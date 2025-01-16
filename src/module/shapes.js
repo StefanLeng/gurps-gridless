@@ -1,5 +1,91 @@
 import { faceAngels } from './constants.js';
 
+function hex(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+  const w = canvas.grid.sizeX / 2;
+  const wHalf = w / 2;
+  const h = canvas.grid.sizeY / 2;
+  drawing
+    .moveTo(w, 0)
+    .lineStyle(lineWidth, frontColor, lineAplha)
+    .lineTo(wHalf, h)
+    .lineTo(-wHalf, h)
+    .lineTo(-w, 0)
+    .lineStyle(lineWidth, sideColor, lineAplha)
+    .lineTo(-wHalf, -h)
+    .lineStyle(lineWidth, backColor, lineAplha)
+    .lineTo(wHalf, -h)
+    .lineStyle(lineWidth, sideColor, lineAplha)
+    .lineTo(w, 0);
+}
+
+export function hexBody(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+  const w = canvas.grid.sizeX / 2;
+  const wHalf = w / 2;
+  const h = canvas.grid.sizeY / 2;
+  let y = height;
+  let posX = wHalf;
+  let down = false;
+  drawing.moveTo(posX, h * y);
+  while (y > -height) {
+    if (y > height - Math.ceil(width / 2)) {
+      drawing.lineStyle(lineWidth, frontColor, lineAplha);
+      if (down) {
+        y = y - 1;
+        posX = posX - wHalf;
+      } else {
+        posX = posX - w;
+      }
+    } else if (y > -height + Math.ceil(width / 2)) {
+      drawing.lineStyle(lineWidth, sideColor, lineAplha);
+      y = y - 1;
+      if (down) {
+        posX = posX - wHalf;
+      } else {
+        posX = posX + wHalf;
+      }
+    } else {
+      drawing.lineStyle(lineWidth, down || height > 1 ? backColor : sideColor, lineAplha);
+      if (!down) {
+        y = y - 1;
+        posX = posX + wHalf;
+      } else {
+        posX = posX + w;
+      }
+    }
+    down = !down;
+    drawing.lineTo(posX, h * y);
+  }
+  while (y < height) {
+    if (y < -height + Math.ceil(width / 2)) {
+      drawing.lineStyle(lineWidth, down || height > 1 ? backColor : sideColor, lineAplha);
+      if (!down) {
+        y = y + 1;
+        posX = posX + wHalf;
+      } else {
+        posX = posX + w;
+      }
+    } else if (y < height - Math.ceil(width / 2)) {
+      drawing.lineStyle(lineWidth, sideColor, lineAplha);
+      y = y + 1;
+      if (down) {
+        posX = posX - wHalf;
+      } else {
+        posX = posX + wHalf;
+      }
+    } else {
+      drawing.lineStyle(lineWidth, frontColor, lineAplha);
+      if (down) {
+        y = y + 1;
+        posX = posX - wHalf;
+      } else {
+        posX = posX - w;
+      }
+    }
+    down = !down;
+    drawing.lineTo(posX, h * y);
+  }
+}
+
 function longBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
   const radius = width / 2;
   const side = (height - width) / 2;
@@ -105,7 +191,8 @@ function wideFacingShape(drawing, width, height, frontColor, sideColor, backColo
 
 export function bodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
   if (width > height) {
-    wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
+    //wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
+    hex(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
   } else {
     longBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
   }
