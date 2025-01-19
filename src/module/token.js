@@ -5,7 +5,7 @@ export function isHexRowGrid() {
 }
 
 export function isHexColumnGrid() {
-  return canvas.grid.type === CONST.GRID_TYPES.HEXODDC || canvas.grid.type === CONST.GRID_TYPES.HEXEVENC;
+  return canvas.grid.type === CONST.GRID_TYPES.HEXODDQ || canvas.grid.type === CONST.GRID_TYPES.HEXEVENQ;
 }
 
 export function isHexGrid() {
@@ -65,8 +65,8 @@ export function setTokenDimensions(tokenDokument, changes) {
       height: hexDim,
       width: hexDim,
       texture: {
-        scaleX: hexScaling * calcRowScaleCorrection(hexDim),
-        scaleY: hexScaling * calcRowScaleCorrection(hexDim),
+        scaleX: hexScaling * calcRowScaleCorrection(tokenDokument, hexDim),
+        scaleY: hexScaling * calcRowScaleCorrection(tokenDokument, hexDim),
         anchorX: offset.x,
         anchorY: offset.y,
       },
