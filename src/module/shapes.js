@@ -1,6 +1,7 @@
 import { faceAngels } from './constants.js';
+import { isHexRowGrid } from './token.js';
 
-function hex(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+export function hex(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
   const w = canvas.grid.sizeX / 2;
   const wHalf = w / 2;
   const h = canvas.grid.sizeY / 2;
@@ -19,9 +20,9 @@ function hex(drawing, width, height, lineWidth, frontColor, sideColor, backColor
 }
 
 export function hexBody(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
-  const w = canvas.grid.sizeX / 2;
+  const w = (isHexRowGrid() ? canvas.grid.sizeY : canvas.grid.sizeX) / 2;
   const wHalf = w / 2;
-  const h = canvas.grid.sizeY / 2;
+  const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
   let y = height;
   let posX = wHalf;
   let down = false;
@@ -191,8 +192,7 @@ function wideFacingShape(drawing, width, height, frontColor, sideColor, backColo
 
 export function bodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
   if (width > height) {
-    //wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
-    hex(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
+    wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
   } else {
     longBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
   }

@@ -4,6 +4,7 @@ import { preloadTemplates } from './preloadTemplates.js';
 import { drawEachReachIndicator } from './rangeindicator.js';
 import { doborder } from './borders.js';
 import { drawHitArea } from './hitArea.js';
+import { setTokenDimensions, setTokenDemesnionsOnCreate } from './token.js';
 
 // Initialize module
 Hooks.once('init', async () => {
@@ -39,6 +40,7 @@ Hooks.on('refreshToken', (token) => {
 });
 
 Hooks.on('preUpdateToken', (d, c) => {
+  setTokenDimensions(d, c);
   game.gurpsGridLess.showRangeIndicator = false;
   game.gurpsGridLess.showRangeIndicatorAll = false;
   drawEachReachIndicator();
@@ -49,3 +51,5 @@ Hooks.on('updateToken', (tokenDokument) => {
   drawHitArea(tokenDokument.object);
   doborder(tokenDokument.object);
 });
+
+Hooks.on('preCreateToken', setTokenDemesnionsOnCreate);

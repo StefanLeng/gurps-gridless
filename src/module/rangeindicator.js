@@ -26,6 +26,8 @@ export function drawReachIndicator(token) {
     const { w: width, h: height } = token;
     const { anchorX, anchorY, scaleY, scaleX } = token.document.texture;
 
+    const widthG = (width * canvas.grid.sizeY) / canvas.grid.sizeX;
+
     // Create or update the range indicator
     if (!token.reachIndicator || token.reachIndicator._destroyed) {
       const container = new PIXI.Container({ name: 'reachIndicator', width, height }); //eslint-disable-line no-undef
@@ -58,7 +60,7 @@ export function drawReachIndicator(token) {
     for (let r = 1; r <= maxReach; r++) {
       bodyShape(
         graphics,
-        width + r * 2 * gridSize,
+        widthG + r * 2 * gridSize,
         height + r * 2 * gridSize,
         2,
         lineColor,
@@ -70,7 +72,7 @@ export function drawReachIndicator(token) {
 
     facingShape(
       graphics,
-      width + (maxReach * 2 + 1) * gridSize,
+      widthG + (maxReach * 2 + 1) * gridSize,
       height + (maxReach * 2 + 1) * gridSize,
       frontColor,
       sideColor,
@@ -79,7 +81,7 @@ export function drawReachIndicator(token) {
     );
 
     //update the rotation of the indicator
-    token.reachIndicator.pivot.x = width * (anchorX - 0.5) * scaleX;
+    token.reachIndicator.pivot.x = widthG * (anchorX - 0.5) * scaleX;
     token.reachIndicator.pivot.y = height * (anchorY - 0.5) * scaleY;
     token.reachIndicator.angle = getDirection(token);
 

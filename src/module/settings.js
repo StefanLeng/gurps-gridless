@@ -142,5 +142,28 @@ export function injectTokenConfig(app, html) {
       max: '15.0',
       step: '1.0',
     },
+    tokenWidth: {
+      type: 'number',
+      label: game.i18n.localize('gurps-gridless.settings.tokenWidth.name'),
+      default: '',
+      max: '30.0',
+      step: '1.0',
+    },
+    tokenLength: {
+      type: 'number',
+      label: game.i18n.localize('gurps-gridless.settings.tokenLength.name'),
+      default: '',
+      min: '1.0',
+      max: '30.0',
+      step: '1.0',
+    },
+    tokenScaling: {
+      type: 'range',
+      label: game.i18n.localize('gurps-gridless.settings.tokenScaling.name'),
+      default: '',
+      min: '0.0',
+      max: '3.0',
+      step: '0.1',
+    },
   });
 }

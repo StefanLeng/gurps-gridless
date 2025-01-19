@@ -1,6 +1,7 @@
 import { bodyShape, hexBody } from './shapes.js';
 import { MODULE_ID } from './constants.js';
 import { getcolorConfig, getDirection } from './rangeindicator.js';
+import { isHexGrid } from './token.js';
 
 export function doborder(token) {
   const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
@@ -18,18 +19,30 @@ export function doborder(token) {
   const outerWidth = game.settings.get(MODULE_ID, 'outerBorderWidth') ?? 6;
 
   if (borderColor) {
-    /*bodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor, 1);
-    bodyShape(
-      token.border,
-      width + 2 * innerWidth,
-      height + 2 * innerWidth,
-      outerWidth,
-      frontColor,
-      sideColor,
-      backColor,
-      1,
-    );*/
-    hexBody(token.border, token.document.width, token.document.height, innerWidth, frontColor, sideColor, backColor, 1);
+    if (isHexGrid()) {
+      hexBody(
+        token.border,
+        token.document.flags[MODULE_ID]?.tokenWidth,
+        token.document.flags[MODULE_ID]?.tokenLength,
+        innerWidth,
+        frontColor,
+        sideColor,
+        backColor,
+        1,
+      );
+    } else {
+      bodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor, 1);
+      bodyShape(
+        token.border,
+        width + 2 * innerWidth,
+        height + 2 * innerWidth,
+        outerWidth,
+        frontColor,
+        sideColor,
+        backColor,
+        1,
+      );
+    }
   }
 
   token.border.pivot.y = height * (anchorY - 0.5) * scaleY;
