@@ -12,14 +12,21 @@ export function isHexGrid() {
   return isHexRowGrid() || isHexColumnGrid();
 }
 
+/*
+    We need a odd number of hexes, so that the center of the shape is a hex center
+*/
 function calcTokenHexDim(width, length) {
   const maxDim = Math.max(Math.round(width), Math.round(length));
   return maxDim % 2 === 0 ? maxDim + 1 : maxDim;
 }
 
-function calcTokenScale(width, length, scaling) {
-  const maxDim = Math.max(Math.round(width), Math.round(length));
-  return maxDim % 2 === 0 ? (scaling * maxDim) / (maxDim + 1) : scaling;
+/*
+    wen need to correct for the addition hex on even hex number by additional scaling
+*/
+function calcTokenHexScale(width, length, scaling, fit) {
+  const dim = calcTokenHexDim(width, length);
+  const l = fit === 'height' ? Math.round(length) : Math.round(width);
+  return (scaling * l) / dim;
 }
 
 /*
@@ -38,17 +45,22 @@ function calcRowScaleCorrection(token, length) {
 /*
     Offest the token so that the middle front hex is on the center of rotation.
     Note that in token space, the front is always down.
-    We hafe to take the scale into account, because foundry will scale from the offset and we need to corret for that.
+    We hafe to take the scale into account, because foundry will scale from the offset and we need to corrcet for that.
 */
-function calcTokenOffset(width, length, scaling) {
-  const roundedWidth = Math.round(width);
+function calcTokenOffset(width, length, scaling, hexDim) {
+  //const roundedWidth = Math.round(width);
   const roundedLength = Math.round(length);
-  return roundedWidth > roundedLength
-    ? { x: 0.5, y: calcOffset(roundedWidth, scaling) }
-    : { x: 0.5, y: calcOffset(roundedLength, scaling) };
 
-  function calcOffset(l, s) {
-    return 0.5 + (0.5 - 0.5 / l) / s;
+  return { x: 0.5, y: roundedLength % 2 === 1 ? calcOffset(hexDim, scaling) : calcOffset2(hexDim, scaling) };
+
+  //set the rotation center a half hex from the front (For odd length)
+  function calcOffset(ln, s) {
+    return 0.5 + (0.5 - 0.5 / ln) / s;
+  }
+
+  //set the rotation center a full hex from the front (For even length)
+  function calcOffset2(ln, s) {
+    return 0.5 + (0.5 - 1 / ln) / s;
   }
 }
 
@@ -56,11 +68,12 @@ export function setTokenDimensions(tokenDokument, changes) {
   const width = changes.flags[MODULE_ID]?.tokenWidth ?? tokenDokument.flags[MODULE_ID]?.tokenWidth ?? 1;
   const length = changes.flags[MODULE_ID]?.tokenLength ?? tokenDokument.flags[MODULE_ID]?.tokenLength ?? 1;
   const scaling = changes.flags[MODULE_ID]?.tokenScaling ?? tokenDokument.flags[MODULE_ID]?.tokenScaling ?? 1;
-  const offset = calcTokenOffset(width, length, scaling);
 
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
-    const hexScaling = calcTokenScale(width, length, scaling);
+    const hexScaling = calcTokenHexScale(width, length, scaling, tokenDokument.texture.fit);
+    const offset = calcTokenOffset(width, length, hexScaling, hexDim);
+
     const newChanges = {
       height: hexDim,
       width: hexDim,
@@ -73,6 +86,7 @@ export function setTokenDimensions(tokenDokument, changes) {
     };
     foundry.utils.mergeObject(changes, newChanges);
   } else {
+    const offset = calcTokenOffset(width, length, scaling);
     const newChanges = {
       height: length,
       width: width,
@@ -91,7 +105,6 @@ export function setTokenDemesnionsOnCreate(tokenDokument, data) {
   const width = data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1;
   const length = data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1;
   const scaling = data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.hexScaling ?? 1;
-  const offset = calcTokenOffset(width, length, scaling);
   const flags = {};
   flags[MODULE_ID] = {
     tokenWidth: width,
@@ -100,7 +113,8 @@ export function setTokenDemesnionsOnCreate(tokenDokument, data) {
   };
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
-    const hexScaling = calcTokenScale(width, length, scaling);
+    const hexScaling = calcTokenHexScale(width, length, scaling, tokenDokument.texture.fit);
+    const offset = calcTokenOffset(width, length, hexScaling, hexDim);
     const newData = {
       height: hexDim,
       width: hexDim,
@@ -114,6 +128,7 @@ export function setTokenDemesnionsOnCreate(tokenDokument, data) {
     };
     tokenDokument.updateSource(newData);
   } else {
+    const offset = calcTokenOffset(width, length, scaling);
     const newData = {
       height: length,
       width: width,

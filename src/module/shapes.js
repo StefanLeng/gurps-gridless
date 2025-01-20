@@ -28,7 +28,7 @@ export function hexBody(drawing, width, height, lineWidth, frontColor, sideColor
   let down = false;
   drawing.moveTo(posX, h * y);
   while (y > -height) {
-    if (y > height - Math.ceil(width / 2)) {
+    if (y > height - Math.ceil((width + 1) / 2)) {
       drawing.lineStyle(lineWidth, frontColor, lineAplha);
       if (down) {
         y = y - 1;
@@ -36,7 +36,7 @@ export function hexBody(drawing, width, height, lineWidth, frontColor, sideColor
       } else {
         posX = posX - w;
       }
-    } else if (y > -height + Math.ceil(width / 2)) {
+    } else if (y > -height + Math.ceil((width + 1) / 2)) {
       drawing.lineStyle(lineWidth, sideColor, lineAplha);
       y = y - 1;
       if (down) {
