@@ -47,7 +47,7 @@ function calcRowScaleCorrection(token, length) {
     Note that in token space, the front is always down.
     We hafe to take the scale into account, because foundry will scale from the offset and we need to corrcet for that.
 */
-function calcTokenOffset(width, length, scaling, hexDim) {
+function calcTokenHexOffset(width, length, scaling, hexDim) {
   //const roundedWidth = Math.round(width);
   const roundedLength = Math.round(length);
 
@@ -64,6 +64,15 @@ function calcTokenOffset(width, length, scaling, hexDim) {
   }
 }
 
+function calcTokenOffset(width, length, scaling) {
+  return { x: 0.5, y: calcOffset(length, scaling) };
+
+  //set the rotation center a half hex from the front (For odd length)
+  function calcOffset(ln, s) {
+    return 0.5 + (0.5 - 0.5 / ln) / s;
+  }
+}
+
 export function setTokenDimensions(tokenDokument, changes) {
   const width = changes.flags[MODULE_ID]?.tokenWidth ?? tokenDokument.flags[MODULE_ID]?.tokenWidth ?? 1;
   const length = changes.flags[MODULE_ID]?.tokenLength ?? tokenDokument.flags[MODULE_ID]?.tokenLength ?? 1;
@@ -72,7 +81,7 @@ export function setTokenDimensions(tokenDokument, changes) {
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
     const hexScaling = calcTokenHexScale(width, length, scaling, tokenDokument.texture.fit);
-    const offset = calcTokenOffset(width, length, hexScaling, hexDim);
+    const offset = calcTokenHexOffset(width, length, hexScaling, hexDim);
 
     const newChanges = {
       height: hexDim,
@@ -114,7 +123,7 @@ export function setTokenDemesnionsOnCreate(tokenDokument, data) {
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
     const hexScaling = calcTokenHexScale(width, length, scaling, tokenDokument.texture.fit);
-    const offset = calcTokenOffset(width, length, hexScaling, hexDim);
+    const offset = calcTokenHexOffset(width, length, hexScaling, hexDim);
     const newData = {
       height: hexDim,
       width: hexDim,
