@@ -24,7 +24,7 @@ function hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
   const wHalf = w / 2;
   const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
   let y = height;
-  let posX = wHalf;
+  let posX = width % 2 === 1 ? wHalf : isHexRowGrid() ? w + wHalf : w + wHalf / Math.sqrt(3);
   let down = false;
   drawing.moveTo(posX, h * y);
   while (y > -height) {
@@ -92,7 +92,7 @@ function hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
   const wHalf = w / 2;
   const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
   let x = 0;
-  let posX = x * w + (width % 2 === 1 ? wHalf : -wHalf);
+  let posX = x * w + (width % 2 === 1 ? wHalf : isHexRowGrid() ? -wHalf : -wHalf / Math.sqrt(3));
   let dir = 0;
   let y = height;
   drawing.lineStyle(lineWidth, frontColor, lineAplha);

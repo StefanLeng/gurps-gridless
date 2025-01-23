@@ -52,8 +52,8 @@ function calcTokenHexOffset(width, length, scaling, hexDim) {
   const roundedLength = Math.round(length);
   //set the rotation center a half hex from the front (For odd length)
   const hOffset = Math.max(hexDim - roundedLength, 0) * 0.5 + 0.5;
-  //set the rotation center a half hex left of the center for even width
-  const wOffset = roundedWidth % 2 === 0 ? -0.5 : 0;
+  //set the rotation center a half hex to the side of the center for even width
+  const wOffset = roundedWidth % 2 === 0 ? (roundedWidth <= roundedLength ? 0.5 : -0.5) : 0;
 
   return { x: calcOffsetFromCenter(hexDim, scaling, wOffset), y: calcOffsetFromFront(hexDim, scaling, hOffset) };
 
