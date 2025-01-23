@@ -19,7 +19,7 @@ export function hex(drawing, width, height, lineWidth, frontColor, sideColor, ba
     .lineTo(w, 0);
 }
 
-export function hexBody(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+function hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
   const w = (isHexRowGrid() ? canvas.grid.sizeY : canvas.grid.sizeX) / 2;
   const wHalf = w / 2;
   const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
@@ -83,6 +83,74 @@ export function hexBody(drawing, width, height, lineWidth, frontColor, sideColor
       }
     }
     down = !down;
+    drawing.lineTo(posX, h * y);
+  }
+}
+
+function hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+  const w = (isHexRowGrid() ? canvas.grid.sizeY : canvas.grid.sizeX) / 2;
+  const wHalf = w / 2;
+  const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
+  let x = 0;
+  let posX = x * w + (width % 2 === 1 ? wHalf : 0);
+  let dir = 0;
+  let y = height;
+  drawing.lineStyle(lineWidth, frontColor, lineAplha);
+  drawing.moveTo(posX, h * y);
+  while (x > -Math.ceil(width / 2)) {
+    y = y + dir;
+    x = x - (y >= height ? 0 : 1);
+    if (dir === 0) {
+      posX = posX - w;
+      dir = y === height ? -1 : 1;
+    } else {
+      posX = posX - wHalf;
+      dir = 0;
+    }
+    drawing.lineTo(posX, h * y);
+  }
+  drawing.lineStyle(lineWidth, sideColor, lineAplha);
+  let out = dir === 0 ? -1 : 1;
+  while (y > -height + 1) {
+    y = y - 1;
+    out = -out;
+    posX = posX + wHalf * out;
+    drawing.lineTo(posX, h * y);
+  }
+  drawing.lineStyle(lineWidth, backColor, lineAplha);
+  dir = out === -1 ? -1 : 0;
+  while (x < Math.floor(width / 2)) {
+    y = y + dir;
+    x = x + (y <= -height ? 0 : 1);
+    if (dir === 0) {
+      posX = posX + w;
+      dir = y > -height ? -1 : 1;
+    } else {
+      posX = posX + wHalf;
+      dir = 0;
+    }
+    drawing.lineTo(posX, h * y);
+  }
+  drawing.lineStyle(lineWidth, sideColor, lineAplha);
+  out = dir === 0 ? 1 : -1;
+  while (y < height - 1) {
+    y = y + 1;
+    out = -out;
+    posX = posX + wHalf * out;
+    drawing.lineTo(posX, h * y);
+  }
+  dir = out === -1 ? 0 : 1;
+  drawing.lineStyle(lineWidth, frontColor, lineAplha);
+  while (x >= 0) {
+    y = y + dir;
+    x = x - (y >= height ? 0 : 1);
+    if (dir === 0) {
+      posX = posX - w;
+      dir = y < height ? 1 : -1;
+    } else {
+      posX = posX - wHalf;
+      dir = 0;
+    }
     drawing.lineTo(posX, h * y);
   }
 }
@@ -195,6 +263,14 @@ export function bodyShape(drawing, width, height, lineWidth, frontColor, sideCol
     wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
   } else {
     longBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
+  }
+}
+
+export function hexBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+  if (width > height) {
+    hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
+  } else {
+    hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
   }
 }
 

@@ -1,4 +1,4 @@
-import { bodyShape, hexBody } from './shapes.js';
+import { bodyShape, hexBodyShape } from './shapes.js';
 import { MODULE_ID } from './constants.js';
 import { getcolorConfig, getDirection } from './rangeindicator.js';
 import { isHexGrid } from './token.js';
@@ -20,7 +20,7 @@ export function doborder(token) {
 
   if (borderColor) {
     if (isHexGrid()) {
-      hexBody(
+      hexBodyShape(
         token.border,
         token.document.flags[MODULE_ID]?.tokenWidth,
         token.document.flags[MODULE_ID]?.tokenLength,
