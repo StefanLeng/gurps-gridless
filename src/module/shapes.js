@@ -92,7 +92,7 @@ function hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
   const wHalf = w / 2;
   const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
   let x = 0;
-  let posX = x * w + (width % 2 === 1 ? wHalf : 0);
+  let posX = x * w + (width % 2 === 1 ? wHalf : -wHalf);
   let dir = 0;
   let y = height;
   drawing.lineStyle(lineWidth, frontColor, lineAplha);

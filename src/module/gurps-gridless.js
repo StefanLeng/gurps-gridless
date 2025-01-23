@@ -4,7 +4,7 @@ import { preloadTemplates } from './preloadTemplates.js';
 import { drawEachReachIndicator } from './rangeindicator.js';
 import { doborder } from './borders.js';
 import { drawHitArea } from './hitArea.js';
-import { setTokenDimensions, setTokenDemesnionsOnCreate } from './token.js';
+import { setTokenDimensions, setTokenDimesnionsOnCreate } from './token.js';
 
 // Initialize module
 Hooks.once('init', async () => {
@@ -52,4 +52,4 @@ Hooks.on('updateToken', (tokenDokument) => {
   doborder(tokenDokument.object);
 });
 
-Hooks.on('preCreateToken', setTokenDemesnionsOnCreate);
+Hooks.on('preCreateToken', setTokenDimesnionsOnCreate);

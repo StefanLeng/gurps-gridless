@@ -48,19 +48,20 @@ function calcRowScaleCorrection(token, length) {
     We hafe to take the scale into account, because foundry will scale from the offset and we need to corrcet for that.
 */
 function calcTokenHexOffset(width, length, scaling, hexDim) {
-  //const roundedWidth = Math.round(width);
+  const roundedWidth = Math.round(width);
   const roundedLength = Math.round(length);
-
-  return { x: 0.5, y: roundedLength % 2 === 1 ? calcOffset(hexDim, scaling) : calcOffset2(hexDim, scaling) };
-
   //set the rotation center a half hex from the front (For odd length)
-  function calcOffset(ln, s) {
-    return 0.5 + (0.5 - 0.5 / ln) / s;
-  }
+  const hOffset = Math.max(hexDim - roundedLength, 0) * 0.5 + 0.5;
+  //set the rotation center a half hex left of the center for even width
+  const wOffset = roundedWidth % 2 === 0 ? -0.5 : 0;
 
-  //set the rotation center a full hex from the front (For even length)
-  function calcOffset2(ln, s) {
-    return 0.5 + (0.5 - 1 / ln) / s;
+  return { x: calcOffsetFromCenter(hexDim, scaling, wOffset), y: calcOffsetFromFront(hexDim, scaling, hOffset) };
+
+  function calcOffsetFromFront(ln, s, hOffset) {
+    return 0.5 + (0.5 - hOffset / ln) / s;
+  }
+  function calcOffsetFromCenter(ln, s, hOffset) {
+    return 0.5 + hOffset / ln / s;
   }
 }
 
@@ -110,7 +111,7 @@ export function setTokenDimensions(tokenDokument, changes) {
   }
 }
 
-export function setTokenDemesnionsOnCreate(tokenDokument, data) {
+export function setTokenDimesnionsOnCreate(tokenDokument, data) {
   const width = data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1;
   const length = data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1;
   const scaling = data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.hexScaling ?? 1;
