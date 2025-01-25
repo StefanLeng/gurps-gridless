@@ -19,17 +19,17 @@ export function hex(drawing, width, height, lineWidth, frontColor, sideColor, ba
     .lineTo(w, 0);
 }
 
-function hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+function doHexLongBodyShape(width, height, f) {
   const w = (isHexRowGrid() ? canvas.grid.sizeY : canvas.grid.sizeX) / 2;
   const wHalf = w / 2;
   const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
   let y = height;
   let posX = width % 2 === 1 ? wHalf : isHexRowGrid() ? w + wHalf : w + wHalf / Math.sqrt(3);
   let down = false;
-  drawing.moveTo(posX, h * y);
+  let face = 'FRONT';
+  f(posX, h * y, face);
   while (y > -height) {
     if (y > height - Math.ceil((width + 1) / 2)) {
-      drawing.lineStyle(lineWidth, frontColor, lineAplha);
       if (down) {
         y = y - 1;
         posX = posX - wHalf;
@@ -37,7 +37,7 @@ function hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
         posX = posX - w;
       }
     } else if (y > -height + Math.ceil((width + 1) / 2)) {
-      drawing.lineStyle(lineWidth, sideColor, lineAplha);
+      face = 'SIDE';
       y = y - 1;
       if (down) {
         posX = posX - wHalf;
@@ -45,7 +45,7 @@ function hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
         posX = posX + wHalf;
       }
     } else {
-      drawing.lineStyle(lineWidth, down || height > 1 ? backColor : sideColor, lineAplha);
+      face = down || height > 1 ? 'BACK' : 'SIDE';
       if (!down) {
         y = y - 1;
         posX = posX + wHalf;
@@ -54,11 +54,11 @@ function hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
       }
     }
     down = !down;
-    drawing.lineTo(posX, h * y);
+    f(posX, h * y, face);
   }
   while (y < height) {
     if (y < -height + Math.ceil(width / 2)) {
-      drawing.lineStyle(lineWidth, down || height > 1 ? backColor : sideColor, lineAplha);
+      face = down || height > 1 ? 'BACK' : 'SIDE';
       if (!down) {
         y = y + 1;
         posX = posX + wHalf;
@@ -66,7 +66,7 @@ function hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
         posX = posX + w;
       }
     } else if (y < height - Math.ceil(width / 2)) {
-      drawing.lineStyle(lineWidth, sideColor, lineAplha);
+      face = 'SIDE';
       y = y + 1;
       if (down) {
         posX = posX - wHalf;
@@ -74,7 +74,7 @@ function hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
         posX = posX + wHalf;
       }
     } else {
-      drawing.lineStyle(lineWidth, frontColor, lineAplha);
+      face = 'FRONT';
       if (down) {
         y = y + 1;
         posX = posX - wHalf;
@@ -83,11 +83,11 @@ function hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
       }
     }
     down = !down;
-    drawing.lineTo(posX, h * y);
+    f(posX, h * y, face);
   }
 }
 
-function hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+function doHexWideBodyShape(width, height, f) {
   const w = (isHexRowGrid() ? canvas.grid.sizeY : canvas.grid.sizeX) / 2;
   const wHalf = w / 2;
   const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
@@ -95,8 +95,8 @@ function hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
   let posX = x * w + (width % 2 === 1 ? wHalf : isHexRowGrid() ? -wHalf : -wHalf / Math.sqrt(3));
   let dir = 0;
   let y = height;
-  drawing.lineStyle(lineWidth, frontColor, lineAplha);
-  drawing.moveTo(posX, h * y);
+  let face = 'FRONT';
+  f(posX, h * y, face);
   while (x > -Math.ceil(width / 2)) {
     y = y + dir;
     x = x - (y >= height ? 0 : 1);
@@ -107,17 +107,17 @@ function hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
       posX = posX - wHalf;
       dir = 0;
     }
-    drawing.lineTo(posX, h * y);
+    f(posX, h * y, face);
   }
-  drawing.lineStyle(lineWidth, sideColor, lineAplha);
+  face = 'SIDE';
   let out = dir === 0 ? -1 : 1;
   while (y > -height + 1) {
     y = y - 1;
     out = -out;
     posX = posX + wHalf * out;
-    drawing.lineTo(posX, h * y);
+    f(posX, h * y, face);
   }
-  drawing.lineStyle(lineWidth, backColor, lineAplha);
+  face = 'BACK';
   dir = out === -1 ? -1 : 0;
   while (x < Math.floor(width / 2)) {
     y = y + dir;
@@ -129,18 +129,18 @@ function hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
       posX = posX + wHalf;
       dir = 0;
     }
-    drawing.lineTo(posX, h * y);
+    f(posX, h * y, face);
   }
-  drawing.lineStyle(lineWidth, sideColor, lineAplha);
+  face = 'SIDE';
   out = dir === 0 ? 1 : -1;
   while (y < height - 1) {
     y = y + 1;
     out = -out;
     posX = posX + wHalf * out;
-    drawing.lineTo(posX, h * y);
+    f(posX, h * y, face);
   }
   dir = out === -1 ? 0 : 1;
-  drawing.lineStyle(lineWidth, frontColor, lineAplha);
+  face = 'FRONT';
   while (x >= 0) {
     y = y + dir;
     x = x - (y >= height ? 0 : 1);
@@ -151,7 +151,15 @@ function hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideCol
       posX = posX - wHalf;
       dir = 0;
     }
-    drawing.lineTo(posX, h * y);
+    f(posX, h * y, face);
+  }
+}
+
+export function doHexBodyShape(width, height, f) {
+  if (width > height) {
+    doHexWideBodyShape(width, height, f);
+  } else {
+    doHexLongBodyShape(width, height, f);
   }
 }
 
@@ -267,11 +275,22 @@ export function bodyShape(drawing, width, height, lineWidth, frontColor, sideCol
 }
 
 export function hexBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
-  if (width > height) {
-    hexWideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
-  } else {
-    hexLongBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
-  }
+  let lastX = null;
+  let lastY = null;
+
+  let f = (x, y, face) => {
+    const faceColor = face === 'FRONT' ? frontColor : face === 'SIDE' ? sideColor : backColor;
+    drawing.lineStyle(lineWidth, faceColor, lineAplha);
+
+    if (lastX === null || lastY === null) {
+      drawing.moveTo(x, y);
+    } else {
+      drawing.lineTo(x, y);
+    }
+    lastX = x;
+    lastY = y;
+  };
+  doHexBodyShape(width, height, f);
 }
 
 export function facingShape(drawing, width, height, frontColor, sideColor, backColor, fillAplha) {
