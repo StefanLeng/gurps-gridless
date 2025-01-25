@@ -92,18 +92,14 @@ function calcTokenOffset(width, length, scaling) {
   }
 }
 
-export function setTokenDimensions(tokenDocument, changes) {
-  const width = changes.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.flags[MODULE_ID]?.tokenWidth ?? 1;
-  const length = changes.flags[MODULE_ID]?.tokenLength ?? tokenDocument.flags[MODULE_ID]?.tokenLength ?? 1;
-  const scaling = changes.flags[MODULE_ID]?.tokenScaling ?? tokenDocument.flags[MODULE_ID]?.tokenScaling ?? 1;
-  const fit = scalingsDim(width, length, changes.texture?.fit ?? tokenDocument.texture?.fit ?? 'height');
-
+export function makeTokenUpdates(width, length, scaling, fit, tokenDocument) {
+  let changes = {};
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
     const hexScaling = calcTokenHexScale(width, length, scaling, fit);
     const offset = calcTokenHexOffset(width, length, hexScaling, hexDim);
 
-    const newChanges = {
+    changes = {
       height: hexDim,
       width: hexDim,
       texture: {
@@ -113,11 +109,9 @@ export function setTokenDimensions(tokenDocument, changes) {
         anchorY: offset.y,
       },
     };
-
-    foundry.utils.mergeObject(changes, newChanges);
   } else {
     const offset = calcTokenOffset(width, length, scaling);
-    const newChanges = {
+    changes = {
       height: length,
       width: width,
       texture: {
@@ -127,15 +121,40 @@ export function setTokenDimensions(tokenDocument, changes) {
         anchorY: offset.y,
       },
     };
-
-    foundry.utils.mergeObject(changes, newChanges);
   }
+  return changes;
+}
+
+export function setTokenDimensions(tokenDocument) {
+  const width = tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
+  const length = tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height;
+  const scaling = tokenDocument.flags[MODULE_ID]?.tokenScaling ?? tokenDocument?.texture?.scaleX ?? 1;
+  const fit = scalingsDim(width, length, tokenDocument.texture?.fit ?? 'height');
+
+  const newChanges = makeTokenUpdates(width, length, scaling, fit, tokenDocument);
+  tokenDocument.update(newChanges);
+}
+
+export function setTokenDimensionsonUpdate(tokenDocument, changes) {
+  const width =
+    changes?.flags?.[MODULE_ID]?.tokenWidth ?? tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
+  const length =
+    changes?.flags?.[MODULE_ID]?.tokenLength ?? tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height;
+  const scaling =
+    changes?.flags?.[MODULE_ID]?.tokenScaling ??
+    tokenDocument.flags[MODULE_ID]?.tokenScaling ??
+    tokenDocument?.texture?.scaleX ??
+    1;
+  const fit = scalingsDim(width, length, changes?.texture?.fit ?? tokenDocument.texture?.fit ?? 'height');
+
+  const newChanges = makeTokenUpdates(width, length, scaling, fit, tokenDocument);
+  foundry.utils.mergeObject(changes, newChanges);
 }
 
 export function setTokenDimesnionsOnCreate(tokenDocument, data) {
   const width = data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1;
   const length = data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1;
-  const scaling = data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.hexScaling ?? 1;
+  const scaling = data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.scaleX ?? 1;
   const fit = scalingsDim(width, length, data.texture?.fit ?? 'height');
   const flags = {};
   flags[MODULE_ID] = {
@@ -144,36 +163,7 @@ export function setTokenDimesnionsOnCreate(tokenDocument, data) {
     tokenScaling: scaling,
   };
 
-  if (isHexGrid()) {
-    const hexDim = calcTokenHexDim(width, length);
-    const hexScaling = calcTokenHexScale(width, length, scaling, fit);
-    const offset = calcTokenHexOffset(width, length, hexScaling, hexDim);
-    const newData = {
-      height: hexDim,
-      width: hexDim,
-      flags: flags,
-      texture: {
-        scaleX: hexScaling * calcRowScaleCorrection(tokenDocument, hexDim, fit),
-        scaleY: hexScaling * calcRowScaleCorrection(tokenDocument, hexDim, fit),
-        anchorX: offset.x,
-        anchorY: offset.y,
-      },
-    };
-    tokenDocument.updateSource(newData);
-  } else {
-    const offset = calcTokenOffset(width, length, scaling);
-    const newData = {
-      height: length,
-      width: width,
-      flags: flags,
-      texture: {
-        scaleX: scaling,
-        scaleY: scaling,
-        anchorX: offset.x,
-        anchorY: offset.y,
-      },
-    };
-
-    tokenDocument.updateSource(newData);
-  }
+  const newData = makeTokenUpdates(width, length, scaling, fit, tokenDocument);
+  newData.flags = flags;
+  tokenDocument.updateSource(newData);
 }

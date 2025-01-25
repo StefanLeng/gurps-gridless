@@ -1,4 +1,3 @@
-3) update tokens on grid changes
 4) update border on config changes
 5) make offset configurable
 6) hide invalid foundry configs
