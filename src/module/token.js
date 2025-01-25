@@ -12,6 +12,24 @@ export function isHexGrid() {
   return isHexRowGrid() || isHexColumnGrid();
 }
 
+function scalingsDim(width, length, fit) {
+  const dim =
+    fit === 'contain'
+      ? width < length
+        ? 'width'
+        : 'height'
+      : fit === 'cover'
+      ? width > length
+        ? 'width'
+        : 'height'
+      : fit === 'fill'
+      ? width < length
+        ? 'width'
+        : 'height'
+      : fit;
+  return dim;
+}
+
 /*
     We need a odd number of hexes, so that the center of the shape is a hex center
 */
@@ -30,12 +48,12 @@ function calcTokenHexScale(width, length, scaling, fit) {
 }
 
 /*
-    When foundry messures of the main axis of a hex grid, then it aprocimate the hex shape as a rectagle and uses an inoerfect formula afro the length.
+    When foundry messures of the main axis of a hex grid, then it aprocimate the hex shape as a rectagle and uses an inperfect formula for the length.
     This leads to incorrect sscaling and will trow off our calculations and is visualy unappealing. So we need to correct the scaling.
     That happens when wei fit be height on hex rows or fit by width on hex columns.
 */
-function calcRowScaleCorrection(token, length) {
-  if ((token.texture.fit === 'height' && isHexRowGrid()) || (token.texture.fit === 'width' && isHexColumnGrid())) {
+function calcRowScaleCorrection(token, length, fit) {
+  if ((fit === 'height' && isHexRowGrid()) || (fit === 'width' && isHexColumnGrid())) {
     return (length / (length * 0.75 + 0.25)) * (Math.sqrt(3) / 2);
   } else {
     return 1;
@@ -74,26 +92,28 @@ function calcTokenOffset(width, length, scaling) {
   }
 }
 
-export function setTokenDimensions(tokenDokument, changes) {
-  const width = changes.flags[MODULE_ID]?.tokenWidth ?? tokenDokument.flags[MODULE_ID]?.tokenWidth ?? 1;
-  const length = changes.flags[MODULE_ID]?.tokenLength ?? tokenDokument.flags[MODULE_ID]?.tokenLength ?? 1;
-  const scaling = changes.flags[MODULE_ID]?.tokenScaling ?? tokenDokument.flags[MODULE_ID]?.tokenScaling ?? 1;
+export function setTokenDimensions(tokenDocument, changes) {
+  const width = changes.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.flags[MODULE_ID]?.tokenWidth ?? 1;
+  const length = changes.flags[MODULE_ID]?.tokenLength ?? tokenDocument.flags[MODULE_ID]?.tokenLength ?? 1;
+  const scaling = changes.flags[MODULE_ID]?.tokenScaling ?? tokenDocument.flags[MODULE_ID]?.tokenScaling ?? 1;
+  const fit = scalingsDim(width, length, changes.texture?.fit ?? tokenDocument.texture?.fit ?? 'height');
 
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
-    const hexScaling = calcTokenHexScale(width, length, scaling, tokenDokument.texture.fit);
+    const hexScaling = calcTokenHexScale(width, length, scaling, fit);
     const offset = calcTokenHexOffset(width, length, hexScaling, hexDim);
 
     const newChanges = {
       height: hexDim,
       width: hexDim,
       texture: {
-        scaleX: hexScaling * calcRowScaleCorrection(tokenDokument, hexDim),
-        scaleY: hexScaling * calcRowScaleCorrection(tokenDokument, hexDim),
+        scaleX: hexScaling * calcRowScaleCorrection(tokenDocument, hexDim, fit),
+        scaleY: hexScaling * calcRowScaleCorrection(tokenDocument, hexDim, fit),
         anchorX: offset.x,
         anchorY: offset.y,
       },
     };
+
     foundry.utils.mergeObject(changes, newChanges);
   } else {
     const offset = calcTokenOffset(width, length, scaling);
@@ -107,36 +127,39 @@ export function setTokenDimensions(tokenDokument, changes) {
         anchorY: offset.y,
       },
     };
+
     foundry.utils.mergeObject(changes, newChanges);
   }
 }
 
-export function setTokenDimesnionsOnCreate(tokenDokument, data) {
+export function setTokenDimesnionsOnCreate(tokenDocument, data) {
   const width = data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1;
   const length = data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1;
   const scaling = data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.hexScaling ?? 1;
+  const fit = scalingsDim(width, length, data.texture?.fit ?? 'height');
   const flags = {};
   flags[MODULE_ID] = {
     tokenWidth: width,
     tokenLength: length,
     tokenScaling: scaling,
   };
+
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
-    const hexScaling = calcTokenHexScale(width, length, scaling, tokenDokument.texture.fit);
+    const hexScaling = calcTokenHexScale(width, length, scaling, fit);
     const offset = calcTokenHexOffset(width, length, hexScaling, hexDim);
     const newData = {
       height: hexDim,
       width: hexDim,
       flags: flags,
       texture: {
-        scaleX: hexScaling * calcRowScaleCorrection(tokenDokument, hexDim),
-        scaleY: hexScaling * calcRowScaleCorrection(tokenDokument, hexDim),
+        scaleX: hexScaling * calcRowScaleCorrection(tokenDocument, hexDim, fit),
+        scaleY: hexScaling * calcRowScaleCorrection(tokenDocument, hexDim, fit),
         anchorX: offset.x,
         anchorY: offset.y,
       },
     };
-    tokenDokument.updateSource(newData);
+    tokenDocument.updateSource(newData);
   } else {
     const offset = calcTokenOffset(width, length, scaling);
     const newData = {
@@ -150,6 +173,7 @@ export function setTokenDimesnionsOnCreate(tokenDokument, data) {
         anchorY: offset.y,
       },
     };
-    tokenDokument.updateSource(newData);
+
+    tokenDocument.updateSource(newData);
   }
 }

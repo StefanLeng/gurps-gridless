@@ -1,12 +1,9 @@
-2) hex bounding Box
-3) scaling with lock rotation
-4) check all fit modes
+3) update tokens on grid changes
+4) update border on config changes
 5) make offset configurable
 6) hide invalid foundry configs
-7) update tokens on grid changes
-8) update border on config changes
-9) inner Hex ring
-10) Hex facing indicator
-11) nicer hex darwaing
-12) doku
-13) consider module rename
+7) inner Hex ring
+8) Hex facing indicator
+9) nicer hex darwaing
+10) doku
+11) consider module rename
