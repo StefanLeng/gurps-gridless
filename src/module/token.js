@@ -47,12 +47,19 @@ function calcTokenHexScale(width, length, scaling, fit) {
   return (scaling * l) / dim;
 }
 
+function offAxisLength(length) {
+  if (isHexRowGrid()) {
+    return length * (3 / 8) * Math.sqrt(3) + length / 8;
+  } else {
+    return length * (1 / 8) * Math.sqrt(3) + length * (6 / 8);
+  }
+}
 /*
     When foundry messures of the main axis of a hex grid, then it aprocimate the hex shape as a rectagle and uses an inperfect formula for the length.
     This leads to incorrect sscaling and will trow off our calculations and is visualy unappealing. So we need to correct the scaling.
-    That happens when wei fit be height on hex rows or fit by width on hex columns.
+    That happens with fit by height on hex rows or fit by width on hex columns.
 */
-function calcRowScaleCorrection(token, length, fit) {
+function calcRowScaleCorrection(length, fit) {
   if ((fit === 'height' && isHexRowGrid()) || (fit === 'width' && isHexColumnGrid())) {
     return (length / (length * 0.75 + 0.25)) * (Math.sqrt(3) / 2);
   } else {
@@ -65,13 +72,16 @@ function calcRowScaleCorrection(token, length, fit) {
     Note that in token space, the front is always down.
     We hafe to take the scale into account, because foundry will scale from the offset and we need to corrcet for that.
 */
-function calcTokenHexOffset(width, length, scaling, hexDim) {
+function calcTokenHexOffset(width, length, scaling, hexDim, offsetY, offsetX) {
   const roundedWidth = Math.round(width);
   const roundedLength = Math.round(length);
+  const roundedOffsetY = Math.round(offsetY ?? 0);
+  const roundedOffsetX = Math.round(offsetX ?? 0);
   //set the rotation center a half hex from the front (For odd length)
-  const hOffset = Math.max(hexDim - roundedLength, 0) * 0.5 + 0.5;
+  const hOffset = Math.max(hexDim - roundedLength, 0) * 0.5 + 0.5 - roundedOffsetY;
   //set the rotation center a half hex to the side of the center for even width
-  const wOffset = roundedWidth % 2 === 0 ? (roundedWidth <= roundedLength ? 0.5 : -0.5) : 0;
+  const wOffset =
+    offAxisLength(roundedOffsetX) + (roundedWidth % 2 === 0 ? (roundedWidth <= roundedLength ? 0.5 : -0.5) : 0);
 
   return { x: calcOffsetFromCenter(hexDim, scaling, wOffset), y: calcOffsetFromFront(hexDim, scaling, hOffset) };
 
@@ -83,34 +93,35 @@ function calcTokenHexOffset(width, length, scaling, hexDim) {
   }
 }
 
-function calcTokenOffset(width, length, scaling) {
-  return { x: 0.5, y: calcOffset(length, scaling) };
+function calcTokenOffset(width, length, scaling, offsetY, offsetX) {
+  const hOffset = 0.5 - (offsetY ?? 0);
+  return { x: calcOffset(length, scaling, offsetX ?? 0), y: calcOffset(length, scaling, hOffset) };
 
   //set the rotation center a half hex from the front (For odd length)
-  function calcOffset(ln, s) {
-    return 0.5 + (0.5 - 0.5 / ln) / s;
+  function calcOffset(ln, s, hOffset) {
+    return 0.5 + (0.5 - hOffset / ln) / s;
   }
 }
 
-export function makeTokenUpdates(width, length, scaling, fit, tokenDocument) {
+export function makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX) {
   let changes = {};
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
     const hexScaling = calcTokenHexScale(width, length, scaling, fit);
-    const offset = calcTokenHexOffset(width, length, hexScaling, hexDim);
+    const offset = calcTokenHexOffset(width, length, hexScaling, hexDim, offsetY, offsetX);
 
     changes = {
       height: hexDim,
       width: hexDim,
       texture: {
-        scaleX: hexScaling * calcRowScaleCorrection(tokenDocument, hexDim, fit),
-        scaleY: hexScaling * calcRowScaleCorrection(tokenDocument, hexDim, fit),
+        scaleX: hexScaling * calcRowScaleCorrection(hexDim, fit),
+        scaleY: hexScaling * calcRowScaleCorrection(hexDim, fit),
         anchorX: offset.x,
         anchorY: offset.y,
       },
     };
   } else {
-    const offset = calcTokenOffset(width, length, scaling);
+    const offset = calcTokenOffset(width, length, scaling, offsetY);
     changes = {
       height: length,
       width: width,
@@ -129,9 +140,11 @@ export function setTokenDimensions(tokenDocument) {
   const width = tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
   const length = tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height;
   const scaling = tokenDocument.flags[MODULE_ID]?.tokenScaling ?? tokenDocument?.texture?.scaleX ?? 1;
+  const offsetY = tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
+  const offsetX = tokenDocument.flags[MODULE_ID]?.tokenOffsetX ?? 0;
   const fit = scalingsDim(width, length, tokenDocument.texture?.fit ?? 'height');
 
-  const newChanges = makeTokenUpdates(width, length, scaling, fit, tokenDocument);
+  const newChanges = makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX);
   tokenDocument.update(newChanges);
 }
 
@@ -145,9 +158,11 @@ export function setTokenDimensionsonUpdate(tokenDocument, changes) {
     tokenDocument.flags[MODULE_ID]?.tokenScaling ??
     tokenDocument?.texture?.scaleX ??
     1;
+  const offsetY = changes?.flags?.[MODULE_ID]?.tokenOffsetY ?? tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
+  const offsetX = changes?.flags?.[MODULE_ID]?.tokenOffsetX ?? tokenDocument.flags[MODULE_ID]?.tokenOffsetX ?? 0;
   const fit = scalingsDim(width, length, changes?.texture?.fit ?? tokenDocument.texture?.fit ?? 'height');
 
-  const newChanges = makeTokenUpdates(width, length, scaling, fit, tokenDocument);
+  const newChanges = makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX);
   foundry.utils.mergeObject(changes, newChanges);
 }
 
@@ -155,15 +170,18 @@ export function setTokenDimesnionsOnCreate(tokenDocument, data) {
   const width = data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1;
   const length = data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1;
   const scaling = data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.scaleX ?? 1;
+  const offsetY = data.flags[MODULE_ID]?.tokenOffsetY ?? 0;
+  const offsetX = data.flags[MODULE_ID]?.tokenOffsetx ?? 0;
   const fit = scalingsDim(width, length, data.texture?.fit ?? 'height');
   const flags = {};
   flags[MODULE_ID] = {
     tokenWidth: width,
     tokenLength: length,
     tokenScaling: scaling,
+    tokenOffsetY: 0,
   };
 
-  const newData = makeTokenUpdates(width, length, scaling, fit, tokenDocument);
+  const newData = makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX);
   newData.flags = flags;
   tokenDocument.updateSource(newData);
 }

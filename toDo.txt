@@ -1,8 +1,9 @@
-4) update border on config changes
-5) make offset configurable
-6) hide invalid foundry configs
-7) inner Hex ring
-8) Hex facing indicator
-9) nicer hex darwaing
-10) doku
-11) consider module rename
+store original offset
+restore original config
+migrate all tokens on update
+hide invalid foundry configs
+inner Hex ring
+Hex facing indicator
+nicer hex darwing
+doku
+consider module rename
