@@ -2,7 +2,7 @@ import { registerSettings, GURPSGridLess, injectTokenConfig } from './settings.j
 import { drawEachReachIndicator } from './rangeindicator.js';
 import { doborder } from './borders.js';
 import { drawHitArea } from './hitArea.js';
-import { setTokenDimensionsonUpdate, setTokenDimesnionsOnCreate } from './token.js';
+import { setTokenDimensionsonUpdate, setTokenDimesionsOnCreate } from './token.js';
 import { updateSceneTokens } from './scene.js';
 
 // Initialize module
@@ -37,4 +37,4 @@ Hooks.on('updateToken', (tokenDokument) => {
 
 Hooks.on('updateScene', updateSceneTokens);
 
-Hooks.on('preCreateToken', setTokenDimesnionsOnCreate);
+Hooks.on('preCreateToken', setTokenDimesionsOnCreate);

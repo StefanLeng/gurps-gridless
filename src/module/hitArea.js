@@ -28,7 +28,8 @@ function hexHitArea(token) {
 }
 
 export function drawHitArea(token) {
-  const points = isHexGrid() ? hexHitArea(token) : rectangelHitArea(token);
+  const points =
+    isHexGrid() && game.settings.get(MODULE_ID, 'GURPSMovementEnabled') ? hexHitArea(token) : rectangelHitArea(token);
 
   const { w: width, h: height } = token;
   const { anchorX, anchorY, scaleY, scaleX } = token.document.texture;

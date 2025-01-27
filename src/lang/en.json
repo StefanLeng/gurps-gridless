@@ -13,6 +13,8 @@
     "gurps-gridless.settings.reachLineAlpha.description": "Opacity of the reach lines in the reach indicator.",
     "gurps-gridless.settings.facingAlpha.name": "Facing area opacity",
     "gurps-gridless.settings.facingAlpha.description": "Opacity of the facing areas in the reach indicator.",
+    "gurps-gridless.settings.GURPSMovmentEnabled.name": "Enable GURPS tokens shapes and movement ond Hex-Grids",
+    "gurps-gridless.settings.GURPSMovmentEnabled.description": "Enable GURPS specific movement and hex shapes on hex-Grids. WARNINNG: This will change token settings on all scenes in this world. Disabeling this option will revert the changes. Please disabel the setting befor removing this module, otherwise the changes will persist.",
     "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
     "gurps-gridless.tokenSettings.rotationOffsetY.name": "Lengthwise Offset for the center of Rotation",
     "gurps-gridless.tokenSettings.rotationOffsetX.name": "Seidward Offset for the center of Rotation",

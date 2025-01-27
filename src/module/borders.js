@@ -19,7 +19,7 @@ export function doborder(token) {
   const outerWidth = game.settings.get(MODULE_ID, 'outerBorderWidth') ?? 6;
 
   if (borderColor) {
-    if (isHexGrid()) {
+    if (isHexGrid() && game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
       hexBodyShape(
         token.border,
         token.document.flags[MODULE_ID]?.tokenWidth,

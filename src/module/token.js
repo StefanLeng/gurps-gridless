@@ -137,6 +137,7 @@ export function makeTokenUpdates(width, length, scaling, fit, tokenDocument, off
 }
 
 export function setTokenDimensions(tokenDocument) {
+  if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
   const width = tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
   const length = tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height;
   const scaling = tokenDocument.flags[MODULE_ID]?.tokenScaling ?? tokenDocument?.texture?.scaleX ?? 1;
@@ -149,6 +150,7 @@ export function setTokenDimensions(tokenDocument) {
 }
 
 export function setTokenDimensionsonUpdate(tokenDocument, changes) {
+  if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
   const width =
     changes?.flags?.[MODULE_ID]?.tokenWidth ?? tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
   const length =
@@ -166,22 +168,71 @@ export function setTokenDimensionsonUpdate(tokenDocument, changes) {
   foundry.utils.mergeObject(changes, newChanges);
 }
 
-export function setTokenDimesnionsOnCreate(tokenDocument, data) {
+export function setTokenDimesionsOnCreate(tokenDocument, data) {
+  if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
   const width = data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1;
   const length = data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1;
   const scaling = data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.scaleX ?? 1;
   const offsetY = data.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const offsetX = data.flags[MODULE_ID]?.tokenOffsetx ?? 0;
   const fit = scalingsDim(width, length, data.texture?.fit ?? 'height');
+  const origOffsetX = data.texture?.offset?.x ?? 0.5;
+  const origOffsetY = data.texture?.offset?.y ?? 0.5;
   const flags = {};
   flags[MODULE_ID] = {
     tokenWidth: width,
     tokenLength: length,
     tokenScaling: scaling,
     tokenOffsetY: 0,
+    tokenOrigOffsetX: origOffsetX,
+    tokenOrigOffsetY: origOffsetY,
   };
 
   const newData = makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX);
   newData.flags = flags;
   tokenDocument.updateSource(newData);
+}
+
+export function setTokenDimesionsOnEnable(tokenDocument) {
+  const width = tokenDocument.width ?? 1;
+  const length = tokenDocument.height ?? 1;
+  const scaling = tokenDocument.texture?.scaleX ?? 1;
+  const offsetY = tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
+  const offsetX = tokenDocument.flags[MODULE_ID]?.tokenOffsetx ?? 0;
+  const fit = scalingsDim(width, length, tokenDocument.texture?.fit ?? 'height');
+  const origOffsetX = tokenDocument.texture?.offset?.x ?? 0.5;
+  const origOffsetY = tokenDocument.texture?.offset?.y ?? 0.5;
+  const flags = {};
+  flags[MODULE_ID] = {
+    tokenWidth: width,
+    tokenLength: length,
+    tokenScaling: scaling,
+    tokenOffsetY: 0,
+    tokenOrigOffsetX: origOffsetX,
+    tokenOrigOffsetY: origOffsetY,
+  };
+
+  const changes = makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX);
+  changes.flags = flags;
+  tokenDocument.update(changes);
+}
+
+export function resetTokenDimensionsOnDisable(tokenDocument) {
+  const width = tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width ?? 1;
+  const length = tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height ?? 1;
+  const scaling = tokenDocument.flags[MODULE_ID]?.tokenScaling ?? tokenDocument.texture?.scaleX ?? 1;
+  const offsetY = tokenDocument.flags[MODULE_ID]?.tokenOrigOffsetY ?? tokenDocument.texture?.offset?.x ?? 0.5;
+  const offsetX = tokenDocument.flags[MODULE_ID]?.tokenOrigOffsetX ?? tokenDocument.texture?.offset?.x ?? 0.5;
+
+  let changes = {
+    height: length,
+    width: width,
+    texture: {
+      scaleX: scaling,
+      scaleY: scaling,
+      anchorX: offsetY,
+      anchorY: offsetX,
+    },
+  };
+  tokenDocument.update(changes);
 }

@@ -2,6 +2,7 @@ import { drawEachReachIndicator } from './rangeindicator.js';
 import { MODULE_ID } from './constants.js';
 import { injectConfig } from './lib/injectConfig.js';
 import { defaultColors } from './constants.js';
+import { enableGURPSMovmentforAllScenes, disableGURPSMovmentforAllScenes } from './scene.js';
 
 export class GURPSGridLess {
   constructor() {
@@ -10,6 +11,14 @@ export class GURPSGridLess {
   }
   showRangeIndicator;
   showRangeIndicatorALL;
+}
+
+export function onGURPSMovementEnabledChanged(enabled) {
+  if (enabled) {
+    enableGURPSMovmentforAllScenes();
+  } else {
+    disableGURPSMovmentforAllScenes();
+  }
 }
 
 export function registerSettings() {
@@ -122,6 +131,16 @@ export function registerSettings() {
       max: 20.0,
       step: 1.0,
     },
+  });
+
+  game.settings.register(MODULE_ID, 'GURPSMovementEnabled', {
+    name: 'gurps-gridless.settings.GURPSMovmentEnabled.name',
+    hint: 'gurps-gridless.settings.GURPSMovmentEnabled.description',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: onGURPSMovementEnabledChanged,
   });
 }
 
