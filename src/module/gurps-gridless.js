@@ -4,6 +4,9 @@ import { doborder } from './borders.js';
 import { drawHitArea } from './hitArea.js';
 import { setTokenDimensionsonUpdate, setTokenDimesionsOnCreate } from './token.js';
 import { updateSceneTokens } from './scene.js';
+import { MODULE_ID } from './constants.js';
+
+const version = '0.6.4';
 
 // Initialize module
 Hooks.once('init', async () => {
@@ -12,6 +15,19 @@ Hooks.once('init', async () => {
   game.gurpsGridLess = new GURPSGridLess();
 
   registerSettings();
+});
+
+Hooks.once('ready', async () => {
+  const oldVersion = game.settings.get(MODULE_ID, 'version') ?? '0.0.0';
+  if (foundry.utils.isNewerVersion(version, oldVersion)) {
+    foundry.applications.api.DialogV2.prompt({
+      window: { title: 'New Version: Tools for Gridless GURPS' },
+      content:
+        '<p>Version 0.7.0 of Tools for Gridless GURPS</p><p>Hex Borders on hex grids with proper GURPS movement for multi hex tokens.</p><p>The new features need do be activated in the settings, because theyx will alter token behavior and setup in alle scenes.</p>',
+      modal: true,
+    });
+    game.settings.set(MODULE_ID, 'version', version);
+  }
 });
 
 Hooks.on('renderTokenConfig', injectTokenConfig);

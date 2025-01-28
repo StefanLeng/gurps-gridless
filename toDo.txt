@@ -1,7 +1,4 @@
-store original offset
-restore original config
-migrate all tokens on update
-hide invalid foundry configs
+update message
 nicer config
 inner Hex ring
 Hex facing indicator
