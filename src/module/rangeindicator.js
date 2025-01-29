@@ -24,7 +24,13 @@ export function getDirection(token) {
 export function drawReachIndicator(token) {
   try {
     const { w: width, h: height } = token;
-    const { anchorX, anchorY, scaleY, scaleX } = token.document.texture;
+    const { scaleY, scaleX } = token.document.texture;
+    let anchorX, anchorY;
+    if (token.document.gurpsGridless) {
+      ({ anchorX, anchorY } = token.document.gurpsGridless);
+    } else {
+      ({ anchorX, anchorY } = token.document.texture);
+    }
 
     const widthG = (width * canvas.grid.sizeY) / canvas.grid.sizeX;
 

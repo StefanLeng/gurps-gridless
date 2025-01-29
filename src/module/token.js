@@ -101,10 +101,16 @@ function calcTokenOffset(width, length, scaling, offsetY, offsetX) {
 
 export function makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX) {
   let changes = {};
+  let offset;
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
     const hexScaling = calcTokenHexScale(width, length, scaling, fit);
-    const offset = calcTokenHexOffset(width, length, hexScaling, hexDim, offsetY, offsetX);
+    offset = calcTokenHexOffset(width, length, hexScaling, hexDim, offsetY, offsetX);
+
+    tokenDocument.gurpsGridless = {
+      anchorX: offset.x,
+      anchorY: offset.y,
+    };
 
     changes = {
       height: hexDim,
@@ -112,23 +118,25 @@ export function makeTokenUpdates(width, length, scaling, fit, tokenDocument, off
       texture: {
         scaleX: hexScaling * calcRowScaleCorrection(hexDim, fit),
         scaleY: hexScaling * calcRowScaleCorrection(hexDim, fit),
-        anchorX: offset.x,
-        anchorY: offset.y,
       },
     };
   } else {
-    const offset = calcTokenOffset(width, length, scaling, offsetY, offsetX);
+    offset = calcTokenOffset(width, length, scaling, offsetY, offsetX);
     changes = {
       height: length,
       width: width,
       texture: {
         scaleX: scaling,
         scaleY: scaling,
-        anchorX: offset.x,
-        anchorY: offset.y,
       },
     };
   }
+
+  if (!tokenDocument.lockRotation) {
+    changes.texture.anchorY = offset.y;
+    changes.texture.anchorX = offset.x;
+  }
+
   return changes;
 }
 

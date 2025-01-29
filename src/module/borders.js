@@ -7,7 +7,13 @@ export function doborder(token) {
   const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
   const { w: width, h: height } = token;
-  const { anchorX, anchorY, scaleY, scaleX } = token.document.texture;
+  const { scaleY, scaleX } = token.document.texture;
+  let anchorX, anchorY;
+  if (token.document.gurpsGridless) {
+    ({ anchorX, anchorY } = token.document.gurpsGridless);
+  } else {
+    ({ anchorX, anchorY } = token.document.texture);
+  }
   token.border.x = width * 0.5;
   token.border.y = height * 0.5;
   token.border.clear();
