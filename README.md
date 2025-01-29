@@ -13,16 +13,20 @@ You can change the key binds under "configure Controls" in Foundry.
 
 3. Support for non square tokens and all token sizes with proper Gurps movement (centered on the head of the creature with the body following). See below how to set up the token. 
 
-With version 0.6 for Foundry 12 I had to remove the following features 
+4. Draw hex borders on Hex-Grids and enable proper GURPS movement on Hex-Grids (Version 0.7.0). To do that, I had to introduce my own token settings instead of some standard foundry settings. This will change the setup for all tokens in all scenes in the world. Therefore this has to be explizitily enabled in the module settings. Disabeling will restore the originl state. **It is important to disable the setting bevor disabeleing or deinstalling the moduel**, otherwise the token settings will be messed up. If that happens, reinstall the module and disable the seting before deinstalling. **Version 3.26.5 or higher of the About Face module is nessesary for correct movements on hex maps.**  
 
-1. _Shift the center of rotation_. With Foundry 12 the center of rotation can nativly shifted with the Anchor X and Y settings on the appearace tab. 
+![hex border example](hexborder.png "Hex Border example")
 
-2. _fixing Foundry scaling for token images that the token image scales with the longest token dimension_. This is not longer possible and not desirable anyway. 
-Foundry 12 will scale the image to fit into the token dimension, according to the Image Fit Mode you select on the Appearance tab. If your token image has the same aspect ratio as the token, any of the modes will work. If your image is square (common for token art meant for D&D) you have to chose Full Width or Full Height corresponding to the larger demension of the token.
 
-3. _Rotate token art to face in the correct direction (downward) inside the token border_. This is not longer possible with Foundry 12 in some situations. It was quite hacky anyway. Use downward facing Token images as recomendet by Foundry. if nessesary use an image editing programm to rotate the images beforhand.     
+#### Limitations
 
-Foundry 12 also broke the ability to use the movement adjustments for bigger, none square, creatures on hex maps. I am trying to figure out a way the get that functionality back.
+1. At the moment, the reach indicator shown on hex maps is the same than on gridless maps. The facing colors will not in all cases match up to the hex grid facings and the reach shown will not be a hex shape. I will try to do a proper hex reach indicator in a future version, but it is quite complicated. As the reach indicator is not as important on a hex grid than on gridless, I don't consider it a big limitation.
+  
+2. The hex border has a bit ugly corners when zoomed in. The inner ring shoowing the token disposition is missing on hex grids. A nicer version that fixes thes issuse is in the works.
+
+3. There are some limitiations for tokens with locked rotation. See the token setup section for details.
+
+4. When using the Elevation Ruler module and multi hex tokens, movement may not initiate if you to drag the token far from the center of rotation (Defaults to the center front hex with this module). Elevation Ruler will not initiate movement if the point selected is not inseide the unrotated shape of the token. This can be the case when selecting away from the center of rotation, espcecial for elogated tokens.
 
 Configuration:
 
@@ -32,7 +36,7 @@ Token configuration:
 
 ![token configuration](tokenConfiguration.png "Token Configuration")
 
-The Module requires the GURPS Game Aid System and the About Face Module.
+The Module requires the GURPS Game Aid System and the About Face Module (at least version 3.26.5).
 
 ### Tips for gridless play
 In the Foundry scene set the Grid Type to gridless, the Grid Scale to 1, the Grid Unit to Yd and the Grid Size to the number of pixel for 1 yard.
@@ -40,7 +44,36 @@ Note that most maps for foundry are made with an unrealistic large scale to allo
 I usually set the number of pixels given for one DnD 5 feet square for 1 yard and get a realistic scale. Individual maps may require adjustments.
 
 ### Configuration of tokens
-If you use portrait style tokens just set the dimension of the Token on the Appearance tab and "Look rotation" on the Identity tab.
+
+#### With the _Enable GURPS tokens shapes and movement on Hex-Grids_ enabled (recommended)
+
+With this option, setting the token shape and scaling is moved the the _GURPS Gridless_ tab.
+
+Set the desiered token _width_, _length_ and _scaling_. On hex maps, the width and length will be rounded to full hexes. Note that for the width, an even number of hexes will give an wired shape. Use an odd number for symetrical tokens. Onn gridless maps, all values work an are used as is. 
+
+The center of rotation/movement will be automaticaly set at the center front hex for multi hex creatures (0.5 yards from the front on gridless maps). To modify that, use the _Lengthwise Offset_ and _Sideward Offset_ settings. For _Lengthwise Offset_, negative values will shift the center of rotation backwards and positive values forward. _Sideward Offset_ will shift the center left/right, but usually should be left on 0. 
+
+On the apperance tab, you should set the _Image Fit Mode_: 
+If the token image has the same aspect ratio as the token, use the Image Fit Mode "Contain".
+If the token image is square, use the image fit mode "Full Height" for long tokens and "Full Width" for wide tokens.
+I don't think any differnt aspect ratio will work. 
+
+##### Notes on prtrait style tokens
+
+With portrait style tokens, it is usually not desirable to let the token image rotate. To archive that, you can set _Lock Rotation_ on the _Identity: tab. 
+
+That works without problems for 1 hex creatures.
+
+For bigger creatures there are some limitations: The center of the image will be on the center of rotation. By default, this is in the front of the crature with this module. That will look odd in some situations. 
+You can move the center of rotation back to the center of rotation unsing the _Lengthwise Offset_, but in many cases that would be against the GURPS movement rules.
+(For a future version, I am thinking about an option to fix the image position center of the token independend of the center of rotation, but I am not yet sure it can be done.)
+
+With elongated token sizes, it will be even more problematic, because the border will rotate out of allingment with the image.
+For elogated tokens, I recommend not locking rotation, even for portrait style tokens.
+
+#### With the _Enable GURPS tokens shapes and movement on Hex-Grids_ disabled
+
+If you use portrait style tokens just set the dimension of the Token on the Appearance tab and "Look rotation" on the Identity tab. Note that this will give somtimes odd results for elongated tokens.
 
 For rotating top down style tokens set the dimension of the Token on the Appearance tab. 
 If the token image has the same aspect ratio as the token, use the Image Fit Mode "Contain".

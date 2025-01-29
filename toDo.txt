@@ -1,7 +1,5 @@
-update message
-nicer config
+doku
 inner Hex ring
 Hex facing indicator
 nicer hex darwing
-doku
 consider module rename

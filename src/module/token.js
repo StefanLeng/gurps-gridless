@@ -95,7 +95,7 @@ function calcTokenHexOffset(width, length, scaling, hexDim, offsetY, offsetX) {
 }
 
 function calcTokenOffset(width, length, scaling, offsetY, offsetX) {
-  const hOffset = 0.5 - (offsetY ?? 0);
+  const hOffset = Math.min(0.5, length / 2) - (offsetY ?? 0);
   return { x: calcOffsetFromCenter(length, scaling, offsetX ?? 0), y: calcOffsetFromFront(length, scaling, hOffset) };
 }
 
