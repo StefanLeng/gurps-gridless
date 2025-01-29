@@ -67,6 +67,14 @@ function calcRowScaleCorrection(length, fit) {
   }
 }
 
+function calcOffsetFromFront(ln, s, hOffset) {
+  return 0.5 + (0.5 - hOffset / ln) / s;
+}
+
+function calcOffsetFromCenter(ln, s, hOffset) {
+  return 0.5 + hOffset / ln / s;
+}
+
 /*
     Offest the token so that the middle front hex is on the center of rotation.
     Note that in token space, the front is always down.
@@ -84,23 +92,11 @@ function calcTokenHexOffset(width, length, scaling, hexDim, offsetY, offsetX) {
     offAxisLength(roundedOffsetX) + (roundedWidth % 2 === 0 ? (roundedWidth <= roundedLength ? 0.5 : -0.5) : 0);
 
   return { x: calcOffsetFromCenter(hexDim, scaling, wOffset), y: calcOffsetFromFront(hexDim, scaling, hOffset) };
-
-  function calcOffsetFromFront(ln, s, hOffset) {
-    return 0.5 + (0.5 - hOffset / ln) / s;
-  }
-  function calcOffsetFromCenter(ln, s, hOffset) {
-    return 0.5 + hOffset / ln / s;
-  }
 }
 
 function calcTokenOffset(width, length, scaling, offsetY, offsetX) {
   const hOffset = 0.5 - (offsetY ?? 0);
-  return { x: calcOffset(length, scaling, offsetX ?? 0), y: calcOffset(length, scaling, hOffset) };
-
-  //set the rotation center a half hex from the front (For odd length)
-  function calcOffset(ln, s, hOffset) {
-    return 0.5 + (0.5 - hOffset / ln) / s;
-  }
+  return { x: calcOffsetFromCenter(length, scaling, offsetX ?? 0), y: calcOffsetFromFront(length, scaling, hOffset) };
 }
 
 export function makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX) {
@@ -121,7 +117,7 @@ export function makeTokenUpdates(width, length, scaling, fit, tokenDocument, off
       },
     };
   } else {
-    const offset = calcTokenOffset(width, length, scaling, offsetY);
+    const offset = calcTokenOffset(width, length, scaling, offsetY, offsetX);
     changes = {
       height: length,
       width: width,
