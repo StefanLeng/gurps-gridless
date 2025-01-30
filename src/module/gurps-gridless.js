@@ -6,7 +6,7 @@ import { setTokenDimensionsonUpdate, setTokenDimesionsOnCreate, setTokenDimensio
 import { updateSceneTokens } from './scene.js';
 import { MODULE_ID } from './constants.js';
 
-const version = '0.6.4';
+const version = '0.7.0';
 
 // Initialize module
 Hooks.once('init', async () => {
