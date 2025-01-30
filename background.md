@@ -4,21 +4,21 @@ This document discribes my approch to GURPS multi-hex creatures in foundry. It i
 
 ### GURPS movement for multi hex creatures
 
-The rules for multi-hex creatures and there movement in tactical combat are very brief, just halv a page in the Basic Set. They are very general and don't cover the specifics for many token shapes. Most important, there are no examples or explanations for creatures that are wider than long. I did my best to extrapolate from the rules for situations not coverd.
+The rules for multi-hex creatures and there movement in tactical combat are very brief, just half a page in the Basic Set. They are very general and don't cover the specifics for many token shapes. Most important, there are no examples or explanations for creatures that are wider than long. I did my best to extrapolate from the rules for situations not coverd.
 
 What the rules do state, is that the creatures should not move and rotate around its corner, but around center of the hex at the head of the creature, usually the center front hex. This hex moves as normal and the rest of the body follows. 
 
-The front of the token allways shoud face a hex eedge.
+The front of the token always should face a hex eedge.
 
 ### What foundry does nativly
 
 On hex maps, foundry ( as of V12) bases the movement on the center of the token shape. On hex columns, if the heigth of the token is an odd number of hexes, it snaps to an hex center, if it is an even number it snaps to an hex edge. On hex rows, the same is true for the width of the token. 
 
-Furthermore, in foundry the initial orientation (with rotation 0) of a toke is always facing down. In this orientation, there is no hex shape fitting to the grid for long tokens on hex rows and for wide tokens on hex rows. In this cases, foundry falls back to a rectagle shape, totally taking the center and the scaling of the token of the grid.
+Furthermore, in foundry the initial orientation (with rotation 0) of a toke is always facing down. In this orientation, there is no hex shape fitting to the grid for long tokens on hex rows and for wide tokens on hex rows. In this cases, foundry falls back to a rectagle shape, totally taking the center and the scaling off the grid.
 
-As for rotation, foundry only rotates the token image. The border based on the shape of the token and the hit box allways remain in the initial orientation. This only works ok for tokens with the same height and width that rotate around thier center. In all other cases, ther is misalingment betwen the border / hit box and the token immage.
+As for rotation, foundry only rotates the token image. The border based on the shape of the token and the hit box always remain in the initial orientation. This only works ok for tokens with the same height and width that rotate around thier center. In all other cases, ther is misalingment between the border / hit box and the token image.
 
-The About Face module in the current version will make sure the token orientation snaps to face a hex edge, so we are coverd on that front.
+The About Face module in the current version will make sure the token orientation snaps to face a hex edge, so we are covered on that front.
 
 ### What we need 
 
