@@ -17,6 +17,7 @@ You can change the key binds under "configure Controls" in Foundry.
 
 ![hex border example](hexborder.png "Hex Border example")
 
+For background informattion how all this works, see *[here](background.md)*.
 
 #### Limitations
 
