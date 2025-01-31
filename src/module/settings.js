@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { drawEachReachIndicator } from './rangeindicator.js';
 import { MODULE_ID } from './constants.js';
 import { injectConfig } from './lib/injectConfig.js';
@@ -241,6 +242,24 @@ export function injectTokenConfig(app, html) {
           step: '0.1',
           notes: game.i18n.localize('gurps-gridless.tokenSettings.rotationOffsetX.note'),
         },
+        tokenImageOffsetY: {
+            type: 'number',
+            label: game.i18n.localize('gurps-gridless.tokenSettings.imageOffsetY.name'),
+            default: 0,
+            min: '-30.0',
+            max: '30.0',
+            step: '0.1',
+            notes: game.i18n.localize('gurps-gridless.tokenSettings.imageOffsetY.note'),
+          },
+          tokenImageOffsetX: {
+            type: 'number',
+            label: game.i18n.localize('gurps-gridless.tokenSettings.imageOffsetX.name'),
+            default: 0,
+            min: '-30.0',
+            max: '30.0',
+            step: '0.1',
+            notes: game.i18n.localize('gurps-gridless.tokenSettings.imageOffsetX.note'),
+          },
       }
     : {
         moduleId: MODULE_ID,

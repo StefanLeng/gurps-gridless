@@ -80,7 +80,17 @@ function calcOffsetFromCenter(ln, s, hOffset) {
     Note that in token space, the front is always down.
     We hafe to take the scale into account, because foundry will scale from the offset and we need to corrcet for that.
 */
-function calcTokenHexOffset(width, length, scaling, hexDim, offsetY, offsetX) {
+function calcTokenHexOffset(
+  width,
+  length,
+  scaling,
+  hexDim,
+  offsetY,
+  offsetX,
+  imageOffsetY,
+  imageOffsetX,
+  lookedRotation,
+) {
   const roundedWidth = Math.round(width);
   const roundedLength = Math.round(length);
   const roundedOffsetY = Math.round(offsetY ?? 0);
@@ -91,26 +101,59 @@ function calcTokenHexOffset(width, length, scaling, hexDim, offsetY, offsetX) {
   const wOffset =
     offAxisLength(roundedOffsetX) + (roundedWidth % 2 === 0 ? (roundedWidth <= roundedLength ? 0.5 : -0.5) : 0);
 
-  return { x: calcOffsetFromCenter(hexDim, scaling, wOffset), y: calcOffsetFromFront(hexDim, scaling, hOffset) };
+  return {
+    x: calcOffsetFromCenter(hexDim, scaling, wOffset),
+    y: calcOffsetFromFront(hexDim, scaling, hOffset),
+    ix: lookedRotation
+      ? calcOffsetFromCenter(hexDim, scaling, imageOffsetX)
+      : calcOffsetFromCenter(hexDim, scaling, wOffset + imageOffsetX),
+    iy: lookedRotation
+      ? calcOffsetFromCenter(hexDim, scaling, imageOffsetY)
+      : calcOffsetFromFront(hexDim, scaling, hOffset + imageOffsetY),
+  };
 }
 
-function calcTokenOffset(width, length, scaling, offsetY, offsetX) {
+function calcTokenOffset(width, length, scaling, offsetY, offsetX, imageOffsetY, imageOffsetX, lookedRotation) {
   const hOffset = Math.min(0.5, length / 2) - (offsetY ?? 0);
-  return { x: calcOffsetFromCenter(length, scaling, offsetX ?? 0), y: calcOffsetFromFront(length, scaling, hOffset) };
+  return {
+    x: calcOffsetFromCenter(width, scaling, offsetX ?? 0),
+    y: calcOffsetFromFront(length, scaling, hOffset),
+    ix: lookedRotation
+      ? calcOffsetFromCenter(width, scaling, imageOffsetX)
+      : calcOffsetFromCenter(width, scaling, (offsetX ?? 0) + imageOffsetX),
+    iy: lookedRotation
+      ? calcOffsetFromCenter(length, scaling, imageOffsetY)
+      : calcOffsetFromFront(length, scaling, hOffset + imageOffsetY),
+  };
 }
 
-export function makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX) {
+export function makeTokenUpdates(
+  width,
+  length,
+  scaling,
+  fit,
+  tokenDocument,
+  offsetY,
+  offsetX,
+  imageOffsetY,
+  imageOffsetX,
+) {
   let changes = {};
   let offset;
   if (isHexGrid()) {
     const hexDim = calcTokenHexDim(width, length);
     const hexScaling = calcTokenHexScale(width, length, scaling, fit);
-    offset = calcTokenHexOffset(width, length, hexScaling, hexDim, offsetY, offsetX);
-
-    tokenDocument.gurpsGridless = {
-      anchorX: offset.x,
-      anchorY: offset.y,
-    };
+    offset = calcTokenHexOffset(
+      width,
+      length,
+      hexScaling,
+      hexDim,
+      offsetY,
+      offsetX,
+      imageOffsetY,
+      imageOffsetX,
+      tokenDocument.lockRotation,
+    );
 
     changes = {
       height: hexDim,
@@ -118,43 +161,72 @@ export function makeTokenUpdates(width, length, scaling, fit, tokenDocument, off
       texture: {
         scaleX: hexScaling * calcRowScaleCorrection(hexDim, fit),
         scaleY: hexScaling * calcRowScaleCorrection(hexDim, fit),
+        anchorY: offset.iy,
+        anchorX: offset.ix,
       },
     };
   } else {
-    offset = calcTokenOffset(width, length, scaling, offsetY, offsetX);
+    offset = calcTokenOffset(
+      width,
+      length,
+      scaling,
+      offsetY,
+      offsetX,
+      imageOffsetY,
+      imageOffsetX,
+      tokenDocument.lockRotation,
+    );
+
     changes = {
       height: length,
       width: width,
       texture: {
         scaleX: scaling,
         scaleY: scaling,
+        anchorY: offset.iy,
+        anchorX: offset.ix,
       },
     };
   }
 
-  if (!tokenDocument.lockRotation) {
-    changes.texture.anchorY = offset.y;
-    changes.texture.anchorX = offset.x;
-  }
+  tokenDocument.gurpsGridless = {
+    anchorX: offset.x,
+    anchorY: offset.y,
+  };
 
   return changes;
 }
 
 export function setTokenDimensions(tokenDocument) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
+
   const width = tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
   const length = tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height;
   const scaling = tokenDocument.flags[MODULE_ID]?.tokenScaling ?? tokenDocument?.texture?.scaleX ?? 1;
   const offsetY = tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const offsetX = tokenDocument.flags[MODULE_ID]?.tokenOffsetX ?? 0;
+  const imageOffsetY = tokenDocument.flags[MODULE_ID]?.tokenImageOffsetY ?? 0;
+  const imageOffsetX = tokenDocument.flags[MODULE_ID]?.tokenImageOffsetX ?? 0;
   const fit = scalingsDim(width, length, tokenDocument.texture?.fit ?? 'height');
 
-  const newChanges = makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX);
+  const newChanges = makeTokenUpdates(
+    width,
+    length,
+    scaling,
+    fit,
+    tokenDocument,
+    offsetY,
+    offsetX,
+    imageOffsetY,
+    imageOffsetX,
+  );
+
   tokenDocument.update(newChanges);
 }
 
 export function setTokenDimensionsonUpdate(tokenDocument, changes) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
+
   const width =
     changes?.flags?.[MODULE_ID]?.tokenWidth ?? tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
   const length =
@@ -166,22 +238,41 @@ export function setTokenDimensionsonUpdate(tokenDocument, changes) {
     1;
   const offsetY = changes?.flags?.[MODULE_ID]?.tokenOffsetY ?? tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const offsetX = changes?.flags?.[MODULE_ID]?.tokenOffsetX ?? tokenDocument.flags[MODULE_ID]?.tokenOffsetX ?? 0;
+  const imageOffsetY =
+    changes?.flags?.[MODULE_ID]?.tokenImageOffsetY ?? tokenDocument.flags[MODULE_ID]?.tokenImageOffsetY ?? 0;
+  const imageOffsetX =
+    changes?.flags?.[MODULE_ID]?.tokenImageOffsetX ?? tokenDocument.flags[MODULE_ID]?.tokenImageOffsetX ?? 0;
   const fit = scalingsDim(width, length, changes?.texture?.fit ?? tokenDocument.texture?.fit ?? 'height');
 
-  const newChanges = makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX);
+  const newChanges = makeTokenUpdates(
+    width,
+    length,
+    scaling,
+    fit,
+    tokenDocument,
+    offsetY,
+    offsetX,
+    imageOffsetY,
+    imageOffsetX,
+  );
+
   foundry.utils.mergeObject(changes, newChanges);
 }
 
 export function setTokenDimesionsOnCreate(tokenDocument, data) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
+
   const width = data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1;
   const length = data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1;
   const scaling = data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.scaleX ?? 1;
   const offsetY = data.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const offsetX = data.flags[MODULE_ID]?.tokenOffsetx ?? 0;
+  const imageOffsetY = data.flags[MODULE_ID]?.tokenImageOffsetY ?? 0;
+  const imageOffsetX = data.flags[MODULE_ID]?.tokenImageOffsetX ?? 0;
   const fit = scalingsDim(width, length, data.texture?.fit ?? 'height');
   const origOffsetX = data.texture?.offset?.x ?? 0.5;
   const origOffsetY = data.texture?.offset?.y ?? 0.5;
+
   const flags = {};
   flags[MODULE_ID] = {
     tokenWidth: width,
@@ -190,10 +281,24 @@ export function setTokenDimesionsOnCreate(tokenDocument, data) {
     tokenOffsetY: 0,
     tokenOrigOffsetX: origOffsetX,
     tokenOrigOffsetY: origOffsetY,
+    tokenImageOffsetY: imageOffsetY,
+    tokenImageOffsetX: imageOffsetX,
   };
 
-  const newData = makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX);
+  const newData = makeTokenUpdates(
+    width,
+    length,
+    scaling,
+    fit,
+    tokenDocument,
+    offsetY,
+    offsetX,
+    imageOffsetY,
+    imageOffsetX,
+  );
+
   newData.flags = flags;
+
   tokenDocument.updateSource(newData);
 }
 
@@ -203,9 +308,12 @@ export function setTokenDimesionsOnEnable(tokenDocument) {
   const scaling = tokenDocument.texture?.scaleX ?? 1;
   const offsetY = tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const offsetX = tokenDocument.flags[MODULE_ID]?.tokenOffsetx ?? 0;
+  const imageOffsetY = tokenDocument.flags[MODULE_ID]?.tokenImageOffsetY ?? 0;
+  const imageOffsetX = tokenDocument.flags[MODULE_ID]?.tokenImageOffsetX ?? 0;
   const fit = scalingsDim(width, length, tokenDocument.texture?.fit ?? 'height');
   const origOffsetX = tokenDocument.texture?.offset?.x ?? 0.5;
   const origOffsetY = tokenDocument.texture?.offset?.y ?? 0.5;
+
   const flags = {};
   flags[MODULE_ID] = {
     tokenWidth: width,
@@ -214,10 +322,24 @@ export function setTokenDimesionsOnEnable(tokenDocument) {
     tokenOffsetY: 0,
     tokenOrigOffsetX: origOffsetX,
     tokenOrigOffsetY: origOffsetY,
+    tokenImageOffsetY: imageOffsetY,
+    tokenImageOffsetX: imageOffsetX,
   };
 
-  const changes = makeTokenUpdates(width, length, scaling, fit, tokenDocument, offsetY, offsetX);
+  const changes = makeTokenUpdates(
+    width,
+    length,
+    scaling,
+    fit,
+    tokenDocument,
+    offsetY,
+    offsetX,
+    imageOffsetY,
+    imageOffsetX,
+  );
+
   changes.flags = flags;
+
   tokenDocument.update(changes);
 }
 
@@ -238,5 +360,6 @@ export function resetTokenDimensionsOnDisable(tokenDocument) {
       anchorY: offsetX,
     },
   };
+
   tokenDocument.update(changes);
 }

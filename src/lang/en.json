@@ -3,6 +3,7 @@
     "gurps-gridless.keybindings.showRangeIndicator.hint": "Show reach indicator for controled token.",
     "gurps-gridless.keybindings.showRangeIndicatorAll.name": "Show reach indicator for all",
     "gurps-gridless.keybindings.showRangeIndicatorAll.hint": "Show reach indicator for all tokens.",
+
     "gurps-gridless.settings.maxReachShown.name": "Maximal reach shown",
     "gurps-gridless.settings.maxReachShown.description": "Maximal Reach shown in reach indicator.",
     "gurps-gridless.settings.reachIndicatorOverdraw.name": "Reach indicator Color overdraw",
@@ -17,12 +18,19 @@
     "gurps-gridless.settings.facingAlpha.description": "Opacity of the facing areas in the reach indicator.",
     "gurps-gridless.settings.GURPSMovmentEnabled.name": "Enable GURPS tokens shapes and movement on Hex-Grids",
     "gurps-gridless.settings.GURPSMovmentEnabled.description": "Enable GURPS specific movement and hex shapes on hex-Grids. WARNINNG: This will change token settings on all scenes in this world. Disabeling this option will revert the changes. Please disabel the setting befor removing this module, otherwise the changes will persist.",
+
+    "gurps-gridless.tokenSettings.tab.name": "GURPS Gridless",
     "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
+
     "gurps-gridless.tokenSettings.rotationOffsetY.name": "Lengthwise Offset",
     "gurps-gridless.tokenSettings.rotationOffsetY.note": "With this module, the default center of rotation will be the center front hex of the token shape. Use this setting to shift it along the length oft the token. Will be rounded to full hexes on hex grids.",
     "gurps-gridless.tokenSettings.rotationOffsetX.name": "Sideward Offset",
     "gurps-gridless.tokenSettings.rotationOffsetX.note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shiftig by a number of hexes not dividable by two will move the border of grid.",
-    "gurps-gridless.tokenSettings.tab.name": "GURPS Gridless",
+    "gurps-gridless.tokenSettings.imageOffsetY.name": "Lengthwise Image Offset",
+    "gurps-gridless.tokenSettings.imageOffsetY.note": "Shifts the token image forward on positive values and back on negative values relative to the token border",
+    "gurps-gridless.tokenSettings.imageOffsetX.name": "Sideward Image Offset",
+    "gurps-gridless.tokenSettings.imageOffsetX.note": "Shifts the token image right on positive values and left on negative values relative to the token border",
+
     "gurps-gridless.tokenSettings.tokenWidth.name": "Token width in grid units",
     "gurps-gridless.tokenSettings.tokenWidth.note": "Will be rounded to full hexes on hex grids.",
     "gurps-gridless.tokenSettings.tokenLength.name": "Token length in grid units",
