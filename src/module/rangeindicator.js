@@ -76,10 +76,11 @@ export function drawReachIndicator(token) {
       );
     }
 
+    const overdarw = game.settings.get(MODULE_ID, 'reachIndicatorOverdraw') ?? 0.5;
     facingShape(
       graphics,
-      widthG + (maxReach * 2 + 1) * gridSize,
-      height + (maxReach * 2 + 1) * gridSize,
+      widthG + (maxReach * 2 + overdarw * 2) * gridSize,
+      height + (maxReach * 2 + overdarw * 2) * gridSize,
       frontColor,
       sideColor,
       backColor,

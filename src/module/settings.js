@@ -84,6 +84,20 @@ export function registerSettings() {
     },
   });
 
+  game.settings.register(MODULE_ID, 'reachIndicatorOverdraw', {
+    name: 'gurps-gridless.settings.reachIndicatorOverdraw.name',
+    hint: 'gurps-gridless.settings.reachIndicatorOverdraw.description',
+    scope: 'world',
+    config: true,
+    default: 0.5,
+    type: Number,
+    range: {
+      min: 0.0,
+      max: 1.0,
+      step: 0.1,
+    },
+  });
+
   game.settings.register(MODULE_ID, 'reachLineAlpha', {
     name: 'gurps-gridless.settings.reachLineAlpha.name',
     hint: 'gurps-gridless.settings.reachLineAlpha.description',

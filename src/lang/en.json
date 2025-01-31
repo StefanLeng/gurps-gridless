@@ -5,6 +5,8 @@
     "gurps-gridless.keybindings.showRangeIndicatorAll.hint": "Show reach indicator for all tokens.",
     "gurps-gridless.settings.maxReachShown.name": "Maximal reach shown",
     "gurps-gridless.settings.maxReachShown.description": "Maximal Reach shown in reach indicator.",
+    "gurps-gridless.settings.reachIndicatorOverdraw.name": "Reach indicator Color overdraw",
+    "gurps-gridless.settings.reachIndicatorOverdraw.description": "How far the facing color is drawn beyond max reach. 0: not at all, 1: full yard",
     "gurps-gridless.settings.innerBorderWidth.name": "Inner border width",
     "gurps-gridless.settings.innerBorderWidth.description": "Width of the inner border in px.",
     "gurps-gridless.settings.outerBorderWidth.name": "Outer border width",
