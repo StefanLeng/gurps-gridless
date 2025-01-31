@@ -50,5 +50,6 @@ export function drawHitArea(token) {
   const rotatedPoints = points.map((p) => mat.apply(p));
 
   const hitArea = new PIXI.Polygon(rotatedPoints); //eslint-disable-line no-undef
+  token.shape = hitArea;
   token.hitArea = hitArea;
 }
