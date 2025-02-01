@@ -274,7 +274,60 @@ export function bodyShape(drawing, width, height, lineWidth, frontColor, sideCol
   }
 }
 
-export function hexBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+//Because line segment dont join nice when the color changes, draw the line segment as trapezoides.
+//This only works correctly at convex angles. But the artifact at concave anges is hidden by the drawing order, so we don't care.
+function drawHexSegment(drawing, startX, startY, endX, endY, width, offset) {
+  let points = [];
+
+  //half the amount a hex edege get lengther when translated 1 outward
+  const fact = 1 / Math.sqrt(3);
+
+  //direction vector
+  const dx = endX - startX;
+  const dy = endY - startY;
+  const l = Math.sqrt(dx * dx + dy * dy);
+  //unit vector
+  const udx = dx / l;
+  const udy = dy / l;
+  //udy, -udx is the perpendicular vector (note the x,y swap)
+  // start point, translated offset outward and moved tho lengthen the line offset * fact
+  const nx = startX + udy * offset - udx * offset * fact;
+  const ny = startY - udx * offset - udy * offset * fact;
+
+  points.push(nx, ny);
+
+  //start point, translated (offset+widht) outward and moved tho lengthen the line (offset+widht) + fact
+  const nx2 = startX + udy * (offset + width) - udx * (offset + width) * fact;
+  const ny2 = startY - udx * (offset + width) - udy * (offset + width) * fact;
+
+  points.push(nx2, ny2);
+
+  //endpoint of outer line
+  const nx3 = nx2 + dx + udx * (offset + width) * 2 * fact;
+  const ny3 = ny2 + dy + udy * (offset + width) * 2 * fact;
+
+  points.push(nx3, ny3);
+
+  //endpoint of inner line
+  const nx4 = nx + dx + udx * offset * 2 * fact;
+  const ny4 = ny + dy + udy * offset * 2 * fact;
+
+  points.push(nx4, ny4);
+
+  drawing.drawPolygon(points);
+}
+
+export function hexBodyShape(
+  drawing,
+  width,
+  height,
+  lineWidth,
+  lineOffset,
+  frontColor,
+  sideColor,
+  backColor,
+  lineAplha,
+) {
   let lastX = null;
   let lastY = null;
 
@@ -290,7 +343,29 @@ export function hexBodyShape(drawing, width, height, lineWidth, frontColor, side
     lastX = x;
     lastY = y;
   };
-  doHexBodyShape(width, height, f);
+
+  let f2 = (x, y, face) => {
+    const faceColor = face === 'FRONT' ? frontColor : face === 'SIDE' ? sideColor : backColor;
+    drawing.lineStyle(1, faceColor, lineAplha, 0);
+    drawing.beginFill(faceColor, lineAplha);
+
+    if (lastX !== null && lastY !== null) {
+      drawHexSegment(
+        drawing,
+        Math.round(lastX),
+        Math.round(lastY),
+        Math.round(x),
+        Math.round(y),
+        lineWidth,
+        lineOffset,
+      );
+    }
+    drawing.endFill();
+    lastX = x;
+    lastY = y;
+  };
+
+  doHexBodyShape(width, height, lineWidth > 1 ? f2 : f);
 }
 
 export function facingShape(drawing, width, height, frontColor, sideColor, backColor, fillAplha) {

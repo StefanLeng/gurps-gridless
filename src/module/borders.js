@@ -30,10 +30,22 @@ export function doborder(token) {
         token.border,
         token.document.flags[MODULE_ID]?.tokenWidth,
         token.document.flags[MODULE_ID]?.tokenLength,
+        outerWidth,
         innerWidth,
         frontColor,
         sideColor,
         backColor,
+        1,
+      );
+      hexBodyShape(
+        token.border,
+        token.document.flags[MODULE_ID]?.tokenWidth,
+        token.document.flags[MODULE_ID]?.tokenLength,
+        innerWidth,
+        0,
+        borderColor,
+        borderColor,
+        borderColor,
         1,
       );
     } else {
