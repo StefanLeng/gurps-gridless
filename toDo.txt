@@ -1,5 +1,3 @@
-doku
-inner Hex ring
-Hex facing indicator
-nicer hex darwing
+
+Hex range indicator
 consider module rename
