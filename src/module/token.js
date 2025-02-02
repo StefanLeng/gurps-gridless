@@ -56,12 +56,16 @@ function offAxisLength(length) {
 }
 /*
     When foundry messures of the main axis of a hex grid, then it aprocimate the hex shape as a rectagle and uses an inperfect formula for the length.
-    This leads to incorrect sscaling and will trow off our calculations and is visualy unappealing. So we need to correct the scaling.
+    This leads to incorrect scaling and will trow off our calculations and is visualy unappealing. So we need to correct the scaling.
     That happens with fit by height on hex rows or fit by width on hex columns.
 */
+function boxFitting(length) {
+  return (length / (length * 0.75 + 0.25)) * (Math.sqrt(3) / 2);
+}
+
 function calcRowScaleCorrection(length, fit) {
   if ((fit === 'height' && isHexRowGrid()) || (fit === 'width' && isHexColumnGrid())) {
-    return (length / (length * 0.75 + 0.25)) * (Math.sqrt(3) / 2);
+    return boxFitting(length);
   } else {
     return 1;
   }
@@ -146,7 +150,7 @@ export function makeTokenUpdates(
     offset = calcTokenHexOffset(
       width,
       length,
-      hexScaling,
+      hexScaling * (fit === 'width' ? (isHexColumnGrid() ? boxFitting(hexDim) : 1 / boxFitting(hexDim)) : 1), // I have no idea why this correction is needed, but it is ...
       hexDim,
       offsetY,
       offsetX,
