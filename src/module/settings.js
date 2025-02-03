@@ -4,6 +4,7 @@ import { MODULE_ID } from './constants.js';
 import { injectConfig } from './lib/injectConfig.js';
 import { defaultColors } from './constants.js';
 import { enableGURPSMovmentforAllScenes, disableGURPSMovmentforAllScenes } from './scene.js';
+import { setVisionAdjustment } from './vision.js';
 
 export class GURPSGridLess {
   constructor() {
@@ -164,6 +165,18 @@ export function registerSettings() {
     type: Boolean,
     onChange: onGURPSMovementEnabledChanged,
   });
+
+  game.settings.register(MODULE_ID, 'VisionAdjusmetEnabled', {
+    name: 'gurps-gridless.settings.VisionAdjusmetEnabled.name',
+    hint: 'gurps-gridless.settings.VisionAdjusmetEnabled.description',
+    scope: 'world',
+    config: true,
+    default: true,
+    type: Boolean,
+    onChange: setVisionAdjustment,
+  });
+
+  setVisionAdjustment(game.settings.get(MODULE_ID, 'VisionAdjusmetEnabled'));
 }
 
 export function injectTokenConfig(app, html) {
