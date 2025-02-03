@@ -23,9 +23,7 @@ For background information how all this works, see *[here](background.md)*.
 
 1. At the moment, the reach indicator shown on hex maps is the same than on gridless maps. The facing colors will not in all cases match up to the hex grid facings and the reach shown will not be a hex shape. I will try to do a proper hex reach indicator in a future version, but it is quite complicated. As the reach indicator is not as important on a hex grid than on gridless, I don't consider it a big limitation.
   
-2. The hex border has a bit ugly corners when zoomed in. The inner ring showing the token disposition is missing on hex grids. A nicer version that fixes this issues is in the works.
-
-3. There are some limitiations for tokens with locked rotation. See the token setup section for details.
+2. There are some limitiations for tokens with locked rotation. See the token setup section for details.
 
 Configuration:
 
