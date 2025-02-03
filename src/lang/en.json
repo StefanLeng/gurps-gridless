@@ -21,7 +21,7 @@
     "gurps-gridless.settings.VisionAdjustmetEnabled.name": "Adjust Vision",
     "gurps-gridless.settings.VisionAdjustmetEnabled.description": "Adjusts vision origin for multhex tokens so that the complete token is visible to itself.",
 
-    "gurps-gridless.tokenSettings.tab.name": "GURPS Gridless",
+    "gurps-gridless.tokenSettings.tab.name": "GURPS Token Shape",
     "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
 
     "gurps-gridless.tokenSettings.rotationOffsetY.name": "Lengthwise Offset",
@@ -38,5 +38,5 @@
     "gurps-gridless.tokenSettings.tokenLength.name": "Token length in grid units",
     "gurps-gridless.tokenSettings.tokenLength.note": "Will be rounded to full hexes on hex grids.",
     "gurps-gridless.tokenSettings.tokenScaling.name": "Token scaling",
-    "gurps-gridless.tokenSettings.explanation": "Note from Tools for Gridless GURPS: Some propertys have been removed her and can now set on the GURPS Gridless tab for GURPS token shapes and movmeent."
+    "gurps-gridless.tokenSettings.explanation": "Note from GURPS Token Shape and Movement: Some propertys have been removed her and can now set on the GURPS Token Shape tab for GURPS token shapes and movmeent."
 }

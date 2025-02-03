@@ -44,7 +44,7 @@ I usually set the number of pixels given for one DnD 5 feet square for 1 yard an
 
 #### With the _Enable GURPS tokens shapes and movement on Hex-Grids_ enabled (recommended)
 
-With this option, setting the token shape and scaling is moved the the _GURPS Gridless_ tab.
+With this option, setting the token shape and scaling is moved the the _GURPS Token Shape_ tab.
 
 Set the desiered token _width_, _length_ and _scaling_. On hex maps, the width and length will be rounded to full hexes. Note that for the width, an even number of hexes will give an wired shape. Use an odd number for symetrical tokens. Onn gridless maps, all values work and are used as is. 
 
