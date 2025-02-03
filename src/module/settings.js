@@ -166,9 +166,9 @@ export function registerSettings() {
     onChange: onGURPSMovementEnabledChanged,
   });
 
-  game.settings.register(MODULE_ID, 'VisionAdjusmetEnabled', {
-    name: 'gurps-gridless.settings.VisionAdjusmetEnabled.name',
-    hint: 'gurps-gridless.settings.VisionAdjusmetEnabled.description',
+  game.settings.register(MODULE_ID, 'VisionAdjustmetEnabled', {
+    name: 'gurps-gridless.settings.VisionAdjustmetEnabled.name',
+    hint: 'gurps-gridless.settings.VisionAdjustmetEnabled.description',
     scope: 'world',
     config: true,
     default: true,
@@ -176,12 +176,12 @@ export function registerSettings() {
     onChange: setVisionAdjustment,
   });
 
-  setVisionAdjustment(game.settings.get(MODULE_ID, 'VisionAdjusmetEnabled'));
+  setVisionAdjustment(game.settings.get(MODULE_ID, 'VisionAdjustmetEnabled'));
 }
 
 export function injectTokenConfig(app, html) {
   if (game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
-    html.addClass('gurp-gridless-activex');
+    html.addClass('gurp-gridless-active');
 
     injectConfig.inject(app, html, {
       inject: '.tab[data-tab="appearance"] file-picker[name="texture.src"]',

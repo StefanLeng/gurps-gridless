@@ -1,7 +1,7 @@
 {
   "id": "gurps-gridless",
-  "title": "Tools for gridless GURPS",
-  "description": "Helpers for gridless GURPS play with the GURPS Game Aid",
+  "title": "GURPS Token Shape and Movement (with Tools for Gridless GURPS)",
+  "description": "Multihex tokens with GRURPS Rules compatilbe movement and helpers for gridless GURPS play with the GURPS Game Aid",
   "authors": [
     {
       "name": "Stefan Leng",
@@ -47,7 +47,15 @@
         "type": "module",
         "manifest": "https://github.com/mclemente/about-face/releases/latest/download/module.json",
         "compatibility": {}
-      }
+      },
+      {
+        "id": "lib-wrapper",
+        "type": "module",
+        "compatibility": {
+            "minimum": "1.12.0.0",
+            "verified": "1.12.15.0"
+            }
+        }
     ],
     "conflicts": []
   },

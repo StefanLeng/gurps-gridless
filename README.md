@@ -1,6 +1,6 @@
-# gurps-gridless
+# GURPS Token Shape and Movement (with Tools for Gridless GURPS)
 
-This Module adds some Tools for gridless play to the GURPS Game Aid System. :
+This module enable GURPS compatible shapes and movment for larger (multi hex) tokens and adds some Tools for gridless play to the GURPS Game Aid System. It was formerly named "Tools for Gridless GURPS" but the functionalty expanded to hex shapes an movemnt on hex grid maps:
 
 1. Replaces the border shown on the selected token and on mouse hover on a token with a border indicating facing.
 
@@ -26,8 +26,6 @@ For background information how all this works, see *[here](background.md)*.
 2. The hex border has a bit ugly corners when zoomed in. The inner ring showing the token disposition is missing on hex grids. A nicer version that fixes this issues is in the works.
 
 3. There are some limitiations for tokens with locked rotation. See the token setup section for details.
-
-4. When using the Elevation Ruler module and multi hex tokens, movement may not initiate if you to drag the token far from the center of rotation (Defaults to the center front hex with this module). Elevation Ruler will not initiate movement if the point selected is not inseide the unrotated shape of the token. This can be the case when selecting away from the center of rotation, espcecial for elogated tokens.
 
 Configuration:
 

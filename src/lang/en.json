@@ -18,6 +18,8 @@
     "gurps-gridless.settings.facingAlpha.description": "Opacity of the facing areas in the reach indicator.",
     "gurps-gridless.settings.GURPSMovmentEnabled.name": "Enable GURPS tokens shapes and movement on Hex-Grids",
     "gurps-gridless.settings.GURPSMovmentEnabled.description": "Enable GURPS specific movement and hex shapes on hex-Grids. WARNINNG: This will change token settings on all scenes in this world. Disabeling this option will revert the changes. Please disabel the setting befor removing this module, otherwise the changes will persist.",
+    "gurps-gridless.settings.VisionAdjustmetEnabled.name": "Adjust Vision",
+    "gurps-gridless.settings.VisionAdjustmetEnabled.description": "Adjusts vision origin for multhex tokens so that the complete token is visible to itself.",
 
     "gurps-gridless.tokenSettings.tab.name": "GURPS Gridless",
     "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
