@@ -24,7 +24,7 @@ function doHexLongBodyShape(width, height, f) {
   const wHalf = w / 2;
   const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
   let y = height;
-  let posX = width % 2 === 1 ? wHalf : isHexRowGrid() ? w + wHalf : w + wHalf / Math.sqrt(3);
+  let posX = wHalf;
   let down = false;
   let face = 'FRONT';
   f(posX, h * y, face);
@@ -92,7 +92,7 @@ function doHexWideBodyShape(width, height, f) {
   const wHalf = w / 2;
   const h = (isHexRowGrid() ? canvas.grid.sizeX : canvas.grid.sizeY) / 2;
   let x = 0;
-  let posX = x * w + (width % 2 === 1 ? wHalf : isHexRowGrid() ? -wHalf : -wHalf / Math.sqrt(3));
+  let posX = wHalf;
   let dir = 0;
   let y = height;
   let face = 'FRONT';
@@ -279,7 +279,7 @@ export function bodyShape(drawing, width, height, lineWidth, frontColor, sideCol
 function drawHexSegment(drawing, startX, startY, endX, endY, width, offset) {
   let points = [];
 
-  //half the amount a hex edege get lengther when translated 1 outward
+  //half the amount a hex edege get longer when translated 1 outward
   const fact = 1 / Math.sqrt(3);
 
   //direction vector

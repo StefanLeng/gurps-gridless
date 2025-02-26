@@ -47,24 +47,42 @@ function calcTokenHexScale(width, length, scaling, fit) {
   return (scaling * l) / dim;
 }
 
-function offAxisLength(length) {
-  if (isHexRowGrid()) {
-    return length * (3 / 8) * Math.sqrt(3) + length / 8;
-  } else {
-    return length * (1 / 8) * Math.sqrt(3) + length * (6 / 8);
-  }
-}
 /*
-    When foundry messures of the main axis of a hex grid, then it aprocimate the hex shape as a rectagle and uses an inperfect formula for the length.
-    This leads to incorrect scaling and will trow off our calculations and is visualy unappealing. So we need to correct the scaling.
-    That happens with fit by height on hex rows or fit by width on hex columns.
+    factor (distance of an edge center to the hex center) / (distance of a corner to the hex center)
+    note: the distance of a corner to the hex center is the same as an edge lengh
 */
-function boxFitting(length) {
-  return (length / (length * 0.75 + 0.25)) * (Math.sqrt(3) / 2);
+const edgeFactor = Math.sqrt(3) / 2;
+
+/*
+    distance of hex centers ortogonal to the main hex direction in grid units as mesured in the main hex direction
+    hexes is the distance in hexes
+    The factor 0.75 is becus the hex Rows/colums overlap by 25%
+*/
+function hexCenterToHexCenterOnMinorAxis(hexes) {
+  return (hexes * 0.75) / edgeFactor;
 }
 
-function calcRowScaleCorrection(length, fit) {
-  if ((fit === 'height' && isHexRowGrid()) || (fit === 'width' && isHexColumnGrid())) {
+/*
+    width of the boundin box ortogonal to the main hex direction in grid units as mesured in the main hex direction.
+    the additional + 0.25 to the previous formula is because the bounding box inclued the overlaping part on boht edges.
+*/
+function hexBoundingBoxOnMinorAxis(dist) {
+  return (dist * 0.75 + 0.25) / edgeFactor;
+}
+
+/*
+   This calculate the factor of the lenght af a dim x dim token to its width, when the length is along a hex main direction
+   The  dim * 0.7 + 0.25 term is because the hex columns overlap partly, the Math.sqrt(3) / 2 accounts for the different distances for an hex corner or a hex edge from the hex center
+*/
+function boxFitting(dim) {
+  return dim / hexBoundingBoxOnMinorAxis(dim);
+}
+
+/*
+  Because on hex rows the token length is ortogonal to the hex main axis in token space, weh have to correct for the boxFitting on hexRows
+*/
+function calcRowScaleCorrection(length) {
+  if (isHexRowGrid()) {
     return boxFitting(length);
   } else {
     return 1;
@@ -81,8 +99,7 @@ function calcOffsetFromCenter(ln, s, hOffset) {
 
 /*
     Offest the token so that the middle front hex is on the center of rotation.
-    Note that in token space, the front is always down.
-    We hafe to take the scale into account, because foundry will scale from the offset and we need to corrcet for that.
+    We have to take the scale into account, because foundry will scale from the offset and we need to corrcet for that.
 */
 function calcTokenHexOffset(
   width,
@@ -95,22 +112,22 @@ function calcTokenHexOffset(
   imageOffsetX,
   lookedRotation,
 ) {
-  const roundedWidth = Math.round(width);
   const roundedLength = Math.round(length);
   const roundedOffsetY = Math.round(offsetY ?? 0);
   const roundedOffsetX = Math.round(offsetX ?? 0);
-  //set the rotation center a half hex from the front (For odd length)
+  //set the rotation center a half hex from the front (if the explicit offset is 0)
   const hOffset = Math.max(hexDim - roundedLength, 0) * 0.5 + 0.5 - roundedOffsetY;
-  //set the rotation center a half hex to the side of the center for even width
-  const wOffset =
-    offAxisLength(roundedOffsetX) + (roundedWidth % 2 === 0 ? (roundedWidth <= roundedLength ? 0.5 : -0.5) : 0);
+
+  //Because the widht is ortogonal to the hex main axis, we have to correct both the bounding bos and the distance
+  const wDim = hexBoundingBoxOnMinorAxis(hexDim);
+  const wOffset = hexCenterToHexCenterOnMinorAxis(roundedOffsetX);
 
   return {
-    x: calcOffsetFromCenter(hexDim, scaling, wOffset),
+    x: calcOffsetFromCenter(wDim, scaling, wOffset),
     y: calcOffsetFromFront(hexDim, scaling, hOffset),
     ix: lookedRotation
-      ? calcOffsetFromCenter(hexDim, scaling, imageOffsetX)
-      : calcOffsetFromCenter(hexDim, scaling, wOffset + imageOffsetX),
+      ? calcOffsetFromCenter(wDim, scaling, imageOffsetX * (3 / 2))
+      : calcOffsetFromCenter(wDim, scaling, wOffset + imageOffsetX * (3 / 2)),
     iy: lookedRotation
       ? calcOffsetFromCenter(hexDim, scaling, imageOffsetY)
       : calcOffsetFromFront(hexDim, scaling, hOffset + imageOffsetY),
@@ -150,7 +167,7 @@ export function makeTokenUpdates(
     offset = calcTokenHexOffset(
       width,
       length,
-      hexScaling * (fit === 'width' ? (isHexColumnGrid() ? boxFitting(hexDim) : 1 / boxFitting(hexDim)) : 1), // I have no idea why this correction is needed, but it is ...
+      hexScaling,
       hexDim,
       offsetY,
       offsetX,
@@ -163,8 +180,8 @@ export function makeTokenUpdates(
       height: hexDim,
       width: hexDim,
       texture: {
-        scaleX: hexScaling * calcRowScaleCorrection(hexDim, fit),
-        scaleY: hexScaling * calcRowScaleCorrection(hexDim, fit),
+        scaleX: hexScaling / calcRowScaleCorrection(hexDim),
+        scaleY: hexScaling * calcRowScaleCorrection(hexDim),
         anchorY: offset.iy,
         anchorX: offset.ix,
       },
