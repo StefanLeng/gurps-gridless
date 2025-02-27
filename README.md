@@ -96,6 +96,35 @@ Long 2 x 3 hex creature: Width: 2, Height: 3, Anchor X: 0.5, Anchor Y: 0.83, If 
 
 Long three hex creatures with an image scaling of 1.5: Width: 1, Height: 3, Anchor X: 0.5, Anchor Y: 0.72, If using a square image, Image Fit Mode: Full Height.
 
+### API
+
+If you want to set the token dimenions, scale and offset from a macro or from another module, youn need to set them through this module if it is active. Changes to the normal token attributes will have no effect, because they will be  overwriten by the module.
+
+You can get the api with this call:
+
+const gurpsGridlessApi = game.modules.get('gurps-gridless')?.api;
+
+The api has the following functions:
+
+async function setTokenDimensions(tokenDokument, length, width)
+
+async function setTokenOffsetX(tokenDokument, offset) 
+
+async function setTokenOffsetY(tokenDokument, offset)
+
+async function setTokenScale(tokenDokument, scale) 
+
+async function setTokenImageOffsetX(tokenDokument, offset) 
+
+async function setTokenImageOffsetY(tokenDokument, offset) 
+
+If you are doing a module and need to accses the api during startup, you can do so savely in the hook 'gurpsGridlessReady'. For convinience, the api is given as the hook argument:
+
+// if I need to do something as soon as the gurps-gridless is ready
+Hooks.on('gurpsGridlessReady', (api) => {
+  // do what I need with the api
+});
+
 ### Legal
 
 The material presented here is my original creation, intended for use with the [GURPS](http://www.sjgames.com/gurps) system from [Steve Jackson Games](ttp://www.sjgames.com). This material is not official and is not endorsed by Steve Jackson Games.

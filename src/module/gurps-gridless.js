@@ -5,6 +5,7 @@ import { drawHitArea } from './hitArea.js';
 import { setTokenDimensionsonUpdate, setTokenDimesionsOnCreate, setTokenDimensions } from './token.js';
 import { updateSceneTokens } from './scene.js';
 import { MODULE_ID } from './constants.js';
+import { gurpsGridlessAPI } from './api.js';
 
 const version = '0.7.0';
 
@@ -15,6 +16,10 @@ Hooks.once('init', async () => {
   game.gurpsGridLess = new GURPSGridLess();
 
   registerSettings();
+
+  game.modules.get(MODULE_ID).api = gurpsGridlessAPI;
+
+  Hooks.callAll('gurpsGridlessReady', game.modules.get(MODULE_ID).api);
 });
 
 Hooks.once('ready', async () => {
