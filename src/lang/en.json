@@ -34,9 +34,9 @@
     "gurps-gridless.tokenSettings.imageOffsetX.note": "Shifts the token image right on positive values and left on negative values relative to the token border",
 
     "gurps-gridless.tokenSettings.tokenWidth.name": "Token width in grid units",
-    "gurps-gridless.tokenSettings.tokenWidth.note": "Will be rounded to full hexes on hex grids.",
+    "gurps-gridless.tokenSettings.tokenWidth.note": "Will be rounded to full hexes on hex grids. Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids.",
     "gurps-gridless.tokenSettings.tokenLength.name": "Token length in grid units",
-    "gurps-gridless.tokenSettings.tokenLength.note": "Will be rounded to full hexes on hex grids.",
+    "gurps-gridless.tokenSettings.tokenLength.note": "Will be rounded to full hexes on hex grids.  Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids.",
     "gurps-gridless.tokenSettings.tokenScaling.name": "Token scaling",
     "gurps-gridless.tokenSettings.explanation": "Note from GURPS Token Shape and Movement: Some propertys have been removed her and can now set on the GURPS Token Shape tab for GURPS token shapes and movmeent."
 }

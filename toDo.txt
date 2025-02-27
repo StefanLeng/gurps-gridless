@@ -1,5 +1,3 @@
-fix image scaling
-warn on n*1 tokens
 build API
 fix position on dimension change
 Hex range indicator
