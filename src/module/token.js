@@ -81,9 +81,16 @@ function boxFitting(dim) {
 /*
   Because on hex rows the token length is ortogonal to the hex main axis in token space, weh have to correct for the boxFitting on hexRows
 */
-function calcRowScaleCorrection(length) {
+function rowScaleCorrection(dim) {
   if (isHexRowGrid()) {
-    return boxFitting(length);
+    return boxFitting(dim);
+  } else {
+    return 1;
+  }
+}
+function imageScaleCorrection(dim, fit) {
+  if ((isHexRowGrid() && fit === 'width') || (isHexColumnGrid() && fit === 'height')) {
+    return 1 / boxFitting(dim);
   } else {
     return 1;
   }
@@ -123,8 +130,8 @@ function calcTokenHexOffset(
   const wOffset = hexCenterToHexCenterOnMinorAxis(roundedOffsetX);
 
   return {
-    x: calcOffsetFromCenter(wDim, scaling, wOffset),
-    y: calcOffsetFromFront(hexDim, scaling, hOffset),
+    x: calcOffsetFromCenter(wDim, rowScaleCorrection(hexDim), wOffset),
+    y: calcOffsetFromFront(hexDim, 1 / rowScaleCorrection(hexDim), hOffset),
     ix: lookedRotation
       ? calcOffsetFromCenter(wDim, scaling, imageOffsetX * (3 / 2))
       : calcOffsetFromCenter(wDim, scaling, wOffset + imageOffsetX * (3 / 2)),
@@ -137,8 +144,8 @@ function calcTokenHexOffset(
 function calcTokenOffset(width, length, scaling, offsetY, offsetX, imageOffsetY, imageOffsetX, lookedRotation) {
   const hOffset = Math.min(0.5, length / 2) - (offsetY ?? 0);
   return {
-    x: calcOffsetFromCenter(width, scaling, offsetX ?? 0),
-    y: calcOffsetFromFront(length, scaling, hOffset),
+    x: calcOffsetFromCenter(width, 1, offsetX ?? 0),
+    y: calcOffsetFromFront(length, 1, hOffset),
     ix: lookedRotation
       ? calcOffsetFromCenter(width, scaling, imageOffsetX)
       : calcOffsetFromCenter(width, scaling, (offsetX ?? 0) + imageOffsetX),
@@ -180,8 +187,8 @@ export function makeTokenUpdates(
       height: hexDim,
       width: hexDim,
       texture: {
-        scaleX: hexScaling / calcRowScaleCorrection(hexDim),
-        scaleY: hexScaling * calcRowScaleCorrection(hexDim),
+        scaleX: hexScaling * imageScaleCorrection(hexDim, fit),
+        scaleY: hexScaling * imageScaleCorrection(hexDim, fit),
         anchorY: offset.iy,
         anchorX: offset.ix,
       },

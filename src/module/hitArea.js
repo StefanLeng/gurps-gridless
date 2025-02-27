@@ -32,7 +32,6 @@ export function drawHitArea(token) {
     isHexGrid() && game.settings.get(MODULE_ID, 'GURPSMovementEnabled') ? hexHitArea(token) : rectangelHitArea(token);
 
   const { w: width, h: height } = token;
-  const { scaleY, scaleX } = token.document.texture;
   let anchorX, anchorY;
   if (token.document.gurpsGridless) {
     ({ anchorX, anchorY } = token.document.gurpsGridless);
@@ -43,7 +42,7 @@ export function drawHitArea(token) {
   const tokenDirection = (tokenDirectionDegree / 180) * Math.PI;
 
   var mat = new PIXI.Matrix(); //eslint-disable-line no-undef
-  mat.translate(-width * (0.5 + (anchorX - 0.5) * scaleX), -height * (0.5 + (anchorY - 0.5) * scaleY));
+  mat.translate(-width * (0.5 + (anchorX - 0.5)), -height * (0.5 + (anchorY - 0.5)));
   mat.rotate(tokenDirection);
   mat.translate(width * 0.5, height * 0.5);
 

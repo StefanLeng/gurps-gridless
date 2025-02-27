@@ -7,7 +7,6 @@ export function doborder(token) {
   const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
   const { w: width, h: height } = token;
-  const { scaleY, scaleX } = token.document.texture;
   let anchorX, anchorY;
   if (token.document.gurpsGridless) {
     ({ anchorX, anchorY } = token.document.gurpsGridless);
@@ -63,7 +62,7 @@ export function doborder(token) {
     }
   }
 
-  token.border.pivot.y = height * (anchorY - 0.5) * scaleY;
-  token.border.pivot.x = width * (anchorX - 0.5) * scaleX;
+  token.border.pivot.y = height * (anchorY - 0.5);
+  token.border.pivot.x = width * (anchorX - 0.5);
   token.border.angle = getDirection(token);
 }
