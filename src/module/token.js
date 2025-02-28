@@ -278,7 +278,7 @@ export function setTokenDimensions(tokenDocument) {
   tokenDocument.update(newChanges);
 }
 
-export function setTokenDimensionsonUpdate(tokenDocument, changes) {
+export function setTokenDimensionsonUpdate(tokenDocument, changes, options) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
 
   const width =
@@ -320,6 +320,10 @@ export function setTokenDimensionsonUpdate(tokenDocument, changes) {
   );
 
   foundry.utils.mergeObject(changes, newChanges);
+
+  if (width !== oldWidth || length !== oldLength) {
+    options.animate = false;
+  }
 }
 
 export function setTokenDimesionsOnCreate(tokenDocument, data) {

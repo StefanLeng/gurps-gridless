@@ -120,10 +120,35 @@ async function setTokenImageOffsetY(tokenDokument, offset)
 
 If you are doing a module and need to accses the api during startup, you can do so savely in the hook 'gurpsGridlessReady'. For convinience, the api is given as the hook argument:
 
+```
 // if I need to do something as soon as the gurps-gridless is ready
 Hooks.on('gurpsGridlessReady', (api) => {
   // do what I need with the api
 });
+```
+
+Excample macro to set an alternat image and adjust token size and scaling:
+
+```
+tokens = canvas.tokens.controlled;
+
+if (tokens.length > 0){
+	tokens.forEach(layDown);
+} else {
+	ui.notifications.warn("No Tokens were selected");
+}
+
+async function layDown(token){
+
+updates = [{_id: token.id, texture: {src: 'tokens/FAsync/FA_Tokens_Webp/NPCs/Townsfolk_03/Desert_Guard_Corpse_Orange_A_1x2.webp'}}];
+
+canvas.scene.updateEmbeddedDocuments("Token",updates);
+
+await game.modules.get('gurps-gridless').api.setTokenScale(token.document,1.4);
+}
+
+await game.modules.get('gurps-gridless').api.setTokenDimensions(token.document,2,1);
+```
 
 ### Legal
 

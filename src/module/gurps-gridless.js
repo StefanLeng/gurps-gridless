@@ -42,8 +42,8 @@ Hooks.on('refreshToken', (token) => {
   doborder(token);
 });
 
-Hooks.on('preUpdateToken', (d, c) => {
-  setTokenDimensionsonUpdate(d, c);
+Hooks.on('preUpdateToken', (d, c, o) => {
+  setTokenDimensionsonUpdate(d, c, o);
   game.gurpsGridLess.showRangeIndicator = false;
   game.gurpsGridLess.showRangeIndicatorAll = false;
   drawEachReachIndicator();
