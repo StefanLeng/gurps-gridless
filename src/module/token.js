@@ -165,6 +165,10 @@ export function makeTokenUpdates(
   offsetX,
   imageOffsetY,
   imageOffsetX,
+  oldWidth,
+  oldLength,
+  oldX,
+  oldY,
 ) {
   let changes = {};
   let offset;
@@ -193,6 +197,22 @@ export function makeTokenUpdates(
         anchorX: offset.ix,
       },
     };
+
+    const oldDim = calcTokenHexDim(oldWidth, oldLength);
+    if (oldWidth && oldDim !== hexDim) {
+      const diff = hexDim - oldDim;
+      const { changeX, changeY } = isHexColumnGrid()
+        ? {
+            changeX: hexCenterToHexCenterOnMinorAxis(diff) * canvas.grid.sizeY * 0.5,
+            changeY: diff * canvas.grid.sizeY * 0.5,
+          }
+        : {
+            changeX: diff * canvas.grid.sizeX * 0.5,
+            changeY: hexCenterToHexCenterOnMinorAxis(diff) * canvas.grid.sizeX * 0.5,
+          };
+      changes.x = Math.round(oldX - changeX);
+      changes.y = Math.round(oldY - changeY);
+    }
   } else {
     offset = calcTokenOffset(
       width,
@@ -215,6 +235,12 @@ export function makeTokenUpdates(
         anchorX: offset.ix,
       },
     };
+    if (oldWidth && oldWidth !== width) {
+      changes.x = Math.round(oldX - (width - oldWidth) * canvas.grid.sizeX * 0.5);
+    }
+    if (oldLength && oldLength !== length) {
+      changes.y = Math.round(oldY - (length - oldLength) * canvas.grid.sizeY * 0.5);
+    }
   }
 
   tokenDocument.gurpsGridless = {
@@ -272,6 +298,11 @@ export function setTokenDimensionsonUpdate(tokenDocument, changes) {
     changes?.flags?.[MODULE_ID]?.tokenImageOffsetX ?? tokenDocument.flags[MODULE_ID]?.tokenImageOffsetX ?? 0;
   const fit = scalingsDim(width, length, changes?.texture?.fit ?? tokenDocument.texture?.fit ?? 'height');
 
+  const oldLength = tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height;
+  const oldWidth = tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
+  const oldY = changes?.y ?? tokenDocument.y;
+  const oldX = changes?.x ?? tokenDocument.x;
+
   const newChanges = makeTokenUpdates(
     width,
     length,
@@ -282,6 +313,10 @@ export function setTokenDimensionsonUpdate(tokenDocument, changes) {
     offsetX,
     imageOffsetY,
     imageOffsetX,
+    oldWidth,
+    oldLength,
+    oldX,
+    oldY,
   );
 
   foundry.utils.mergeObject(changes, newChanges);
