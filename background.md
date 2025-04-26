@@ -1,46 +1,49 @@
-# Background: GURPS Multihex Creatures, Movement and Foundry VTT
+# Background: GURPS Multi-Hex Creatures, Movement, and Foundry VTT
 
-This document discribes my approch to GURPS multi-hex creatures in foundry. It is as much for my own documentation as for anything else.
+This document describes my approach to handling GURPS multi-hex creatures in Foundry VTT. It serves both as a reference for users and as personal documentation. Therfore some of it is very technical. 
 
-### GURPS movement for multi hex creatures
+## GURPS Movement for Multi-Hex Creatures
 
-The rules for multi-hex creatures and there movement in tactical combat are very brief, just half a page in the Basic Set. They are very general and don't cover the specifics for many token shapes. Most important, there are no examples or explanations for creatures that are wider than long. I did my best to extrapolate from the rules for situations not coverd.
+The GURPS Basic Set covers movement for multi-hex creatures in tactical combat in **just half a page**, providing only **general** rules. There are no examples or specific guidance for creatures **wider than they are long**. To address these gaps, I extrapolated reasonable solutions based on existing rules.
 
-What the rules do state, is that the creatures should not move and rotate around its corner, but around center of the hex at the head of the creature, usually the center front hex. This hex moves as normal and the rest of the body follows. 
+### **Core GURPS Rules for Multi-Hex Movement:**
+- A multi-hex creature **moves and rotates around the center of the hex at its head** (typically, the center front hex).
+- This front hex moves **normally**, and the rest of the body follows.
+- The **front of the token must always face a hex edge**.
 
-The front of the token always should face a hex eedge.
+## Foundry’s Default Behavior (As of Version 12)
 
-### What foundry does nativly
+Foundry’s native handling of hex maps does not fully align with GURPS rules:
 
-On hex maps, foundry ( as of V12) bases the movement on the center of the token shape. On hex columns, if the heigth of the token is an odd number of hexes, it snaps to an hex center, if it is an even number it snaps to an hex edge. On hex rows, the same is true for the width of the token. 
+### **Grid Snapping Issues**
+- Foundry **bases movement on the token’s center** rather than the designated front hex.
+- On **hex-column grids**, if a token’s **height** is an odd number of hexes, it snaps to a hex center; if even, it snaps to a hex edge.
+- On **hex-row grids**, the same behavior applies to the **token’s width**.
+- The initial orientationis always facing down. In this orientation, there is no hex shape fitting to the grid for long tokens on hex rows and for wide tokens on hex rows. In this cases, foundry falls back to a rectagle shape, totally taking the center and the scaling off the grid.
 
-Furthermore, in foundry the initial orientation (with rotation 0) of a toke is always facing down. In this orientation, there is no hex shape fitting to the grid for long tokens on hex rows and for wide tokens on hex rows. In this cases, foundry falls back to a rectagle shape, totally taking the center and the scaling off the grid.
-
-As for rotation, foundry only rotates the token image. The border based on the shape of the token and the hit box always remain in the initial orientation. This only works ok for tokens with the same height and width that rotate around thier center. In all other cases, ther is misalingment between the border / hit box and the token image.
+### **Rotation**
+- Fondry only rotates the token image, not the border and the hit area. This will result in misalingment, excpecialy for elongated tokens and tokens rotation around a point not at there center.
 
 The About Face module in the current version will make sure the token orientation snaps to face a hex edge, so we are covered on that front.
 
-### What we need 
+## My Solution
 
-For correct GURPS movement we need tokens that rotate around the center of their front hex and always snap the center of this hex to an grid hex center. And it should do this both on hex columns an on hex grids.
+The approach I implemented involves:
 
-### What can we do and what not
+1. **Custom Controls for Token Dimensions and Scaling**
+   - Foundry’s default token settings are **hidden**.
+   - Users input token **width, length, and scale** into custom properties.
+   - These values are stored as module-specific **flags**, and the Foundry settings are calculated from them.
 
-As far as I can tell, we can not change the grid snapping mechanisem without overwriting core foundry code, I like to avoid that.
+2. **Adjusting Foundry’s Snapping Behavior**
+   - To ensure proper snapping across **hex-column and hex-row grids**, the **height and length** must be **equal** and **an odd number of hexes**.
+   - The module **sets token dimensions** to the larger of the user-provided height/length (rounding up to the nearest odd number if necessary).
 
-We can set the dimensions of the token. We also can set the center of rotation.
+3. Adjust the **scaling of the token image**  for the changed token dimensions.  
 
-It is also possible to draw the token border and overwite the hit box in any shape we want. The hit box dosn't have to be a box, any polygon is possible. Or maybe only every convex polygon, but that is all we need to shape it to the hex shape.
+4. **Move the anchor of the token image** so that the point half a hex from the front of the image falls on the center of the modified token. 
+   - For tokens with a **even width** I move the anchor half a hex to the left, so that it falls on a hex center.
 
-### My solution
+5. Draw the **border and the hit area** at the position whre the token should be based on the center of rotation and the scaling and **rotate** them to the direction provided by About Face.
 
-The basic idea is to set the dimension, offset and scaling of the token so that foundry does the correct movement and then draw the border and the hit area to the "real" dimensions and orientation.
-
-So I created my own controls for the dimensions, scale and center offset and hid the foundry controls. The user set dimensions will be saved in new properties ("flags") and the foundry values will be calculated from them.
-
-To get the desiered movement on both hex columns and rows, we need the foundry height and length to be the same and an odd number of hexes. So I set them to the higher of the user provided heigth and length, +1 if even. 
-I then set the anchorY half a hex from the front (modified by the user provided offset). For tokens with an even number of hexes as width (these are wired, because they need to be non symetrical by the GURPS rules), I set the anchorY half a hex to the left. That makes sure that the center of rotation always falls on a hex center in the token shape. Because the center of rotation will always snap the a hex center on the grid in this configuration, the hexes of the token shape and the grid will always match up.
-
-Because foundry bases the scaling of the token image on the dimensions of the token and a scaling factor, I also need the adjust the scaling factor for the changed token dimensions. For these cases when foundry falls back to a box shape, an extra scaling corretion is needed.
-
-Then I draw the token border and the token hit box according to the user provided dimensions scaling and offset and rotate them in the direction provided by About Face.
+So the Foundry token dimesions are set so that there **center of the Token always falls on a hex center**. This is used as the center of movement and rotation by Foundry. Then the **token image, border and hit area** are drawn so that the desierd **center of rotation (usually the head) is movend to the token center**. Note that in some cases that leads to part of the token hit area being outside of the token bounding box. But all targeting functionalities use only the hit area, so this is no problem.  
