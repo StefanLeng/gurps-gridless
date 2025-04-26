@@ -38,7 +38,7 @@ export function doborder(token) {
       token.document.flags[MODULE_ID]?.tokenWidth,
       token.document.flags[MODULE_ID]?.tokenLength,
       outerWidth,
-      innerWidth,
+      0,
       frontColor,
       sideColor,
       backColor,
@@ -49,7 +49,7 @@ export function doborder(token) {
       token.document.flags[MODULE_ID]?.tokenWidth,
       token.document.flags[MODULE_ID]?.tokenLength,
       innerWidth,
-      0,
+      -innerWidth,
       borderColor,
       borderColor,
       borderColor,
@@ -75,4 +75,9 @@ export function doborder(token) {
   token.GURPSGridlesOuterBorder.pivot.y = height * (anchorY - 0.5);
   token.GURPSGridlesOuterBorder.pivot.x = width * (anchorX - 0.5);
   token.GURPSGridlesOuterBorder.angle = getDirection(token);
+  token.GURPSGridlesOuterBorder.visible = game.settings.get(MODULE_ID, 'alwaysShowOuterBorder') || token.border.visible;
+}
+
+export function doEachBorder() {
+  canvas.tokens.objects.children.forEach(doborder);
 }

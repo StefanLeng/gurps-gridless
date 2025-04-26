@@ -28,7 +28,7 @@ Hooks.once('ready', async () => {
     foundry.applications.api.DialogV2.prompt({
       window: { title: 'New Version: Tools for Gridless GURPS' },
       content:
-        '<p>Version 0.7.0 of Tools for Gridless GURPS</p><p>Hex Borders on hex grids with proper GURPS movement for multi hex tokens.</p><p>The new features need do be activated in the settings, because theyx will alter token behavior and setup in alle scenes.</p>',
+        '<p>Version 0.7.0 of Tools for Gridless GURPS</p><p>Hex Borders on hex grids with proper GURPS movement for multi hex tokens.</p><p>The new features need do be activated in the settings, because they will alter token behavior and setup in alle scenes.</p>',
       modal: true,
     });
     game.settings.set(MODULE_ID, 'version', version);
@@ -52,7 +52,6 @@ Hooks.on('preUpdateToken', (d, c, o) => {
 Hooks.on('drawToken', (token) => {
   setTokenDimensions(token.document);
   drawHitArea(token);
-  doborder(token);
 });
 
 Hooks.on('updateToken', (tokenDokument) => {

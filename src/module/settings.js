@@ -5,6 +5,7 @@ import { injectConfig } from './lib/injectConfig.js';
 import { defaultColors } from './constants.js';
 import { enableGURPSMovmentforAllScenes, disableGURPSMovmentforAllScenes } from './scene.js';
 import { setVisionAdjustment } from './vision.js';
+import { doEachBorder } from './borders.js';
 
 export class GURPSGridLess {
   constructor() {
@@ -154,6 +155,16 @@ export function registerSettings() {
       max: 20.0,
       step: 1.0,
     },
+  });
+
+  game.settings.register(MODULE_ID, 'alwaysShowOuterBorder', {
+    name: 'gurps-gridless.settings.alwaysShowOuterBorder.name',
+    hint: 'gurps-gridless.settings.alwaysShowOuterBorder.description',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: doEachBorder,
   });
 
   game.settings.register(MODULE_ID, 'GURPSMovementEnabled', {
