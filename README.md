@@ -65,15 +65,15 @@ For elogated tokens, I recommend not locking rotation, even for portrait style t
 
 - If you use **portrait style tokens** just set the dimension of the Token on the Appearance tab and "Look rotation" on the Identity tab. Note that this will give somtimes odd results for elongated tokens.
 
-For rotating **top down style tokens** set the dimension of the Token on the Appearance tab. 
-If the token image has the same aspect ratio as the token, use the Image Fit Mode "Contain".
-If the token image is square, use the image fit mode "Full Height" for long tokens and "Full Width" for wide tokens.
-I don't think any different aspect ratio will work.
+- For rotating **top down style tokens** set the dimension of the Token on the Appearance tab. 
+  If the token image has the same aspect ratio as the token, use the Image Fit Mode "Contain".  
+  If the token image is square, use the image fit mode "Full Height" for long tokens and "Full Width" for wide tokens.
+  I don't think any different aspect ratio will work.
 
-For multi hex tokens adjust the Anchor settings to move center of rotation to the head of the creature, if nessesary.
-To move the the center of rotation to center of the first hex of a token of lenght X (in hexes), set the Anchor Y to <br/>1 - 0.5 / x
+- For multi hex tokens adjust the Anchor settings to move center of rotation to the head of the creature, if nessesary.
+  To move the the center of rotation to center of the first hex of a token of lenght X (in hexes), set the Anchor Y to <br/>1 - 0.5 / x
 
-If you have to scale your token image, this will be interfer with the translation, because the anchor is used as the center of scaling. In this case, the formular will become <br/>(0.5 - 0.5 / x) / scale + 0.5
+- If you have to scale your token image, this will be interfer with the translation, because the anchor is used as the center of scaling. In this case, the formular will become <br/>(0.5 - 0.5 / x) / scale + 0.5
 
 **Examples**:
 
