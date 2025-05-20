@@ -191,7 +191,7 @@ export function registerSettings() {
 }
 
 export function injectTokenConfig(app, html) {
-  let jhtml = $(html);
+  let jhtml = $(html); //eslint-disable-line no-undef
   if (game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
     jhtml.addClass('gurp-gridless-active');
 
