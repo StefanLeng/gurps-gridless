@@ -9,7 +9,7 @@ export var injectConfig = {
     inject: function injectConfig(app,html,data,object){
         this._generateTabStruct(app,html,data,object);
         const tabSize = data.tab?.width ?? 100;
-        object = object || app.object;
+        object = object || app.document;
         const moduleId = data.moduleId;
         let injectPoint
         if(typeof data.inject === "string"){
@@ -24,7 +24,7 @@ export var injectConfig = {
             const elemData = data[k];
             const flag = "flags." + moduleId + "." + (k || "");
             const flagValue = object?.getFlag(moduleId, k) ?? elemData.default ?? getDefaultFlag(k);
-            const notes = v.notes ? `<p class="notes">${v.notes}</p>` : "";
+            const notes = v.notes ? `<p class="hint">${v.notes}</p>` : "";
             v.label = v.units ? v.label+`<span class="units"> (${v.units})</span>` : v.label;
             switch(elemData.type){
                 case "text":
@@ -97,21 +97,22 @@ export var injectConfig = {
         if(data.tab){
             const injectTab = createTab(data.tab.name, data.tab.label, data.tab.icon).append(injectHtml);
             injectPoint.after(injectTab);
-            app?.setPosition({"height" : "auto", "width" : data.tab ? app.options.width + tabSize : "auto"});
             return injectHtml;
         }
         injectPoint.after(injectHtml);
-        if(app)app?.setPosition({"height" : "auto", "width" : data.tab ? app.options.width + tabSize : null});
         return injectHtml;
 
         function createTab(name,label,icon){
             
             /*let tabs = html.find(".sheet-tabs").last();
             if(!tabs.length) tabs = html.find(`nav[data-group="main"]`);*/
-            const tabs = html.find(".sheet-tabs").first().find(".item").last();
-            const tab = `<a class="item" data-tab="${name}"><i class="${icon}"></i> ${label}</a>`
+            const tabs = html.find(".sheet-tabs").first().find("a").last();
+            const active = app.tabGroups?.sheet === name;
+            const tab = `<a data-action="tab" data-group="sheet" data-tab="${name}" class="${active ? ' active' : ''}"><i class="${icon}"></i> ${label}</a>`
             tabs.after(tab);
-            const tabContainer = `<div class="tab" data-tab="${name}"></div>`
+            const allreadyAdded = html.find(`div.tab[data-group="sheet"][data-tab="${name}"]`).length
+            if (allreadyAdded) {return $('')}
+            const tabContainer = `<div class="tab${active ? ' active' : ''} scrollable" data-group="sheet" data-tab="${name}"></div>`
             return $(tabContainer);
         }
     

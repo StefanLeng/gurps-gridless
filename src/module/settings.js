@@ -191,10 +191,11 @@ export function registerSettings() {
 }
 
 export function injectTokenConfig(app, html) {
+  let jhtml = $(html);
   if (game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
-    html.addClass('gurp-gridless-active');
+    jhtml.addClass('gurp-gridless-active');
 
-    injectConfig.inject(app, html, {
+    injectConfig.inject(app, jhtml, {
       inject: '.tab[data-tab="appearance"] file-picker[name="texture.src"]',
       moduleId: MODULE_ID,
       explaination: {
@@ -302,5 +303,5 @@ export function injectTokenConfig(app, html) {
           step: '1.0',
         },
       };
-  injectConfig.inject(app, html, configItems);
+  injectConfig.inject(app, jhtml, configItems);
 }

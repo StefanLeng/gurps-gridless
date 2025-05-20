@@ -12,8 +12,8 @@
   "license": "LICENSE.txt",
   "version": "This is auto replaced",
   "compatibility": {
-    "minimum": "12",
-    "verified": "12"
+    "minimum": "13",
+    "verified": "13"
   },
   "scripts": [],
   "esmodules": ["module/gurps-gridless.js"],
@@ -46,7 +46,9 @@
         "id": "about-face",
         "type": "module",
         "manifest": "https://github.com/mclemente/about-face/releases/latest/download/module.json",
-        "compatibility": {}
+        "compatibility": {
+            "minimum": "3.27.1"
+        }
       },
       {
         "id": "lib-wrapper",
