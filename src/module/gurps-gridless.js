@@ -6,6 +6,7 @@ import { setTokenDimensionsonUpdate, setTokenDimesionsOnCreate, setTokenDimensio
 import { updateSceneTokens } from './scene.js';
 import { MODULE_ID } from './constants.js';
 import { gurpsGridlessAPI } from './api.js';
+import { createToggleRotationButton } from './toggleRotation.js';
 
 const version = '0.7.0';
 
@@ -62,3 +63,11 @@ Hooks.on('updateToken', (tokenDokument) => {
 Hooks.on('updateScene', updateSceneTokens);
 
 Hooks.on('preCreateToken', setTokenDimesionsOnCreate);
+
+Hooks.on('preMoveToken', (d, c) => {
+  if (game.gurpsGridLess.supressRotationOnMove) {
+    c.autoRotate = false;
+  }
+});
+
+Hooks.on('getSceneControlButtons', createToggleRotationButton);

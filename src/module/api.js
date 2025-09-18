@@ -1,4 +1,5 @@
 import { MODULE_ID } from './constants.js';
+import { toggleRotationOnMovement } from './toggleRotation.js';
 
 export async function setTokenDimensions(tokenDokument, length, width) {
   await tokenDokument.setFlag(MODULE_ID, 'tokenLength', length);
@@ -32,4 +33,5 @@ export const gurpsGridlessAPI = {
   setTokenScale,
   setTokenImageOffsetX,
   setTokenImageOffsetY,
+  toggleRotationOnMovement,
 };

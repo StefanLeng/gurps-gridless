@@ -6,14 +6,17 @@ import { defaultColors } from './constants.js';
 import { enableGURPSMovmentforAllScenes, disableGURPSMovmentforAllScenes } from './scene.js';
 import { setVisionAdjustment } from './vision.js';
 import { doEachBorder } from './borders.js';
+import { toggleRotationOnMovement } from './toggleRotation.js';
 
 export class GURPSGridLess {
   constructor() {
     this.showRangeIndicator = false;
     this.showRangeIndicatorAll = false;
+    this.supressRotationOnMove = false;
   }
   showRangeIndicator;
   showRangeIndicatorALL;
+  supressRotationOnMove;
 }
 
 export function onGURPSMovementEnabledChanged(enabled) {
@@ -30,7 +33,7 @@ export function registerSettings() {
     hint: 'gurps-gridless.keybindings.showRangeIndicator.hint',
     editable: [
       {
-        key: 'KeyR',
+        key: 'KeyI',
       },
     ],
     onDown: () => {
@@ -50,7 +53,7 @@ export function registerSettings() {
     hint: 'gurps-gridless.keybindings.showRangeIndicatorAll.hint',
     editable: [
       {
-        key: 'KeyR',
+        key: 'KeyI',
         modifiers: ['SHIFT'],
       },
     ],
@@ -62,6 +65,19 @@ export function registerSettings() {
       game.gurpsGridLess.showRangeIndicatorAll = false;
       drawEachReachIndicator();
     },
+    restricted: false,
+    precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+  });
+
+  game.keybindings.register(MODULE_ID, 'toggleRotationOnMove', {
+    name: 'gurps-gridless.keybindings.toggleRotationOnMove.name',
+    hint: 'gurps-gridless.keybindings.toggleRotationOnMove.hint',
+    editable: [
+      {
+        key: 'KeyV',
+      },
+    ],
+    onUp: toggleRotationOnMovement,
     restricted: false,
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
@@ -185,6 +201,15 @@ export function registerSettings() {
     default: true,
     type: Boolean,
     onChange: setVisionAdjustment,
+  });
+
+  game.settings.register(MODULE_ID, 'showToggleRotaionButton', {
+    name: 'gurps-gridless.settings.showToggleRotaionButton.name',
+    hint: 'gurps-gridless.settings.showToggleRotaionButton.description',
+    scope: 'world',
+    config: true,
+    default: true,
+    type: Boolean,
   });
 
   setVisionAdjustment(game.settings.get(MODULE_ID, 'VisionAdjustmetEnabled'));

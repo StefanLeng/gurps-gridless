@@ -6,13 +6,15 @@ This module enable GURPS compatible shapes and movment for larger (multi hex) to
 
    ![border example](border.png "Border example")
 
-2. **Reach and Facing Indicators** – Displays indicators for reach and front, side, and back angles when a key is pressed (Default: `R` for the current token, `Shift + R` for all tokens). You can change key bindings under "Configure Controls" in Foundry.
+2. **Reach and Facing Indicators** – Displays indicators for reach and front, side, and back angles when a key is pressed (Default: `I` for the current token, `Shift + I` for all tokens). You can change key bindings under "Configure Controls" in Foundry. (Default changed from `R` and `Shift + R` on Version 0.11.0 to avoid conflicts with core kex bindings. Teh change will not affect existing installations.)
 
    ![range indicator example](rangeIndicator.png "Range Indicator example")
 
 3. **Support for Non-Square and Multi-Sized Tokens** – Ensures proper GURPS movement for all token sizes, centering movement on the head of the creature while the body follows. See the token setup section for details.
 
 4. **Hex Grid Support** – Draws hex borders on hex grids and enables correct GURPS movement (Version 0.7.0). To implement this, custom token settings override some Foundry defaults, affecting all tokens across all scenes. This feature must be explicitly enabled in the module settings. **It is crucial to disable this setting before uninstalling the module** to prevent token configuration issues. If problems arise, reinstall the module and disable the setting before removal. **The About Face module (version 3.26.5 or higher) is required for correct movement on hex maps.**
+
+5. **Toggle Movement On Rotation** – Toggle the automatic rotation on token movements on and off per user, great for retreats. To toggle use a button on the left toolbar in the token contriols or a hotkey (Default: `V`).
 
    ![hex border example](hexborder.png "Hex Border example")
 

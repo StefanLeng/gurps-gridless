@@ -3,6 +3,10 @@
     "gurps-gridless.keybindings.showRangeIndicator.hint": "Show reach indicator for controled token.",
     "gurps-gridless.keybindings.showRangeIndicatorAll.name": "Show reach indicator for all",
     "gurps-gridless.keybindings.showRangeIndicatorAll.hint": "Show reach indicator for all tokens.",
+    "gurps-gridless.keybindings.toggleRotationOnMove.name": "Toggle Rotation on Move",
+    "gurps-gridless.keybindings.toggleRotationOnMove.hint": "Temporarily turn on or off automatic rotation on move for this user. Will only have an effect if Automatc Rotation on Move is turend on in the core settings.",
+
+    "gurps-gridless.button.toggleRotationOnMove.name": "Toggle Rotation on Move",
 
     "gurps-gridless.settings.maxReachShown.name": "Maximal reach shown",
     "gurps-gridless.settings.maxReachShown.description": "Maximal Reach shown in reach indicator.",
@@ -22,6 +26,8 @@
     "gurps-gridless.settings.VisionAdjustmetEnabled.description": "Adjusts vision origin for multhex tokens so that the complete token is visible to itself.",
     "gurps-gridless.settings.alwaysShowOuterBorder.name": "Always show outer border",
     "gurps-gridless.settings.alwaysShowOuterBorder.description": "When on, the outer border with the facing colors will be always shown for all visible tokens. When off, it will only be shown for the selected token or on hover (as the inner bortder).",
+    "gurps-gridless.settings.showToggleRotaionButton.name": "Show Toggle Rotation on Movement Button",
+    "gurps-gridless.settings.showToggleRotaionButton.description": "When on, the Toggle Rotation on Movement Button will be shown in the left toolbar. You need to relaod foundry for changing this setting to have a effect.",
 
     "gurps-gridless.tokenSettings.tab.name": "GURPS Token Shape",
     "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
