@@ -46,9 +46,7 @@
         "id": "about-face",
         "type": "module",
         "manifest": "https://github.com/mclemente/about-face/releases/latest/download/module.json",
-        "compatibility": {
-            "minimum": "3.27.1"
-        }
+        "compatibility": {}
       },
       {
         "id": "lib-wrapper",
