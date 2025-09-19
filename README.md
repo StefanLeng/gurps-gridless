@@ -14,9 +14,9 @@ This module enable GURPS compatible shapes and movment for larger (multi hex) to
 
 4. **Hex Grid Support** – Draws hex borders on hex grids and enables correct GURPS movement (Version 0.7.0). To implement this, custom token settings override some Foundry defaults, affecting all tokens across all scenes. This feature must be explicitly enabled in the module settings. **It is crucial to disable this setting before uninstalling the module** to prevent token configuration issues. If problems arise, reinstall the module and disable the setting before removal. **The About Face module (version 3.26.5 or higher) is required for correct movement on hex maps.**
 
-5. **Toggle Movement On Rotation** – Toggle the automatic rotation on token movements on and off per user, great for retreats. To toggle use a button on the left toolbar in the token controls or a hotkey (Default: `V`).
+  ![hex border example](hexborder.png "Hex Border example")
 
-   ![hex border example](hexborder.png "Hex Border example")
+5. **Toggle Movement On Rotation** – Toggle the automatic rotation on token movements on and off per user, great for retreats. To toggle use a button on the left toolbar in the token controls or a hotkey (Default: `V`).
 
 6. **Retreat Hotkey** – Press a hotkey (default `B`) to move the selectet token(s) one grid unit backwards without changing facing, regardless of the Movement On Rotation toggle.
 
