@@ -253,6 +253,7 @@ export function makeTokenUpdates(
 
 export function setTokenDimensions(tokenDocument) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
+  if (!tokenDocument.isOwner) return;
 
   const width = tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
   const length = tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height;
