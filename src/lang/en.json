@@ -5,6 +5,8 @@
     "gurps-gridless.keybindings.showRangeIndicatorAll.hint": "Show reach indicator for all tokens.",
     "gurps-gridless.keybindings.toggleRotationOnMove.name": "Toggle Rotation on Move",
     "gurps-gridless.keybindings.toggleRotationOnMove.hint": "Temporarily turn on or off automatic rotation on move for this user. Will only have an effect if Automatc Rotation on Move is turend on in the core settings.",
+    "gurps-gridless.keybindings.retreat.name": "Retreat",
+    "gurps-gridless.keybindings.retreat.hint": "Move selected token(s) 1 grid unit backwards and keep facing.",
 
     "gurps-gridless.button.toggleRotationOnMove.name": "Toggle Rotation on Move",
 

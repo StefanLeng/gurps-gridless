@@ -6,7 +6,7 @@ import { defaultColors } from './constants.js';
 import { enableGURPSMovmentforAllScenes, disableGURPSMovmentforAllScenes } from './scene.js';
 import { setVisionAdjustment } from './vision.js';
 import { doEachBorder } from './borders.js';
-import { toggleRotationOnMovement } from './toggleRotation.js';
+import { toggleRotationOnMovement, retreatControledTokens } from './toggleRotation.js';
 
 export class GURPSGridLess {
   constructor() {
@@ -78,6 +78,19 @@ export function registerSettings() {
       },
     ],
     onUp: toggleRotationOnMovement,
+    restricted: false,
+    precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
+  });
+
+  game.keybindings.register(MODULE_ID, 'retreat', {
+    name: 'gurps-gridless.keybindings.retreat.name',
+    hint: 'gurps-gridless.keybindings.retreat.hint',
+    editable: [
+      {
+        key: 'KeyB',
+      },
+    ],
+    onUp: retreatControledTokens,
     restricted: false,
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
