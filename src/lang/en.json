@@ -48,5 +48,5 @@
     "gurps-gridless.tokenSettings.tokenLength.name": "Token length in grid units",
     "gurps-gridless.tokenSettings.tokenLength.note": "Will be rounded to full hexes on hex grids.  Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids.",
     "gurps-gridless.tokenSettings.tokenScaling.name": "Token scaling",
-    "gurps-gridless.tokenSettings.explanation": "Note from GURPS Token Shape and Movement: Some propertys have been removed here and can now set on the GURPS Token Shape tab for GURPS Token Shapes and Movement."
+    "gurps-gridless.tokenSettings.explanation": "Note from GURPS Token Shape and Movement: Some token properties have been removed from this section and can now be set in the GURPS Token Shape tab."
 }

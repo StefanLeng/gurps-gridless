@@ -59,9 +59,12 @@ export var injectConfig = {
                     injectHtml += `<div class="form-group">
                         <label for="${k}">${v.label || ""}</label>
                         <div class="form-fields">
-                            <input type="range" name="${flag}" value="${flagValue}" min="${v.min}" max="${v.max}" step="${v.step ?? 1}">
-                            <span class="range-value">${flagValue}</span>${notes}
+                             <range-picker name="${flag}" value="${flagValue}" min="${v.min}" max="${v.max}" step="${v.step ?? 1}">
+                                <input type="range" min="${v.min}" max="${v.max}" step="${v.step ?? 1}">
+                                <input type="number" min="${v.min}" max="${v.max}" step="${v.step ?? 1}">
+                            </range-picker>
                         </div>
+                        ${notes}
                     </div>`;
                     break;
                 case "color":
