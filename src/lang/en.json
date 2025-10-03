@@ -23,13 +23,13 @@
     "gurps-gridless.settings.facingAlpha.name": "Facing area opacity",
     "gurps-gridless.settings.facingAlpha.description": "Opacity of the facing areas in the reach indicator.",
     "gurps-gridless.settings.GURPSMovmentEnabled.name": "Enable GURPS tokens shapes and movement on Hex-Grids",
-    "gurps-gridless.settings.GURPSMovmentEnabled.description": "Enable GURPS specific movement and hex shapes on hex-Grids. WARNINNG: This will change token settings on all scenes in this world. Disabeling this option will revert the changes. Please disabel the setting befor removing this module, otherwise the changes will persist.",
+    "gurps-gridless.settings.GURPSMovmentEnabled.description": "Enable GURPS specific movement and hex shapes on hex-Grids. WARNING: This will change token settings on all scenes in this world. Disabling this option will revert the changes. Please disable the setting before removing this module, otherwise the changes will persist.",
     "gurps-gridless.settings.VisionAdjustmetEnabled.name": "Adjust Vision",
-    "gurps-gridless.settings.VisionAdjustmetEnabled.description": "Adjusts vision origin for multhex tokens so that the complete token is visible to itself.",
+    "gurps-gridless.settings.VisionAdjustmetEnabled.description": "Adjusts vision origin for multihex tokens so that the complete token is visible to itself.",
     "gurps-gridless.settings.alwaysShowOuterBorder.name": "Always show outer border",
     "gurps-gridless.settings.alwaysShowOuterBorder.description": "When on, the outer border with the facing colors will be always shown for all visible tokens. When off, it will only be shown for the selected token or on hover (as the inner bortder).",
     "gurps-gridless.settings.showToggleRotaionButton.name": "Show Toggle Rotation on Movement Button",
-    "gurps-gridless.settings.showToggleRotaionButton.description": "When on, the Toggle Rotation on Movement Button will be shown in the left toolbar. You need to relaod foundry for changing this setting to have a effect.",
+    "gurps-gridless.settings.showToggleRotaionButton.description": "When on, the Toggle Rotation on Movement Button will be shown in the left toolbar. In order for this setting change to take effect you will need to reload Foundry.",
 
     "gurps-gridless.tokenSettings.tab.name": "GURPS Token Shape",
     "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
@@ -48,5 +48,5 @@
     "gurps-gridless.tokenSettings.tokenLength.name": "Token length in grid units",
     "gurps-gridless.tokenSettings.tokenLength.note": "Will be rounded to full hexes on hex grids.  Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids.",
     "gurps-gridless.tokenSettings.tokenScaling.name": "Token scaling",
-    "gurps-gridless.tokenSettings.explanation": "Note from GURPS Token Shape and Movement: Some propertys have been removed her and can now set on the GURPS Token Shape tab for GURPS token shapes and movmeent."
+    "gurps-gridless.tokenSettings.explanation": "Note from GURPS Token Shape and Movement: Some propertys have been removed here and can now set on the GURPS Token Shape tab for GURPS Token Shapes and Movement."
 }
