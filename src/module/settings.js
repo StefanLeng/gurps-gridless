@@ -228,7 +228,7 @@ export function registerSettings() {
   setVisionAdjustment(game.settings.get(MODULE_ID, 'VisionAdjustmetEnabled'));
 }
 
-export function injectTokenConfig(app, html) {
+export function injectTokenConfig(app, html, object) {
   let jhtml = $(html); //eslint-disable-line no-undef
   if (game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
     jhtml.addClass('gurp-gridless-active');
@@ -341,5 +341,5 @@ export function injectTokenConfig(app, html) {
           step: '1.0',
         },
       };
-  injectConfig.inject(app, jhtml, configItems);
+  injectConfig.inject(app, jhtml, configItems, object);
 }

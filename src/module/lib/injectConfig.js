@@ -23,7 +23,7 @@ export var injectConfig = {
             if(k === "moduleId" || k === "inject" || k === "tab") continue;
             const elemData = data[k];
             const flag = "flags." + moduleId + "." + (k || "");
-            const flagValue = object?.getFlag(moduleId, k) ?? elemData.default ?? getDefaultFlag(k);
+            const flagValue = object?.flags?.[moduleId]?.[k] ?? elemData.default ?? getDefaultFlag(k);
             const notes = v.notes ? `<p class="hint">${v.notes}</p>` : "";
             v.label = v.units ? v.label+`<span class="units"> (${v.units})</span>` : v.label;
             switch(elemData.type){

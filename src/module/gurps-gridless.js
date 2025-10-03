@@ -36,7 +36,8 @@ Hooks.once('ready', async () => {
   }
 });
 
-Hooks.on('renderTokenConfig', injectTokenConfig);
+Hooks.on('renderTokenConfig', (app, form) => injectTokenConfig(app, form));
+Hooks.on('renderPrototypeTokenConfig', (app, form, data) => injectTokenConfig(app, form, data.source));
 
 Hooks.on('refreshToken', (token) => {
   drawHitArea(token);
