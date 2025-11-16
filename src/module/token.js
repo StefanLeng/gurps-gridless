@@ -255,9 +255,21 @@ export function setTokenDimensions(tokenDocument) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
   if (!tokenDocument.isOwner) return;
 
-  const width = tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
-  const length = tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height;
-  const scaling = tokenDocument.flags[MODULE_ID]?.tokenScaling ?? tokenDocument?.texture?.scaleX ?? 1;
+  let flags = {};
+  flags[MODULE_ID] = {};
+  if ((tokenDocument.flags?.[MODULE_ID]?.tokenWidth ?? 0) < 0.2) {
+    flags[MODULE_ID].tokenWidth = 1;
+  }
+  if ((tokenDocument.flags?.[MODULE_ID]?.tokenLength ?? 0) < 0.2) {
+    flags[MODULE_ID].tokenLength = 1;
+  }
+  if ((tokenDocument.flags?.[MODULE_ID]?.tokenScaling ?? 0) < 0.1) {
+    flags[MODULE_ID].tokenScaling = 1;
+  }
+
+  const width = Math.max(tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width, 0.2);
+  const length = Math.max(tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height, 0.2);
+  const scaling = Math.max(tokenDocument.flags[MODULE_ID]?.tokenScaling ?? tokenDocument?.texture?.scaleX ?? 1, 0.1);
   const offsetY = tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const offsetX = tokenDocument.flags[MODULE_ID]?.tokenOffsetX ?? 0;
   const imageOffsetY = tokenDocument.flags[MODULE_ID]?.tokenImageOffsetY ?? 0;
@@ -276,21 +288,39 @@ export function setTokenDimensions(tokenDocument) {
     imageOffsetX,
   );
 
+  newChanges.flags = flags;
+
   tokenDocument.update(newChanges);
 }
 
 export function setTokenDimensionsonUpdate(tokenDocument, changes, options) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
 
-  const width =
-    changes?.flags?.[MODULE_ID]?.tokenWidth ?? tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width;
-  const length =
-    changes?.flags?.[MODULE_ID]?.tokenLength ?? tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height;
-  const scaling =
+  if ((changes?.flags?.[MODULE_ID]?.tokenWidth ?? 1) < 0.2) {
+    changes.flags[MODULE_ID].tokenWidth = 0.2;
+  }
+  if ((changes?.flags?.[MODULE_ID]?.tokenLength ?? 1) < 0.2) {
+    changes.flags[MODULE_ID].tokenLength = 0.2;
+  }
+  if ((changes?.flags?.[MODULE_ID]?.tokenScaling ?? 1) < 0.1) {
+    changes.flags[MODULE_ID].tokenScaling = 0.1;
+  }
+
+  const width = Math.max(
+    changes?.flags?.[MODULE_ID]?.tokenWidth ?? tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width,
+    0.2,
+  );
+  const length = Math.max(
+    changes?.flags?.[MODULE_ID]?.tokenLength ?? tokenDocument.flags[MODULE_ID]?.tokenLength ?? tokenDocument.height,
+    0.2,
+  );
+  const scaling = Math.max(
     changes?.flags?.[MODULE_ID]?.tokenScaling ??
-    tokenDocument.flags[MODULE_ID]?.tokenScaling ??
-    tokenDocument?.texture?.scaleX ??
-    1;
+      tokenDocument.flags[MODULE_ID]?.tokenScaling ??
+      tokenDocument?.texture?.scaleX ??
+      1,
+    0.1,
+  );
   const offsetY = changes?.flags?.[MODULE_ID]?.tokenOffsetY ?? tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const offsetX = changes?.flags?.[MODULE_ID]?.tokenOffsetX ?? tokenDocument.flags[MODULE_ID]?.tokenOffsetX ?? 0;
   const imageOffsetY =
@@ -330,9 +360,18 @@ export function setTokenDimensionsonUpdate(tokenDocument, changes, options) {
 export function setTokenDimesionsOnCreate(tokenDocument, data) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
 
-  const width = data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1;
-  const length = data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1;
-  const scaling = data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.scaleX ?? 1;
+  const width =
+    (data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1) < 0.1
+      ? 1
+      : data.flags[MODULE_ID]?.tokenWidth ?? data.width ?? 1;
+  const length =
+    (data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1) < 0.1
+      ? 1
+      : data.flags[MODULE_ID]?.tokenLength ?? data.height ?? 1;
+  const scaling =
+    (data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.scaleX ?? 1) < 0.1
+      ? 1
+      : data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.scaleX ?? 1;
   const offsetY = data.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const offsetX = data.flags[MODULE_ID]?.tokenOffsetx ?? 0;
   const imageOffsetY = data.flags[MODULE_ID]?.tokenImageOffsetY ?? 0;
