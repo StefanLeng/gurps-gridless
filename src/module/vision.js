@@ -1,30 +1,35 @@
-import { getDirection } from './rangeindicator.js';
 import { MODULE_ID } from './constants.js';
+import { isHexGrid } from './token.js';
 
+/* original function
+  _getVisionSourceData() {
+    const {x, y} = this.#adjustedCenter;
+    const {elevation, rotation} = this.document;
+    const sight = this.document.sight;
+    return {
+      x, y, elevation, rotation,
+      radius: this.sightRange,
+      lightRadius: this.lightPerceptionRange,
+      externalRadius: this.externalRadius,
+      angle: sight.angle,
+      contrast: sight.contrast,
+      saturation: sight.saturation,
+      brightness: sight.brightness,
+      attenuation: sight.attenuation,
+      visionMode: sight.visionMode,
+      color: sight.color,
+      preview: this.isPreview,
+      disabled: this.#isUnreachableDragPreview
+    };
+  }
+  */
 export function _getVisionSourceData() {
   const d = canvas.dimensions;
-  let { x, y } = this.center;
-
-  let anchorX, anchorY;
-  if (this.document.gurpsGridless) {
-    ({ anchorX, anchorY } = this.document.gurpsGridless);
-  } else {
-    ({ anchorX, anchorY } = this.document.texture);
-  }
-
-  const { scaleX, scaleY } = this.document.texture;
-
-  const { w: width, h: height } = this;
-
-  const angle = (getDirection(this) / 180) * Math.PI;
-  let mat = new PIXI.Matrix(); //eslint-disable-line no-undef
-  mat.rotate(angle).translate(x, y);
-
-  const offset = new PIXI.Point(-width * (anchorX - 0.5) * scaleX, -height * (anchorY - 0.5) * scaleY); //eslint-disable-line no-undef
-  const offsetT = mat.apply(offset);
-
-  x = offsetT.x;
-  y = offsetT.y;
+  const { x, y } = this.center;
+  const radius = isHexGrid()
+    ? this.externalRadius *
+      (this.document.flags[MODULE_ID]?.tokenLength + (this.document.gurpsGridless?.anchorY - 0.5) * 2 ?? 1)
+    : this.h * this.document.gurpsGridless?.anchorY ?? this.externalRadius;
 
   const { elevation, rotation } = this.document;
   const sight = this.document.sight;
@@ -35,7 +40,7 @@ export function _getVisionSourceData() {
     rotation,
     radius: Math.clamp(this.sightRange, 0, d.maxR),
     lightRadius: Math.clamp(this.lightPerceptionRange, 0, d.maxR),
-    externalRadius: this.externalRadius,
+    externalRadius: radius, //this.externalRadius,
     angle: sight.angle,
     contrast: sight.contrast,
     saturation: sight.saturation,
