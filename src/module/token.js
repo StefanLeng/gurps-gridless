@@ -31,20 +31,11 @@ function scalingsDim(width, length, fit) {
 }
 
 /*
-    We need a odd number of hexes, so that the center of the shape is a hex center
-*/
-function calcTokenHexDim(width, length) {
-  const maxDim = Math.max(Math.round(width), Math.round(length));
-  return maxDim % 2 === 0 ? maxDim + 1 : maxDim;
-}
-
-/*
-    wen need to correct for the addition hex on even hex number by additional scaling
+    scale for the immage from 1 hex to the real dimension
 */
 function calcTokenHexScale(width, length, scaling, fit) {
-  const dim = calcTokenHexDim(width, length);
   const l = fit === 'height' ? Math.round(length) : Math.round(width);
-  return (scaling * l) / dim;
+  return scaling * l;
 }
 
 /*
@@ -63,81 +54,62 @@ function hexCenterToHexCenterOnMinorAxis(hexes) {
 }
 
 /*
-    width of the boundin box ortogonal to the main hex direction in grid units as mesured in the main hex direction.
+    width of the bounding box ortogonal to the main hex direction in grid units as mesured in the main hex direction.
     the additional + 0.25 to the previous formula is because the bounding box inclued the overlaping part on boht edges.
 */
-function hexBoundingBoxOnMinorAxis(dist) {
-  return (dist * 0.75 + 0.25) / edgeFactor;
-}
+const hexBoundingBoxOnMinorAxis = 1 / edgeFactor;
 
 /*
-   This calculate the factor of the lenght af a dim x dim token to its width, when the length is along a hex main direction
-   The  dim * 0.7 + 0.25 term is because the hex columns overlap partly, the Math.sqrt(3) / 2 accounts for the different distances for an hex corner or a hex edge from the hex center
+  Because on hex rows the token length is ortogonal to the hex main axis in token space, we have to correct for the boxFitting on hexRows
 */
-function boxFitting(dim) {
-  return dim / hexBoundingBoxOnMinorAxis(dim);
-}
-
-/*
-  Because on hex rows the token length is ortogonal to the hex main axis in token space, weh have to correct for the boxFitting on hexRows
-*/
-function rowScaleCorrection(dim) {
+function rowScaleCorrection() {
   if (isHexRowGrid()) {
-    return boxFitting(dim);
+    return edgeFactor;
   } else {
     return 1;
   }
 }
-function imageScaleCorrection(dim, fit) {
+
+function imageScaleCorrection(fit) {
   if ((isHexRowGrid() && fit === 'width') || (isHexColumnGrid() && fit === 'height')) {
-    return 1 / boxFitting(dim);
+    return 1 / edgeFactor;
   } else {
     return 1;
   }
 }
 
-function calcOffsetFromFront(ln, s, hOffset) {
-  return 0.5 + (0.5 - hOffset / ln) / s;
+function calcOffsetFromFront(lenght, scale, hOffset) {
+  return 0.5 + (0.5 - hOffset / lenght) / scale;
 }
 
-function calcOffsetFromCenter(ln, s, hOffset) {
-  return 0.5 + hOffset / ln / s;
+function calcOffsetFromCenter(lenght, scale, hOffset) {
+  return 0.5 + hOffset / lenght / scale;
 }
 
 /*
     Offest the token so that the middle front hex is on the center of rotation.
     We have to take the scale into account, because foundry will scale from the offset and we need to corrcet for that.
 */
-function calcTokenHexOffset(
-  width,
-  length,
-  scaling,
-  hexDim,
-  offsetY,
-  offsetX,
-  imageOffsetY,
-  imageOffsetX,
-  lookedRotation,
-) {
+function calcTokenHexOffset(length, scaling, offsetY, offsetX, imageOffsetY, imageOffsetX, lookedRotation) {
   const roundedLength = Math.round(length);
   const roundedOffsetY = Math.round(offsetY ?? 0);
   const roundedOffsetX = Math.round(offsetX ?? 0);
   //set the rotation center a half hex from the front (if the explicit offset is 0)
-  const hOffset = Math.max(hexDim - roundedLength, 0) * 0.5 + 0.5 - roundedOffsetY;
+  const hOffset = -roundedLength * 0.5 + 1 - roundedOffsetY;
 
-  //Because the widht is ortogonal to the hex main axis, we have to correct both the bounding bos and the distance
-  const wDim = hexBoundingBoxOnMinorAxis(hexDim);
+  //Because the widht is ortogonal to the hex main axis, we have to correct both the bounding box and the distance
+  const wDim = hexBoundingBoxOnMinorAxis;
   const wOffset = hexCenterToHexCenterOnMinorAxis(roundedOffsetX);
 
   return {
-    x: calcOffsetFromCenter(wDim, rowScaleCorrection(hexDim), wOffset),
-    y: calcOffsetFromFront(hexDim, 1 / rowScaleCorrection(hexDim), hOffset),
+    x: calcOffsetFromCenter(wDim, rowScaleCorrection(), wOffset),
+    y: calcOffsetFromFront(1, 1 / rowScaleCorrection(), hOffset),
     ix: lookedRotation
       ? calcOffsetFromCenter(wDim, scaling, imageOffsetX * (3 / 2))
       : calcOffsetFromCenter(wDim, scaling, wOffset + imageOffsetX * (3 / 2)),
     iy: lookedRotation
-      ? calcOffsetFromCenter(hexDim, scaling, imageOffsetY)
-      : calcOffsetFromFront(hexDim, scaling, hOffset + imageOffsetY),
+      ? calcOffsetFromCenter(1, scaling, imageOffsetY)
+      : calcOffsetFromFront(1, scaling, hOffset + imageOffsetY),
   };
 }
 
@@ -173,13 +145,10 @@ export function makeTokenUpdates(
   let changes = {};
   let offset;
   if (isHexGrid()) {
-    const hexDim = calcTokenHexDim(width, length);
     const hexScaling = calcTokenHexScale(width, length, scaling, fit);
     offset = calcTokenHexOffset(
-      width,
       length,
       hexScaling,
-      hexDim,
       offsetY,
       offsetX,
       imageOffsetY,
@@ -188,31 +157,15 @@ export function makeTokenUpdates(
     );
 
     changes = {
-      height: hexDim,
-      width: hexDim,
+      height: 1,
+      width: 1,
       texture: {
-        scaleX: hexScaling * imageScaleCorrection(hexDim, fit),
-        scaleY: hexScaling * imageScaleCorrection(hexDim, fit),
+        scaleX: hexScaling * imageScaleCorrection(fit),
+        scaleY: hexScaling * imageScaleCorrection(fit),
         anchorY: offset.iy,
         anchorX: offset.ix,
       },
     };
-
-    const oldDim = calcTokenHexDim(oldWidth, oldLength);
-    if (oldWidth && oldDim !== hexDim) {
-      const diff = hexDim - oldDim;
-      const { changeX, changeY } = isHexColumnGrid()
-        ? {
-            changeX: hexCenterToHexCenterOnMinorAxis(diff) * canvas.grid.sizeY * 0.5,
-            changeY: diff * canvas.grid.sizeY * 0.5,
-          }
-        : {
-            changeX: diff * canvas.grid.sizeX * 0.5,
-            changeY: hexCenterToHexCenterOnMinorAxis(diff) * canvas.grid.sizeX * 0.5,
-          };
-      changes.x = Math.round(oldX - changeX);
-      changes.y = Math.round(oldY - changeY);
-    }
   } else {
     offset = calcTokenOffset(
       width,
