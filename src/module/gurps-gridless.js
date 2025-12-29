@@ -7,6 +7,7 @@ import { updateSceneTokens } from './scene.js';
 import { MODULE_ID } from './constants.js';
 import { gurpsGridlessAPI } from './api.js';
 import { createToggleRotationButton } from './toggleRotation.js';
+import { clipRotationToFaces } from './rotation.js';
 
 const version = '0.7.0';
 
@@ -45,6 +46,7 @@ Hooks.on('refreshToken', (token) => {
 });
 
 Hooks.on('preUpdateToken', (d, c, o) => {
+  clipRotationToFaces(d, c);
   setTokenDimensionsonUpdate(d, c, o);
   game.gurpsGridLess.showRangeIndicator = false;
   game.gurpsGridLess.showRangeIndicatorAll = false;

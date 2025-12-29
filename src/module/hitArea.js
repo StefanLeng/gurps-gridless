@@ -1,5 +1,4 @@
-//import { MODULE_ID } from './constants.js';
-import { getDirectionFromAbautFace } from './rangeindicator.js';
+import { getDirection } from './rotation.js';
 import { isHexGrid } from './token.js';
 import { MODULE_ID } from './constants.js';
 import { doHexBodyShape } from './shapes.js';
@@ -38,7 +37,7 @@ export function drawHitArea(token) {
   } else {
     ({ anchorX, anchorY } = token.document.texture);
   }
-  const tokenDirectionDegree = getDirectionFromAbautFace(token);
+  const tokenDirectionDegree = getDirection(token);
   const tokenDirection = (tokenDirectionDegree / 180) * Math.PI;
 
   var mat = new PIXI.Matrix(); //eslint-disable-line no-undef

@@ -1,24 +1,13 @@
 import { bodyShape, facingShape } from './shapes.js';
 import { MODULE_ID } from './constants.js';
 import { defaultColors } from './constants.js';
+import { getDirection } from './rotation.js';
 
 export function getcolorConfig() {
   const config = Object.assign({}, defaultColors);
   config.lineAlpha = game.settings.get(MODULE_ID, 'reachLineAlpha') ?? defaultColors.lineAlpha;
   config.fillAlpha = game.settings.get(MODULE_ID, 'facingAlpha') ?? defaultColors.fillAlpha;
   return config;
-}
-
-export function getDirectionFromAbautFace(token) {
-  return (
-    (token.document.flags['about-face']?.direction ?? 90) +
-    (token.document.flags['about-face']?.rotationOffset ?? 0) -
-    90
-  );
-}
-
-export function getDirection(token) {
-  return token.document.lockRotation ? getDirectionFromAbautFace(token) : token.mesh.angle;
 }
 
 export function drawReachIndicator(token) {

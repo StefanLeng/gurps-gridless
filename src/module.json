@@ -43,12 +43,6 @@
     ],
     "requires": [
       {
-        "id": "about-face",
-        "type": "module",
-        "manifest": "https://github.com/mclemente/about-face/releases/latest/download/module.json",
-        "compatibility": {}
-      },
-      {
         "id": "lib-wrapper",
         "type": "module",
         "compatibility": {

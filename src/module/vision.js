@@ -1,4 +1,4 @@
-import { getDirection } from './rangeindicator.js';
+import { getDirection } from './rotation.js';
 import { MODULE_ID } from './constants.js';
 
 export function _getVisionSourceData() {

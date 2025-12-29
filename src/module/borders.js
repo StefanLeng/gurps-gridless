@@ -1,6 +1,7 @@
 import { bodyShape, hexBodyShape } from './shapes.js';
 import { MODULE_ID } from './constants.js';
-import { getcolorConfig, getDirection } from './rangeindicator.js';
+import { getcolorConfig } from './rangeindicator.js';
+import { getDirection } from './rotation.js';
 import { isHexGrid } from './token.js';
 
 export function doborder(token) {
