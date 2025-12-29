@@ -7,9 +7,9 @@ import { isHexGrid } from './token.js';
 export function doborder(token) {
   const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
-  if (!token.GURPSGridlesOuterBorder) {
-    token.GURPSGridlesOuterBorder = new PIXI.Graphics(); //eslint-disable-line no-undef
-    token.addChild(token.GURPSGridlesOuterBorder);
+  if (!token.GURPSGridlessOuterBorder) {
+    token.GURPSGridlessOuterBorder = new PIXI.Graphics(); //eslint-disable-line no-undef
+    token.addChild(token.GURPSGridlessOuterBorder);
   }
 
   const { w: width, h: height } = token;
@@ -23,9 +23,9 @@ export function doborder(token) {
   token.border.y = height * 0.5;
   token.border.clear();
 
-  token.GURPSGridlesOuterBorder.x = width * 0.5;
-  token.GURPSGridlesOuterBorder.y = height * 0.5;
-  token.GURPSGridlesOuterBorder.clear();
+  token.GURPSGridlessOuterBorder.x = width * 0.5;
+  token.GURPSGridlessOuterBorder.y = height * 0.5;
+  token.GURPSGridlessOuterBorder.clear();
 
   token.border.tint = 0xffffff;
 
@@ -35,7 +35,7 @@ export function doborder(token) {
 
   if (isHexGrid() && game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
     hexBodyShape(
-      token.GURPSGridlesOuterBorder,
+      token.GURPSGridlessOuterBorder,
       token.document.flags[MODULE_ID]?.tokenWidth,
       token.document.flags[MODULE_ID]?.tokenLength,
       outerWidth,
@@ -59,7 +59,7 @@ export function doborder(token) {
   } else {
     bodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor, 1);
     bodyShape(
-      token.GURPSGridlesOuterBorder,
+      token.GURPSGridlessOuterBorder,
       width + 2 * innerWidth,
       height + 2 * innerWidth,
       outerWidth,
@@ -73,10 +73,11 @@ export function doborder(token) {
   token.border.pivot.y = height * (anchorY - 0.5);
   token.border.pivot.x = width * (anchorX - 0.5);
   token.border.angle = getDirection(token);
-  token.GURPSGridlesOuterBorder.pivot.y = height * (anchorY - 0.5);
-  token.GURPSGridlesOuterBorder.pivot.x = width * (anchorX - 0.5);
-  token.GURPSGridlesOuterBorder.angle = getDirection(token);
-  token.GURPSGridlesOuterBorder.visible = game.settings.get(MODULE_ID, 'alwaysShowOuterBorder') || token.border.visible;
+  token.GURPSGridlessOuterBorder.pivot.y = height * (anchorY - 0.5);
+  token.GURPSGridlessOuterBorder.pivot.x = width * (anchorX - 0.5);
+  token.GURPSGridlessOuterBorder.angle = getDirection(token);
+  token.GURPSGridlessOuterBorder.visible =
+    game.settings.get(MODULE_ID, 'alwaysShowOuterBorder') || token.border.visible;
 }
 
 export function doEachBorder() {
