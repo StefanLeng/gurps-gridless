@@ -1,4 +1,3 @@
-import { getDirection } from './rotation.js';
 import { MODULE_ID } from './constants.js';
 import { isHexGrid } from './token.js';
 
