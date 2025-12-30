@@ -8,6 +8,7 @@ import { MODULE_ID } from './constants.js';
 import { gurpsGridlessAPI } from './api.js';
 import { createToggleRotationButton } from './toggleRotation.js';
 import { clipRotationToFaces } from './rotation.js';
+import { drawIndicator, updateIndicator, updateIndicatorDirection } from './indicator.js';
 
 const version = '0.7.0';
 
@@ -43,6 +44,7 @@ Hooks.on('renderPrototypeTokenConfig', (app, form, data) => injectTokenConfig(ap
 Hooks.on('refreshToken', (token) => {
   drawHitArea(token);
   doborder(token);
+  updateIndicatorDirection(token);
 });
 
 Hooks.on('preUpdateToken', (d, c, o) => {
@@ -56,11 +58,13 @@ Hooks.on('preUpdateToken', (d, c, o) => {
 Hooks.on('drawToken', (token) => {
   setTokenDimensions(token.document);
   drawHitArea(token);
+  drawIndicator(token);
 });
 
-Hooks.on('updateToken', (tokenDokument) => {
+Hooks.on('updateToken', (tokenDokument, changes) => {
   drawHitArea(tokenDokument.object);
   doborder(tokenDokument.object);
+  updateIndicator(tokenDokument, changes);
 });
 
 Hooks.on('updateScene', updateSceneTokens);

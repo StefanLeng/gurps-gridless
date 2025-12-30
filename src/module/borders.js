@@ -4,11 +4,13 @@ import { getcolorConfig } from './rangeindicator.js';
 import { getDirection } from './rotation.js';
 import { isHexGrid } from './token.js';
 
+const PIXI = window.PIXI;
+
 export function doborder(token) {
   const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
 
   if (!token.GURPSGridlessOuterBorder) {
-    token.GURPSGridlessOuterBorder = new PIXI.Graphics(); //eslint-disable-line no-undef
+    token.GURPSGridlessOuterBorder = new PIXI.Graphics();
     token.addChild(token.GURPSGridlessOuterBorder);
   }
 
