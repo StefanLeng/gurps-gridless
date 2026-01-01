@@ -96,7 +96,7 @@ export function registerSettings() {
 
   game.settings.register(MODULE_ID, 'version', {
     scope: 'world',
-    config: true,
+    config: false,
     default: '0.0.0',
     type: String,
   });
