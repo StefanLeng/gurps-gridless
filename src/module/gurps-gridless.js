@@ -1,4 +1,4 @@
-import { registerSettings, GURPSGridLess, injectTokenConfig } from './settings.js';
+import { registerSettings, GURPSGridLess, modifyTokenConfig, addTokenConfigTab } from './settings.js';
 import { drawEachReachIndicator } from './rangeindicator.js';
 import { doborder } from './borders.js';
 import { drawHitArea } from './hitArea.js';
@@ -20,6 +20,9 @@ Hooks.once('init', async () => {
 
   registerSettings();
 
+  addTokenConfigTab(foundry.applications.sheets.TokenConfig);
+  addTokenConfigTab(foundry.applications.sheets.PrototypeTokenConfig);
+
   game.modules.get(MODULE_ID).api = gurpsGridlessAPI;
 
   Hooks.callAll('gurpsGridlessReady', game.modules.get(MODULE_ID).api);
@@ -38,8 +41,8 @@ Hooks.once('ready', async () => {
   }
 });
 
-Hooks.on('renderTokenConfig', (app, form) => injectTokenConfig(app, form));
-Hooks.on('renderPrototypeTokenConfig', (app, form, data) => injectTokenConfig(app, form, data.source));
+Hooks.on('renderTokenConfig', (app, form) => modifyTokenConfig(app, form));
+Hooks.on('renderPrototypeTokenConfig', (app, form) => modifyTokenConfig(app, form));
 
 Hooks.on('refreshToken', (token) => {
   drawHitArea(token);

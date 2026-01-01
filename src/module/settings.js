@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { drawEachReachIndicator } from './rangeindicator.js';
 import { MODULE_ID } from './constants.js';
-import { injectConfig } from './lib/injectConfig.js';
 import { defaultColors } from './constants.js';
 import { enableGURPSMovmentforAllScenes, disableGURPSMovmentforAllScenes } from './scene.js';
 import { setVisionAdjustment } from './vision.js';
@@ -228,119 +227,29 @@ export function registerSettings() {
   setVisionAdjustment(game.settings.get(MODULE_ID, 'VisionAdjustmetEnabled'));
 }
 
-export function injectTokenConfig(app, html, object) {
-  let jhtml = $(html); //eslint-disable-line no-undef
-  if (game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
-    jhtml.addClass('gurp-gridless-active');
+function generateElement(html) {
+  const template = document.createElement('template');
+  template.innerHTML = html.trim();
+  return template.content.firstChild;
+}
 
-    injectConfig.inject(app, jhtml, {
-      inject: '.tab[data-tab="appearance"] file-picker[name="texture.src"]',
-      moduleId: MODULE_ID,
-      explaination: {
-        type: 'custom',
-        html: `<div class="form-group slim"><label>${game.i18n.localize(
+export function modifyTokenConfig(app, html) {
+  if (game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
+    html.classList.add('gurp-gridless-active');
+
+    const injectionPoint = html.querySelector('.tab[data-tab="appearance"] file-picker[name="texture.src"]').parentNode.parentNode;
+    const injectHtml = generateElement(`<div class="form-group slim"><label>${game.i18n.localize(
           'gurps-gridless.tokenSettings.explanation',
-        )}</label></div>`,
-      },
-    });
+        )}</label></div>`,)
+    injectionPoint.after(injectHtml);
   }
 
-  const configItems = game.settings.get(MODULE_ID, 'GURPSMovementEnabled')
-    ? {
-        moduleId: MODULE_ID,
-        tab: {
-          name: MODULE_ID,
-          label: game.i18n.localize('gurps-gridless.tokenSettings.tab.name'),
-          icon: 'far fa-circle',
-        },
-        maxReachShown: {
-          type: 'number',
-          label: game.i18n.localize('gurps-gridless.settings.maxReachShown.name'),
-          default: '',
-          placeholder: game.i18n.localize('gurps-gridless.tokenSettings.maxReachShown.placeholder'),
-          min: '0.0',
-          max: '15.0',
-          step: '1.0',
-        },
-        tokenWidth: {
-          type: 'number',
-          label: game.i18n.localize('gurps-gridless.tokenSettings.tokenWidth.name'),
-          default: '1.0',
-          min: '0.2',
-          max: '30.0',
-          step: '0.1',
-          notes: game.i18n.localize('gurps-gridless.tokenSettings.tokenWidth.note'),
-        },
-        tokenLength: {
-          type: 'number',
-          label: game.i18n.localize('gurps-gridless.tokenSettings.tokenLength.name'),
-          default: '1.0',
-          min: '0.2',
-          max: '30.0',
-          step: '0.1',
-          notes: game.i18n.localize('gurps-gridless.tokenSettings.tokenLength.note'),
-        },
-        tokenScaling: {
-          type: 'range',
-          label: game.i18n.localize('gurps-gridless.tokenSettings.tokenScaling.name'),
-          default: '1.0',
-          min: '0.1',
-          max: '3.0',
-          step: '0.1',
-        },
-        tokenOffsetY: {
-          type: 'number',
-          label: game.i18n.localize('gurps-gridless.tokenSettings.rotationOffsetY.name'),
-          default: 0,
-          min: '-30.0',
-          max: '30.0',
-          step: '0.1',
-          notes: game.i18n.localize('gurps-gridless.tokenSettings.rotationOffsetY.note'),
-        },
-        tokenOffsetX: {
-          type: 'number',
-          label: game.i18n.localize('gurps-gridless.tokenSettings.rotationOffsetX.name'),
-          default: 0,
-          min: '-30.0',
-          max: '30.0',
-          step: '0.1',
-          notes: game.i18n.localize('gurps-gridless.tokenSettings.rotationOffsetX.note'),
-        },
-        tokenImageOffsetY: {
-            type: 'number',
-            label: game.i18n.localize('gurps-gridless.tokenSettings.imageOffsetY.name'),
-            default: 0,
-            min: '-30.0',
-            max: '30.0',
-            step: '0.1',
-            notes: game.i18n.localize('gurps-gridless.tokenSettings.imageOffsetY.note'),
-          },
-          tokenImageOffsetX: {
-            type: 'number',
-            label: game.i18n.localize('gurps-gridless.tokenSettings.imageOffsetX.name'),
-            default: 0,
-            min: '-30.0',
-            max: '30.0',
-            step: '0.1',
-            notes: game.i18n.localize('gurps-gridless.tokenSettings.imageOffsetX.note'),
-          },
-      }
-    : {
-        moduleId: MODULE_ID,
-        tab: {
-          name: MODULE_ID,
-          label: game.i18n.localize('gurps-gridless.tokenSettings.tab.name'),
-          icon: 'far fa-circle',
-        },
-        maxReachShown: {
-          type: 'number',
-          label: game.i18n.localize('gurps-gridless.settings.maxReachShown.name'),
-          default: '',
-          placeholder: game.i18n.localize('gurps-gridless.tokenSettings.maxReachShown.placeholder'),
-          min: '0.0',
-          max: '15.0',
-          step: '1.0',
-        },
-      };
-  injectConfig.inject(app, jhtml, configItems, object);
+}
+
+export function addTokenConfigTab(app) {
+	app.TABS.sheet.tabs.push({ id: MODULE_ID, label: game.i18n.localize('gurps-gridless.tokenSettings.tab.name'), icon: "far fa-circle" });
+    const footer = app.PARTS.footer;
+    delete app.PARTS.footer;
+    app.PARTS[MODULE_ID] = {template: "modules/gurps-gridless/templates/gurpsgridlessTokenConfig.hbs", scrollable: [""]};
+    app.PARTS.footer = footer;
 }
