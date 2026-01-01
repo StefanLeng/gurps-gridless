@@ -41,24 +41,33 @@
     "gurps-gridless.settings.facingIndicatorImage.description": "Custom image for the facing arrow. Leave empty to use the default arrow.",
 
     "gurps-gridless.tokenSettings.tab.name": "GURPS Token Shape",
-    "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
+    "gurps-gridless.tokenSettings.explanation": "Note from GURPS Token Shape and Movement: Some token properties have been removed from this section and can now be set in the GURPS Token Shape tab.",
 
-    "gurps-gridless.tokenSettings.rotationOffsetY.name": "Lengthwise Offset",
-    "gurps-gridless.tokenSettings.rotationOffsetY.note": "With this module, the default center of rotation will be the center front hex of the token shape. Use this setting to shift it along the length oft the token. Will be rounded to full hexes on hex grids.",
-    "gurps-gridless.tokenSettings.rotationOffsetX.name": "Sideward Offset",
-    "gurps-gridless.tokenSettings.rotationOffsetX.note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shiftig by a number of hexes not dividable by two will move the border of grid.",
+    "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
+    "gurps-gridless.tokenSettings.maxReachShown.name": "Maximal reach shown",
+    
+    "gurps-gridless.tokenSettings.image.legend": "Token image settings",
+    "gurps-gridless.tokenSettings.tokenScaling.name": "Scaling",
     "gurps-gridless.tokenSettings.imageOffsetY.name": "Lengthwise Image Offset",
     "gurps-gridless.tokenSettings.imageOffsetY.note": "Shifts the token image forward on positive values and back on negative values relative to the token border",
     "gurps-gridless.tokenSettings.imageOffsetX.name": "Sideward Image Offset",
     "gurps-gridless.tokenSettings.imageOffsetX.note": "Shifts the token image right on positive values and left on negative values relative to the token border",
-
-    "gurps-gridless.tokenSettings.tokenWidth.name": "Token width in grid units",
+    
+    "gurps-gridless.tokenSettings.tokenDimensions.legend": "Token dimensions in grid units",
+    "gurps-gridless.tokenSettings.tokenWidth.name": "Width",
     "gurps-gridless.tokenSettings.tokenWidth.note": "Will be rounded to full hexes on hex grids. Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids.",
-    "gurps-gridless.tokenSettings.tokenLength.name": "Token length in grid units",
+    "gurps-gridless.tokenSettings.tokenLength.name": "Length",
     "gurps-gridless.tokenSettings.tokenLength.note": "Will be rounded to full hexes on hex grids.  Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids.",
-    "gurps-gridless.tokenSettings.tokenScaling.name": "Token scaling",
-    "gurps-gridless.tokenSettings.explanation": "Note from GURPS Token Shape and Movement: Some token properties have been removed from this section and can now be set in the GURPS Token Shape tab.",
-
+    "gurps-gridless.tokenSettings.rotationOffsetY.name": "Lengthwise Offset",
+    "gurps-gridless.tokenSettings.rotationOffsetY.note": "With this module, the default center of rotation will be the center front hex of the token shape. Use this setting to shift it along the length oft the token. Will be rounded to full hexes on hex grids.",
+    "gurps-gridless.tokenSettings.rotationOffsetX.name": "Sideward Offset",
+    "gurps-gridless.tokenSettings.rotationOffsetX.note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shiftig by a number of hexes not dividable by two will move the border of grid.",
+ 
+    "gurps-gridless.tokenSettings.facingIndicator.legend": "Facing Arrow",
     "gurps-gridless.tokenSettings.facingIndicatorEnabled.name": "Enable facing arrow",
-    "gurps-gridless.tokenSettings.facingIndicatorEnabled.note": "Enables te facing arrow if facing arrows are enabeld in the global settings"
+    "gurps-gridless.tokenSettings.facingIndicatorEnabled.note": "Enables the facing arrow if facing arrows are enabeld in the global settings.",
+    "gurps-gridless.tokenSettings.facingIndicatorScale.name": "Facing arrow scale",
+    "gurps-gridless.tokenSettings.facingIndicatorScale.note": "Cumulative with global scale.",
+    "gurps-gridless.tokenSettings.facingIndicatorImage.name": "Custom facing arrow",
+    "gurps-gridless.tokenSettings.facingIndicatorImage.note": "Custom facing arrow image. Leave empty to use the default arrow."
 }
