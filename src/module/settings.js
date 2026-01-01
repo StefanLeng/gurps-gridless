@@ -222,6 +222,58 @@ export function registerSettings() {
     config: true,
     default: true,
     type: Boolean,
+    requiresReload: true,
+  });
+
+  
+  game.settings.register(MODULE_ID, 'showFacingIndicator', {
+    name: 'gurps-gridless.settings.showFacingIndicator.name',
+    hint: 'gurps-gridless.settings.showFacingIndicator.description',
+    scope: 'world',
+    config: true,
+    default: true,
+    type: Boolean,
+    requiresReload: true,
+  });
+
+  game.settings.register(MODULE_ID, 'facingIndicatorGap', {
+    name: 'gurps-gridless.settings.facingIndicatorGap.name',
+    hint: 'gurps-gridless.settings.facingIndicatorGap.description',
+    scope: 'world',
+    config: true,
+    default: 0.2,
+    type: Number,
+    range: {
+      min: 0.0,
+      max: 1.0,
+      step: 0.1,
+    },
+    requiresReload: true,
+  });
+
+game.settings.register(MODULE_ID, 'facingIndicatorScale', {
+    name: 'gurps-gridless.settings.facingIndicatorScale.name',
+    hint: 'gurps-gridless.settings.facingIndicatorScale.description',
+    scope: 'world',
+    config: true,
+    default: 1,
+    type: Number,
+    range: {
+      min: 0.1,
+      max: 5.0,
+      step: 0.05,
+    },
+    requiresReload: true,
+  });
+
+game.settings.register(MODULE_ID, 'facingIndicatorImage', {
+    name: 'gurps-gridless.settings.facingIndicatorImage.name',
+    hint: 'gurps-gridless.settings.facingIndicatorImage.description',
+    scope: 'world',
+    config: true,
+    default: "",
+    filePicker: true,
+    requiresReload: true,
   });
 
   setVisionAdjustment(game.settings.get(MODULE_ID, 'VisionAdjustmetEnabled'));

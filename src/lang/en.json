@@ -31,6 +31,15 @@
     "gurps-gridless.settings.showToggleRotaionButton.name": "Show Toggle Rotation on Movement Button",
     "gurps-gridless.settings.showToggleRotaionButton.description": "When on, the Toggle Rotation on Movement Button will be shown in the left toolbar. In order for this setting change to take effect you will need to reload Foundry.",
 
+    "gurps-gridless.settings.showFacingIndicator.name": "Show facing arrow",
+    "gurps-gridless.settings.showFacingIndicator.description": "Show arror indicating token facing.",
+    "gurps-gridless.settings.facingIndicatorGap.name": "Facing arrow offset",
+    "gurps-gridless.settings.facingIndicatorGap.description": "Offset of the facing arrow from the token front in grid units.",
+    "gurps-gridless.settings.facingIndicatorScale.name": "Facing arrow scale",
+    "gurps-gridless.settings.facingIndicatorScale.description": "Scale of the facing arrow.",
+    "gurps-gridless.settings.facingIndicatorImage.name": "Custom facing arrow",
+    "gurps-gridless.settings.facingIndicatorImage.description": "Custom image for the facing arrow. Leave empty to use the default arrow.",
+
     "gurps-gridless.tokenSettings.tab.name": "GURPS Token Shape",
     "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
 

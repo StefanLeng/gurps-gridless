@@ -4,9 +4,13 @@ import { isHexColumnGrid } from './token.js';
 const PIXI = window.PIXI;
 
 export async function drawIndicator(token) {
-  if (token.GURPSGridlessIndicator) return;
+  if (!(game.settings.get(MODULE_ID, 'showFacingIndicator') ?? true) || token.GURPSGridlessIndicator) return;
+  const scaling = game.settings.get(MODULE_ID, 'facingIndicatorScale') ?? 1;
+  const indicatorOffset = game.settings.get(MODULE_ID, 'facingIndicatorGap') ?? 0.2;
+  const indicatorImage = game.settings.get(MODULE_ID, 'facingIndicatorImage')
+    ? game.settings.get(MODULE_ID, 'facingIndicatorImage')
+    : 'modules/gurps-gridless/assets/simple_arrow.png';
   const { w: width, h: height } = token;
-  const indicatorOffset = 0.2;
   const tokenOffset = token.document.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const container = new PIXI.Container({ width: width, height: height });
   container.width = width;
@@ -14,10 +18,11 @@ export async function drawIndicator(token) {
   container.x = width / 2;
   container.y = height / 2;
   container.pivot.set(0.5);
-  const texture = await PIXI.Assets.load('modules/gurps-gridless/assets/simple_arrow.png');
+  const texture = await PIXI.Assets.load(indicatorImage);
   const indicator = new PIXI.Sprite(texture);
   container.addChild(indicator);
   indicator.anchor.set(0.5);
+  indicator.scale.set(scaling);
   const gridSize = isHexColumnGrid() ? canvas.grid.sizeY : canvas.grid.sizeX;
   const offset = gridSize * (0.5 - tokenOffset + indicatorOffset);
   indicator.y = offset;
@@ -36,7 +41,7 @@ export function updateIndicator(tokenDocument, changes) {
   if (!tokenDocument.object?.GURPSGridlessIndicator) return;
   if (changes.rotation === undefined && changes.flags?.[MODULE_ID]?.tokenOffsetY === undefined) return;
   const { w: width, h: height } = tokenDocument.object;
-  const indicatorOffset = 0.2;
+  const indicatorOffset = game.settings.get(MODULE_ID, 'facingIndicatorGap') ?? 0.2;
   const tokenOffset = tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
   const container = tokenDocument.object.GURPSGridlessIndicator;
   container.width = width;
