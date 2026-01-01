@@ -1,0 +1,36 @@
+<div class="tab scrollable{{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+    <div class="form-group">
+        <label for="maxReachShown">{{localize "gurps-gridless.settings.maxReachShown.name"}}</label>
+        <input type="number" name="flags.gurps-gridless.maxReachShown" min="0.0" max="15.0" step="1.0" value="{{source.flags.gurps-gridless.maxReachShown}}" 
+           placeholder="{{localize "gurps-gridless.tokenSettings.maxReachShown.placeholder"}}">
+    </div>
+    <fieldset>
+        <legend>{{localize "gurps-gridless.tokenSettings.facingIndicator.legend"}}</legend>
+        <div class="form-group">
+            <label for="facingIndicatorEnabled">{{localize "gurps-gridless.tokenSettings.facingIndicatorEnabled.name"}}</label>
+            <input type="checkbox" name="flags.gurps-gridless.facingIndicatorEnabled" min="-30.0" max="30.0" step="0.1" {{checked source.flags.gurps-gridless.facingIndicatorEnabled}}>
+            <p class="hint">{{localize "gurps-gridless.tokenSettings.facingIndicatorEnabled.note"}}</p>
+        </div>
+        <div class="form-group">
+            <label for="facingIndicatorScale">{{localize "gurps-gridless.tokenSettings.facingIndicatorScale.name"}}</label>
+            <div class="form-fields">
+                <range-picker name="flags.gurps-gridless.facingIndicatorScale" value="{{#if source.flags.gurps-gridless.facingIndicatorScale}}{{source.flags.gurps-gridless.facingIndicatorScale}}{{else}}1{{/if}}" min="0.1" max="3.0" step="0.1">
+                    <input type="range" min="0.1" max="3" step="0.1">
+                    <input type="number" min="0.1" max="3" step="0.1">
+                </range-picker>
+            </div>
+            <p class="hint">{{localize "gurps-gridless.tokenSettings.facingIndicatorScale.note"}}</p>        
+        </div>
+        <div class="form-group">
+            <label for="facingIndicatorImage">{{localize "gurps-gridless.tokenSettings.facingIndicatorImage.name"}}</label>
+            <div class="form-fields">
+                <file-picker name="flags.gurps-gridless.facingIndicatorImage" type="any"  value="{{source.flags.gurps-gridless.facingIndicatorImage}}">
+                    <input type="text">
+                <button class="fa-solid fa-file-import fa-fw icon" type="button" data-tooltip="FILES.BrowseTooltip" aria-label="FILES.BrowseTooltip" tabindex="-1"></button>
+                </file-picker>
+            </div>
+            <p class="hint">{{localize "gurps-gridless.tokenSettings.facingIndicatorImage.note"}}</p>        
+        </div>
+    </fieldset>
+</div>
+

@@ -203,6 +203,7 @@ export function registerSettings() {
     default: false,
     type: Boolean,
     onChange: onGURPSMovementEnabledChanged,
+    requiresReload: true,
   });
 
   game.settings.register(MODULE_ID, 'VisionAdjustmetEnabled', {
@@ -308,6 +309,10 @@ export function addTokenConfigTab(app) {
 	app.TABS.sheet.tabs.push({ id: MODULE_ID, label: game.i18n.localize('gurps-gridless.tokenSettings.tab.name'), icon: "far fa-circle" });
     const footer = app.PARTS.footer;
     delete app.PARTS.footer;
-    app.PARTS[MODULE_ID] = {template: "modules/gurps-gridless/templates/gurpsgridlessTokenConfig.hbs", scrollable: [""]};
+    if (game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
+        app.PARTS[MODULE_ID] = {template: "modules/gurps-gridless/templates/gurpsgridlessTokenConfig.hbs", scrollable: [""]};
+    } else {
+        app.PARTS[MODULE_ID] = {template: "modules/gurps-gridless/templates/gurpsgridlessSimpleTokenConfig.hbs", scrollable: [""]};
+    }
     app.PARTS.footer = footer;
 }
