@@ -1,73 +1,150 @@
-{
-    "gurps-gridless.keybindings.showRangeIndicator.name": "Show reach indicator",
-    "gurps-gridless.keybindings.showRangeIndicator.hint": "Show reach indicator for controled token.",
-    "gurps-gridless.keybindings.showRangeIndicatorAll.name": "Show reach indicator for all",
-    "gurps-gridless.keybindings.showRangeIndicatorAll.hint": "Show reach indicator for all tokens.",
-    "gurps-gridless.keybindings.toggleRotationOnMove.name": "Toggle Rotation on Move",
-    "gurps-gridless.keybindings.toggleRotationOnMove.hint": "Temporarily turn on or off automatic rotation on move for this user. Will only have an effect if Automatc Rotation on Move is turend on in the core settings.",
-    "gurps-gridless.keybindings.retreat.name": "Retreat",
-    "gurps-gridless.keybindings.retreat.hint": "Move selected token(s) 1 grid unit backwards and keep facing.",
+{   "gurps-gridless": {
+        "keybindings": {
+            "showRangeIndicator":{
+                "name": "Show reach indicator",
+                "hint": "Show reach indicator for controled token."
+            },
+            "showRangeIndicatorAll": {
+                "name": "Show reach indicator for all",
+                "hint": "Show reach indicator for all tokens."
+            },
+            "toggleRotationOnMove": {
+                "name": "Toggle Rotation on Move",
+                "hint": "Temporarily turn on or off automatic rotation on move for this user. Will only have an effect if Automatc Rotation on Move is turend on in the core settings."
+            },
+            "retreat": {
+                "name": "Retreat",
+                "hint": "Move selected token(s) 1 grid unit backwards and keep facing."
+            }
+        },
 
-    "gurps-gridless.button.toggleRotationOnMove.name": "Toggle Rotation on Move",
+        "button": {
+                "toggleRotationOnMove": {
+                    "name": "Toggle Rotation on Move"
+                }
+            },
+        
+        "settings":{
+            "maxReachShown": {
+                "name": "Maximal reach shown",
+                "description": "Maximal Reach shown in reach indicator."
+            },
+            "reachIndicatorOverdraw": {
+                "name": "Reach indicator Color overdraw",
+                "description": "How far the facing color is drawn beyond max reach. 0: not at all, 1: full yard"
+            },
+            "innerBorderWidth": {
+                "name": "Inner border width",
+                "description": "Width of the inner border in px."
+            },
+            "outerBorderWidth": {
+                "name": "Outer border width",
+                "description": "Width of the outer border in px."
+            },
+            "reachLineAlpha": {
+                "name": "Reach indicator line opacity",
+                "description": "Opacity of the reach lines in the reach indicator."
+            },
+            "facingAlpha": {
+                "name": "Facing area opacity",
+                "description": "Opacity of the facing areas in the reach indicator."
+            },
+            "GURPSMovmentEnabled": {
+                "name": "Enable GURPS tokens shapes and movement on Hex-Grids",
+                "description": "Enable GURPS specific movement and hex shapes on hex-Grids. WARNING: This will change token settings on all scenes in this world. Disabling this option will revert the changes. Please disable the setting before removing this module, otherwise the changes will persist."
+            },
+            "VisionAdjustmetEnabled": {
+                "name": "Adjust Vision",
+                "description": "Adjusts vision origin for multihex tokens so that the complete token is visible to itself."
+            },
+            "alwaysShowOuterBorder": {
+                "name": "Always show outer border",
+                "description": "When on, the outer border with the facing colors will be always shown for all visible tokens. When off, it will only be shown for the selected token or on hover (as the inner bortder)."
+            },
+            "showToggleRotaionButton": {
+                "name": "Show Toggle Rotation on Movement Button",
+                "description": "When on, the Toggle Rotation on Movement Button will be shown in the left toolbar. In order for this setting change to take effect you will need to reload Foundry."
+            },
 
-    "gurps-gridless.settings.maxReachShown.name": "Maximal reach shown",
-    "gurps-gridless.settings.maxReachShown.description": "Maximal Reach shown in reach indicator.",
-    "gurps-gridless.settings.reachIndicatorOverdraw.name": "Reach indicator Color overdraw",
-    "gurps-gridless.settings.reachIndicatorOverdraw.description": "How far the facing color is drawn beyond max reach. 0: not at all, 1: full yard",
-    "gurps-gridless.settings.innerBorderWidth.name": "Inner border width",
-    "gurps-gridless.settings.innerBorderWidth.description": "Width of the inner border in px.",
-    "gurps-gridless.settings.outerBorderWidth.name": "Outer border width",
-    "gurps-gridless.settings.outerBorderWidth.description": "Width of the outer border in px.",
-    "gurps-gridless.settings.reachLineAlpha.name": "Reach indicator line opacity",
-    "gurps-gridless.settings.reachLineAlpha.description": "Opacity of the reach lines in the reach indicator.",
-    "gurps-gridless.settings.facingAlpha.name": "Facing area opacity",
-    "gurps-gridless.settings.facingAlpha.description": "Opacity of the facing areas in the reach indicator.",
-    "gurps-gridless.settings.GURPSMovmentEnabled.name": "Enable GURPS tokens shapes and movement on Hex-Grids",
-    "gurps-gridless.settings.GURPSMovmentEnabled.description": "Enable GURPS specific movement and hex shapes on hex-Grids. WARNING: This will change token settings on all scenes in this world. Disabling this option will revert the changes. Please disable the setting before removing this module, otherwise the changes will persist.",
-    "gurps-gridless.settings.VisionAdjustmetEnabled.name": "Adjust Vision",
-    "gurps-gridless.settings.VisionAdjustmetEnabled.description": "Adjusts vision origin for multihex tokens so that the complete token is visible to itself.",
-    "gurps-gridless.settings.alwaysShowOuterBorder.name": "Always show outer border",
-    "gurps-gridless.settings.alwaysShowOuterBorder.description": "When on, the outer border with the facing colors will be always shown for all visible tokens. When off, it will only be shown for the selected token or on hover (as the inner bortder).",
-    "gurps-gridless.settings.showToggleRotaionButton.name": "Show Toggle Rotation on Movement Button",
-    "gurps-gridless.settings.showToggleRotaionButton.description": "When on, the Toggle Rotation on Movement Button will be shown in the left toolbar. In order for this setting change to take effect you will need to reload Foundry.",
+            "showFacingIndicator": {
+                "name": "Show facing arrow",
+                "description": "Show arror indicating token facing."
+            },
+            "facingIndicatorGap": {
+                "name": "Facing arrow offset",
+                "description": "Offset of the facing arrow from the token front in grid units."
+            },
+            "facingIndicatorScale": {
+                "name": "Facing arrow scale",
+                "description": "Scale of the facing arrow."
+            },
+            "facingIndicatorImage": {
+                "name": "Custom facing arrow",
+                "description": "Custom image for the facing arrow. Leave empty to use the default arrow."
+            }
+        },
 
-    "gurps-gridless.settings.showFacingIndicator.name": "Show facing arrow",
-    "gurps-gridless.settings.showFacingIndicator.description": "Show arror indicating token facing.",
-    "gurps-gridless.settings.facingIndicatorGap.name": "Facing arrow offset",
-    "gurps-gridless.settings.facingIndicatorGap.description": "Offset of the facing arrow from the token front in grid units.",
-    "gurps-gridless.settings.facingIndicatorScale.name": "Facing arrow scale",
-    "gurps-gridless.settings.facingIndicatorScale.description": "Scale of the facing arrow.",
-    "gurps-gridless.settings.facingIndicatorImage.name": "Custom facing arrow",
-    "gurps-gridless.settings.facingIndicatorImage.description": "Custom image for the facing arrow. Leave empty to use the default arrow.",
+        "tokenSettings": {
+            "tab": {
+                "name": "GURPS Token Shape"
+            },
+            "explanation": "Note from GURPS Token Shape and Movement: Some token properties have been removed from this section and can now be set in the GURPS Token Shape tab.",
 
-    "gurps-gridless.tokenSettings.tab.name": "GURPS Token Shape",
-    "gurps-gridless.tokenSettings.explanation": "Note from GURPS Token Shape and Movement: Some token properties have been removed from this section and can now be set in the GURPS Token Shape tab.",
-
-    "gurps-gridless.tokenSettings.maxReachShown.placeholder": "Leave empty to use global setting",
-    "gurps-gridless.tokenSettings.maxReachShown.name": "Maximal reach shown",
-    
-    "gurps-gridless.tokenSettings.image.legend": "Token image settings",
-    "gurps-gridless.tokenSettings.tokenScaling.name": "Scaling",
-    "gurps-gridless.tokenSettings.imageOffsetY.name": "Lengthwise Image Offset",
-    "gurps-gridless.tokenSettings.imageOffsetY.note": "Shifts the token image forward on positive values and back on negative values relative to the token border",
-    "gurps-gridless.tokenSettings.imageOffsetX.name": "Sideward Image Offset",
-    "gurps-gridless.tokenSettings.imageOffsetX.note": "Shifts the token image right on positive values and left on negative values relative to the token border",
-    
-    "gurps-gridless.tokenSettings.tokenDimensions.legend": "Token dimensions in grid units",
-    "gurps-gridless.tokenSettings.tokenWidth.name": "Width",
-    "gurps-gridless.tokenSettings.tokenWidth.note": "Will be rounded to full hexes on hex grids. Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids.",
-    "gurps-gridless.tokenSettings.tokenLength.name": "Length",
-    "gurps-gridless.tokenSettings.tokenLength.note": "Will be rounded to full hexes on hex grids.  Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids.",
-    "gurps-gridless.tokenSettings.rotationOffsetY.name": "Lengthwise Offset",
-    "gurps-gridless.tokenSettings.rotationOffsetY.note": "With this module, the default center of rotation will be the center front hex of the token shape. Use this setting to shift it along the length oft the token. Will be rounded to full hexes on hex grids.",
-    "gurps-gridless.tokenSettings.rotationOffsetX.name": "Sideward Offset",
-    "gurps-gridless.tokenSettings.rotationOffsetX.note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shiftig by a number of hexes not dividable by two will move the border of grid.",
- 
-    "gurps-gridless.tokenSettings.facingIndicator.legend": "Facing Arrow",
-    "gurps-gridless.tokenSettings.facingIndicatorEnabled.name": "Enable facing arrow",
-    "gurps-gridless.tokenSettings.facingIndicatorEnabled.note": "Enables the facing arrow if facing arrows are enabeld in the global settings.",
-    "gurps-gridless.tokenSettings.facingIndicatorScale.name": "Facing arrow scale",
-    "gurps-gridless.tokenSettings.facingIndicatorScale.note": "Cumulative with global scale.",
-    "gurps-gridless.tokenSettings.facingIndicatorImage.name": "Custom facing arrow",
-    "gurps-gridless.tokenSettings.facingIndicatorImage.note": "Custom facing arrow image. Leave empty to use the default arrow."
+            "maxReachShown": {
+                "placeholder": "Leave empty to use global setting",
+                "name": "Maximal reach shown"
+            },
+            
+            "image": {
+                "legend": "Token image settings"
+            },
+            "tokenScaling": {
+                "name": "Scaling"
+            },
+            "imageOffsetY": {
+                "name": "Lengthwise Image Offset",
+                "note": "Shifts the token image forward on positive values and back on negative values relative to the token border"
+            },
+            "imageOffsetX": {
+                "name": "Sideward Image Offset",
+                "note": "Shifts the token image right on positive values and left on negative values relative to the token border"
+            },
+            
+            "tokenDimensions": {
+                "legend": "Token dimensions in grid units"
+            },
+            "tokenWidth": {
+                "name": "Width",
+                "note": "Will be rounded to full hexes on hex grids. Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids."
+            },
+            "tokenLength": {
+                "name": "Length",
+                "note": "Will be rounded to full hexes on hex grids.  Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids."
+            },
+            "rotationOffsetY": {
+                "name": "Lengthwise Offset",
+                "note": "With this module, the default center of rotation will be the center front hex of the token shape. Use this setting to shift it along the length oft the token. Will be rounded to full hexes on hex grids."
+            },
+            "rotationOffsetX": {
+                "name": "Sideward Offset",
+                "note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shiftig by a number of hexes not dividable by two will move the border of grid."
+            },
+        
+            "facingIndicator": {
+                "legend": "Facing Arrow"
+            },
+            "facingIndicatorEnabled": {
+                "name": "Enable facing arrow",
+                "note": "Enables the facing arrow if facing arrows are enabeld in the global settings."
+            },
+            "facingIndicatorScale": {
+                "name": "Facing arrow scale",
+                "note": "Cumulative with global scale."
+            },
+            "facingIndicatorImage": {
+                "name": "Custom facing arrow",
+                "note": "Custom facing arrow image. Leave empty to use the default arrow."
+            }
+        }
+    }
 }
