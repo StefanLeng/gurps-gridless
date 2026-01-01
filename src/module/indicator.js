@@ -4,7 +4,12 @@ import { isHexColumnGrid } from './token.js';
 const PIXI = window.PIXI;
 
 export async function drawIndicator(token) {
-  if (!(game.settings.get(MODULE_ID, 'showFacingIndicator') ?? true) || token.GURPSGridlessIndicator) return;
+  if (
+    !(game.settings.get(MODULE_ID, 'showFacingIndicator') ?? true) ||
+    !(token.document.flags[MODULE_ID]?.facingIndicatorEnabled ?? true) ||
+    token.GURPSGridlessIndicator
+  )
+    return;
   const scaling = game.settings.get(MODULE_ID, 'facingIndicatorScale') ?? 1;
   const indicatorOffset = game.settings.get(MODULE_ID, 'facingIndicatorGap') ?? 0.2;
   const indicatorImage = game.settings.get(MODULE_ID, 'facingIndicatorImage')

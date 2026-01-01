@@ -285,7 +285,7 @@ function generateElement(html) {
   return template.content.firstChild;
 }
 
-export function modifyTokenConfig(app, html) {
+export function modifyTokenConfig(app, html, data) {
   if (game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
     html.classList.add('gurp-gridless-active');
 
@@ -294,6 +294,12 @@ export function modifyTokenConfig(app, html) {
           'gurps-gridless.tokenSettings.explanation',
         )}</label></div>`,)
     injectionPoint.after(injectHtml);
+
+     const indicatorEnabled = data.source.flags?.[MODULE_ID]?.facingIndicatorEnabled;
+    if (indicatorEnabled === undefined){
+       const indicatorEnabledCheckbox = html.querySelector('input[name="flags.gurps-gridless.facingIndicatorEnabled"]');
+       indicatorEnabledCheckbox.checked = true;
+    }
   }
 
 }
