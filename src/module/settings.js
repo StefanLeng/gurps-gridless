@@ -226,7 +226,6 @@ export function registerSettings() {
     requiresReload: true,
   });
 
-  
   game.settings.register(MODULE_ID, 'showFacingIndicator', {
     name: 'gurps-gridless.settings.showFacingIndicator.name',
     hint: 'gurps-gridless.settings.showFacingIndicator.description',
@@ -276,6 +275,32 @@ game.settings.register(MODULE_ID, 'facingIndicatorImage', {
     filePicker: true,
     requiresReload: true,
   });
+
+  game.settings.register(MODULE_ID, 'shiftTokensinSameHex', {
+    name: 'gurps-gridless.settings.shiftTokensinSameHex.name',
+    hint: 'gurps-gridless.settings.shiftTokensinSameHex.description',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+    requiresReload: true,
+  });
+
+  game.settings.register(MODULE_ID, 'tokenShiftDistance', {
+    name: 'gurps-gridless.settings.tokenShiftDistance.name',
+    hint: 'gurps-gridless.settings.tokenShiftDistance.description',
+    scope: 'world',
+    config: true,
+    default: 0.4,
+    type: Number,
+    range: {
+      min: 0.1,
+      max: 1.0,
+      step: 0.1,
+    },
+    requiresReload: true,
+  });
+
 
   setVisionAdjustment(game.settings.get(MODULE_ID, 'VisionAdjustmetEnabled'));
 }

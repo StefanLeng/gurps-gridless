@@ -1,5 +1,21 @@
+const PIXI = window.PIXI;
+
 export function getDirection(token) {
   return token.document.rotation;
+}
+
+export function normalizeAngle(angle) {
+  return ((angle % 360) + 360) % 360;
+}
+
+export function toRadians(angle) {
+  return (angle / 180) * Math.PI;
+}
+
+export function rotatePoint(point, angle) {
+  const mat = new PIXI.Matrix();
+  mat.rotate(toRadians(angle));
+  return mat.apply(point);
 }
 
 function getGridType() {

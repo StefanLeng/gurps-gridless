@@ -1,16 +1,12 @@
-import { getDirection } from './rotation.js';
+import { getDirection, toRadians } from './rotation.js';
 import { isHexGrid } from './token.js';
 import { MODULE_ID } from './constants.js';
 import { doHexBodyShape } from './shapes.js';
+const PIXI = window.PIXI;
 
 function rectangelHitArea(token) {
   const { w: width, h: height } = token;
-  return [
-    new PIXI.Point(0, 0), //eslint-disable-line no-undef
-    new PIXI.Point(width, 0), //eslint-disable-line no-undef
-    new PIXI.Point(width, height), //eslint-disable-line no-undef
-    new PIXI.Point(0, height), //eslint-disable-line no-undef
-  ];
+  return [new PIXI.Point(0, 0), new PIXI.Point(width, 0), new PIXI.Point(width, height), new PIXI.Point(0, height)];
 }
 
 function hexHitArea(token) {
@@ -18,7 +14,7 @@ function hexHitArea(token) {
   let points = [];
 
   let f = (x, y) => {
-    points.push(new PIXI.Point(x + widthpx / 2, y + heightpx / 2)); //eslint-disable-line no-undef
+    points.push(new PIXI.Point(x + widthpx / 2, y + heightpx / 2));
   };
 
   doHexBodyShape(token.document.flags[MODULE_ID]?.tokenWidth, token.document.flags[MODULE_ID]?.tokenLength, f);
@@ -37,17 +33,21 @@ export function drawHitArea(token) {
   } else {
     ({ anchorX, anchorY } = token.document.texture);
   }
-  const tokenDirectionDegree = getDirection(token);
-  const tokenDirection = (tokenDirectionDegree / 180) * Math.PI;
+  const tokenDirection = toRadians(getDirection(token));
 
-  var mat = new PIXI.Matrix(); //eslint-disable-line no-undef
-  mat.translate(-width * (0.5 + (anchorX - 0.5)), -height * (0.5 + (anchorY - 0.5)));
+  const mat = new PIXI.Matrix();
+  const shift = token.document.gurpsGridless?.shift ?? { x: 0, y: 0 };
+  // eslint-disable-next-line prettier/prettier
+  mat.translate(
+    -width * (0.5 + (anchorX - 0.5)) - shift.x,
+    -height * (0.5 + (anchorY - 0.5)) - shift.y,
+  );
   mat.rotate(tokenDirection);
   mat.translate(width * 0.5, height * 0.5);
 
   const rotatedPoints = points.map((p) => mat.apply(p));
 
-  const hitArea = new PIXI.Polygon(rotatedPoints); //eslint-disable-line no-undef
+  const hitArea = new PIXI.Polygon(rotatedPoints);
   token.shape = hitArea;
   token.hitArea = hitArea;
 }

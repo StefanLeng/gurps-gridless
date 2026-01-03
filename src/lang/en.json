@@ -78,9 +78,13 @@
                 "name": "Facing arrow scale",
                 "description": "Scale of the facing arrow."
             },
-            "facingIndicatorImage": {
-                "name": "Custom facing arrow",
-                "description": "Custom image for the facing arrow. Leave empty to use the default arrow."
+            "shiftTokensinSameHex": {
+                "name": "Shift Tokens in same hex",
+                "description": "Experimental: When enabled, tokens that are in the same hex with other tokens will be shifted outward so they can better be selected. Only on hex grids."
+            },
+            "tokenShiftDistance": {
+                "name": "Token shift distance",
+                "description": "The distance tokens in the same hex will be shifted outward."
             }
         },
 

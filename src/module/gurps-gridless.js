@@ -9,6 +9,7 @@ import { gurpsGridlessAPI } from './api.js';
 import { createToggleRotationButton } from './toggleRotation.js';
 import { clipRotationToFaces } from './rotation.js';
 import { drawIndicator, updateIndicator, updateIndicatorDirection } from './indicator.js';
+import { applyCloseRangeShift } from './closeCombatShift.js';
 
 const version = '0.7.0';
 
@@ -53,6 +54,7 @@ Hooks.on('refreshToken', (token) => {
 Hooks.on('preUpdateToken', (d, c, o) => {
   clipRotationToFaces(d, c);
   setTokenDimensionsonUpdate(d, c, o);
+  applyCloseRangeShift(d, c);
   game.gurpsGridLess.showRangeIndicator = false;
   game.gurpsGridLess.showRangeIndicatorAll = false;
   drawEachReachIndicator();
@@ -60,6 +62,7 @@ Hooks.on('preUpdateToken', (d, c, o) => {
 
 Hooks.on('drawToken', (token) => {
   setTokenDimensions(token.document);
+  applyCloseRangeShift(token.document, {}, true);
   drawHitArea(token);
   drawIndicator(token);
 });

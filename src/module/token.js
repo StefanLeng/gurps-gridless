@@ -196,10 +196,10 @@ export function makeTokenUpdates(
     }
   }
 
-  tokenDocument.gurpsGridless = {
+  tokenDocument.gurpsGridless = foundry.utils.mergeObject(tokenDocument.gurpsGridless ?? {}, {
     anchorX: offset.x,
     anchorY: offset.y,
-  };
+  });
 
   return changes;
 }
