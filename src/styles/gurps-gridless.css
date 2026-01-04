@@ -2,18 +2,18 @@
 /*                 CSS                  */
 /*         Add your styles here         */
 /* ------------------------------------ */
-.token-config.gurp-gridless-active .tab[data-tab="appearance"] .form-group:has( input[name="width"]) {
+.token-config.gurps-gridless-active .tab[data-tab="appearance"] .form-group:has( input[name="width"]) {
     display: none;
 }
 
-.token-config.gurp-gridless-active .tab[data-tab="appearance"] .form-group:has( select[name="shape"]) {
+.token-config.gurps-gridless-active .tab[data-tab="appearance"] .form-group:has( select[name="shape"]) {
     display: none;
 }
 
-.token-config.gurp-gridless-active .tab[data-tab="appearance"] .form-group:has( input[name="texture.anchorX"]) {
+.token-config.gurps-gridless-active .tab[data-tab="appearance"] .form-group:has( input[name="texture.anchorX"]) {
     display: none;
 }
 
-.token-config.gurp-gridless-active .tab[data-tab="appearance"] .form-group:has( range-picker[name="scale"]) {
+.token-config.gurps-gridless-active .tab[data-tab="appearance"] .form-group:has( range-picker[name="scale"]) {
     display: none;
 }

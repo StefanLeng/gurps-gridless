@@ -9,11 +9,12 @@ export async function drawIndicator(token) {
     (game.settings.get(MODULE_ID, 'facingIndicatorScale') ?? 1) *
     (token.document.flags[MODULE_ID]?.facingIndicatorScale ?? 1);
   const indicatorOffset = game.settings.get(MODULE_ID, 'facingIndicatorGap') ?? 0.2;
-  const indicatorImage = token.document.flags[MODULE_ID]?.facingIndicatorImage
-    ? token.document.flags[MODULE_ID]?.facingIndicatorImage
-    : game.settings.get(MODULE_ID, 'facingIndicatorImage')
-    ? game.settings.get(MODULE_ID, 'facingIndicatorImage')
-    : 'modules/gurps-gridless/assets/simple_arrow.png';
+  const indicatorImage =
+    token.document.flags[MODULE_ID]?.facingIndicatorImage?.trim() ?? '' !== ''
+      ? token.document.flags[MODULE_ID]?.facingIndicatorImage.trim()
+      : game.settings.get(MODULE_ID, 'facingIndicatorImage')?.trim() ?? '' !== ''
+      ? game.settings.get(MODULE_ID, 'facingIndicatorImage').trim()
+      : 'modules/gurps-gridless/assets/simple_arrow.png';
   const show = token.document.flags[MODULE_ID]?.facingIndicatorEnabled ?? true;
   const { w: width, h: height } = token;
   const tokenOffset = token.document.flags[MODULE_ID]?.tokenOffsetY ?? 0;
@@ -33,7 +34,7 @@ export async function drawIndicator(token) {
   indicator.y = offset;
   container.angle = token.document.rotation;
   container.indicator = indicator;
-  container.imagePaht = indicatorImage;
+  container.imagePath = indicatorImage;
   container.visible = show;
   token.GURPSGridlessIndicator = container;
   token.addChild(container);
@@ -62,22 +63,24 @@ export async function updateIndicator(tokenDocument, changes) {
     (game.settings.get(MODULE_ID, 'facingIndicatorScale') ?? 1) *
     (tokenDocument.flags[MODULE_ID]?.facingIndicatorScale ?? 1);
   const show = tokenDocument.flags[MODULE_ID]?.facingIndicatorEnabled ?? true;
-  const indicatorImage = tokenDocument.flags[MODULE_ID]?.facingIndicatorImage
-    ? tokenDocument.flags[MODULE_ID]?.facingIndicatorImage
-    : game.settings.get(MODULE_ID, 'facingIndicatorImage')
-    ? game.settings.get(MODULE_ID, 'facingIndicatorImage')
-    : 'modules/gurps-gridless/assets/simple_arrow.png';
+  const indicatorImage =
+    tokenDocument.flags[MODULE_ID]?.facingIndicatorImage?.trim() ?? '' !== ''
+      ? tokenDocument.flags[MODULE_ID]?.facingIndicatorImage.trim()
+      : game.settings.get(MODULE_ID, 'facingIndicatorImage')?.trim() ?? '' !== ''
+      ? game.settings.get(MODULE_ID, 'facingIndicatorImage').trim()
+      : 'modules/gurps-gridless/assets/simple_arrow.png';
   container.width = width;
   container.height = height;
   container.x = width / 2;
   container.y = height / 2;
   container.pivot.set(0.5);
   container.scale.set(1);
-  if (container.imagePaht !== indicatorImage) {
+  if (container.imagePath !== indicatorImage) {
     container.removeChild(container.indicator);
     const texture = await PIXI.Assets.load(indicatorImage);
     container.indicator = new PIXI.Sprite(texture);
     container.addChild(container.indicator);
+    container.imagePath = indicatorImage;
   }
   const indicator = container.indicator;
   indicator.scale.set(scaling);

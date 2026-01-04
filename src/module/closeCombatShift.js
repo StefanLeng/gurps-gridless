@@ -1,13 +1,13 @@
-import { doborder } from './borders';
+import { doBorder } from './borders';
 import { getDirection, normalizeAngle, rotatePoint } from './rotation';
 import { isHexGrid } from './token';
 import { MODULE_ID } from './constants.js';
 
-const closeRangeTreshold = 0.5;
+const closeRangeThreshold = 0.5;
 
 function tokensInCloseRange(tokenDocument) {
   return tokenDocument.parent.tokens.filter(
-    (v) => v.uuid != tokenDocument.uuid && canvas.grid.measurePath([v, tokenDocument]).distance < closeRangeTreshold,
+    (v) => v.uuid != tokenDocument.uuid && canvas.grid.measurePath([v, tokenDocument]).distance < closeRangeThreshold,
   );
 }
 
@@ -18,7 +18,7 @@ function tokensInCloseRangeAt(tokenDocument, x, y) {
       canvas.grid.measurePath([
         { x: v.x, y: v.y },
         { x: x, y: y },
-      ]).distance < closeRangeTreshold,
+      ]).distance < closeRangeThreshold,
   );
   result.push(tokenDocument);
   return result;
@@ -28,7 +28,7 @@ function calculateShift2(tokenDocuments, getTokenDirection) {
   /* 
   for each group of tokens with the same starting angle find the optimal starting position,
   so that no token has the same angle and, if enough space, it gets shifted backwards.
-  Assumes tokenDokuments are sorted be direction and spacingAngle * tokenDocuments.lenght <= 360
+  Assumes tokenDocuments are sorted be direction and spacingAngle * tokenDocuments.length <= 360
   */
   function calcFacingGroups(tokenDocuments, spacingAngle) {
     let d = tokenDocuments
@@ -70,7 +70,7 @@ function calculateShift2(tokenDocuments, getTokenDirection) {
       shiftAngle: 0,
       shiftDist: 0,
     });
-    doborder(tokenDocuments[0].object);
+    doBorder(tokenDocuments[0].object);
   } else {
     tokenDocuments.sort((a, b) => getTokenDirection(a) - getTokenDirection(b));
     let spacingAngle = 360 / Math.max(tokenDocuments.length, 6);
@@ -87,7 +87,7 @@ function calculateShift2(tokenDocuments, getTokenDirection) {
         shiftAngle: rot,
         shiftDist: shiftLength * canvas.grid.sizeY,
       });
-      doborder(element.object);
+      doBorder(element.object);
       last = dir;
     });
   }

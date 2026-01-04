@@ -1,6 +1,6 @@
 import { MODULE_ID } from './constants.js';
 
-const toolButtonName = 'gurps-gridless-toggleRotationOnMovemnt';
+const toolButtonName = 'gurps-gridless-toggleRotationOnMovement';
 
 function isToolbarButtonEnabled() {
   return game.settings.get(MODULE_ID, 'showToggleRotaionButton');
@@ -15,10 +15,10 @@ export function createToggleRotationButton(controls) {
         title: game.i18n.localize('gurps-gridless.button.toggleRotationOnMove.name'),
         icon: 'fas fa-rotate',
         toggle: true,
-        active: !game.gurpsGridLess.supressRotationOnMove,
+        active: !game.gurpsGridLess.suppressRotationOnMove,
         visible: true,
         onChange: () => {
-          game.gurpsGridLess.supressRotationOnMove = !game.gurpsGridLess.supressRotationOnMove;
+          game.gurpsGridLess.suppressRotationOnMove = !game.gurpsGridLess.suppressRotationOnMove;
         },
       };
       tokenButton.tools[toolButtonName] = newButton;
@@ -27,9 +27,9 @@ export function createToggleRotationButton(controls) {
 }
 
 export function toggleRotationOnMovement() {
-  game.gurpsGridLess.supressRotationOnMove = !game.gurpsGridLess.supressRotationOnMove;
+  game.gurpsGridLess.suppressRotationOnMove = !game.gurpsGridLess.suppressRotationOnMove;
   if (isToolbarButtonEnabled() && !!ui.controls?.controls?.tokens) {
-    ui.controls.controls.tokens.tools[toolButtonName].active = !game.gurpsGridLess.supressRotationOnMove;
+    ui.controls.controls.tokens.tools[toolButtonName].active = !game.gurpsGridLess.suppressRotationOnMove;
     ui.controls.render();
   }
 }
@@ -44,7 +44,7 @@ export async function retreat(token) {
   }
 }
 
-export function retreatControledTokens() {
+export function retreatControlledTokens() {
   for (let token of canvas.tokens.controlled) {
     retreat(token);
   }

@@ -1,8 +1,8 @@
 import { registerSettings, GURPSGridLess, modifyTokenConfig, addTokenConfigTab } from './settings.js';
-import { drawEachReachIndicator } from './rangeindicator.js';
-import { doborder } from './borders.js';
+import { drawEachReachIndicator } from './rangeIndicator.js';
+import { doBorder } from './borders.js';
 import { drawHitArea } from './hitArea.js';
-import { setTokenDimensionsonUpdate, setTokenDimesionsOnCreate, setTokenDimensions } from './token.js';
+import { setTokenDimensionsOnUpdate, setTokenDimensionsOnCreate, setTokenDimensions } from './token.js';
 import { updateSceneTokens } from './scene.js';
 import { MODULE_ID } from './constants.js';
 import { gurpsGridlessAPI } from './api.js';
@@ -47,13 +47,13 @@ Hooks.on('renderPrototypeTokenConfig', (app, form, data) => modifyTokenConfig(ap
 
 Hooks.on('refreshToken', (token) => {
   drawHitArea(token);
-  doborder(token);
+  doBorder(token);
   updateIndicatorDirection(token);
 });
 
 Hooks.on('preUpdateToken', (d, c, o) => {
   clipRotationToFaces(d, c);
-  setTokenDimensionsonUpdate(d, c, o);
+  setTokenDimensionsOnUpdate(d, c, o);
   applyCloseRangeShift(d, c);
   game.gurpsGridLess.showRangeIndicator = false;
   game.gurpsGridLess.showRangeIndicatorAll = false;
@@ -67,18 +67,18 @@ Hooks.on('drawToken', (token) => {
   drawIndicator(token);
 });
 
-Hooks.on('updateToken', (tokenDokument, changes) => {
-  drawHitArea(tokenDokument.object);
-  doborder(tokenDokument.object);
-  updateIndicator(tokenDokument, changes);
+Hooks.on('updateToken', (tokenDocument, changes) => {
+  drawHitArea(tokenDocument.object);
+  doBorder(tokenDocument.object);
+  updateIndicator(tokenDocument, changes);
 });
 
 Hooks.on('updateScene', updateSceneTokens);
 
-Hooks.on('preCreateToken', setTokenDimesionsOnCreate);
+Hooks.on('preCreateToken', setTokenDimensionsOnCreate);
 
 Hooks.on('preMoveToken', (d, c) => {
-  if (game.gurpsGridLess.supressRotationOnMove) {
+  if (game.gurpsGridLess.suppressRotationOnMove) {
     c.autoRotate = false;
   }
 });

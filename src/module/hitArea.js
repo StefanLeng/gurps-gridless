@@ -4,17 +4,17 @@ import { MODULE_ID } from './constants.js';
 import { doHexBodyShape } from './shapes.js';
 const PIXI = window.PIXI;
 
-function rectangelHitArea(token) {
+function rectangleHitArea(token) {
   const { w: width, h: height } = token;
   return [new PIXI.Point(0, 0), new PIXI.Point(width, 0), new PIXI.Point(width, height), new PIXI.Point(0, height)];
 }
 
 function hexHitArea(token) {
-  const { w: widthpx, h: heightpx } = token;
+  const { w: widthPx, h: heightPx } = token;
   let points = [];
 
   let f = (x, y) => {
-    points.push(new PIXI.Point(x + widthpx / 2, y + heightpx / 2));
+    points.push(new PIXI.Point(x + widthPx / 2, y + heightPx / 2));
   };
 
   doHexBodyShape(token.document.flags[MODULE_ID]?.tokenWidth, token.document.flags[MODULE_ID]?.tokenLength, f);
@@ -24,7 +24,7 @@ function hexHitArea(token) {
 
 export function drawHitArea(token) {
   const points =
-    isHexGrid() && game.settings.get(MODULE_ID, 'GURPSMovementEnabled') ? hexHitArea(token) : rectangelHitArea(token);
+    isHexGrid() && game.settings.get(MODULE_ID, 'GURPSMovementEnabled') ? hexHitArea(token) : rectangleHitArea(token);
 
   const { w: width, h: height } = token;
   let anchorX, anchorY;

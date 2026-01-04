@@ -1,6 +1,6 @@
 # GURPS Token Shape and Movement (with Tools for Gridless GURPS)
 
-This module enable GURPS compatible shapes and movment for larger (multi hex) tokens and adds some Tools for gridless play to the GURPS Game Aid System. It was formerly named "Tools for Gridless GURPS" but the functionalty expanded to hex shapes an movemnt on hex grid maps:
+This module enable GURPS compatible shapes and movement for larger (multi hex) tokens and adds some Tools for gridless play to the GURPS Game Aid System. It was formerly named "Tools for Gridless GURPS" but the functionality expanded to hex shapes an movement on hex grid maps:
 
 1. **Token Facing Borders** – Replaces the default token border (shown on selection or mouse hover) with a border that indicates facing. There is a setting to always show the border on all tokens. 
 
@@ -18,13 +18,13 @@ This module enable GURPS compatible shapes and movment for larger (multi hex) to
 
 5. **Toggle Movement On Rotation** – Toggle the automatic rotation on token movements on and off per user, great for retreats. To toggle use a button on the left toolbar in the token controls or a hotkey (Default: `V`).
 
-6. **Retreat Hotkey** – Press a hotkey (default `B`) to move the selectet token(s) one grid unit backwards without changing facing, regardless of the Movement On Rotation toggle.
+6. **Retreat Hotkey** – Press a hotkey (default `B`) to move the selected token(s) one grid unit backwards without changing facing, regardless of the Movement On Rotation toggle.
 
-7. **Snap Rotation to Hex Directions** - On hex grids, the token rotation is automaticaly snapped to face hex borders.
+7. **Snap Rotation to Hex Directions** - On hex grids, the token rotation is automatically snapped to face hex borders.
 
-8. **Facing Indicator** - A facing indicator arrow can be displayed. You cann set a custom arrow immage in the settings (globaly or per token).
+8. **Facing Indicator** - A facing indicator arrow can be displayed. You can set a custom arrow image in the settings (globally or per token).
 
-9. **Experimential: Shift tokens in the same hex** - When mutiple tokens are in the same hex on hex grids, the tokens are shifted outward to make them better selectable. this featture can be activated in the settings.  
+9. **Experiential: Shift tokens in the same hex** - When multiple tokens are in the same hex on hex grids, the tokens are shifted outward to make them better selectable. this feature can be activated in the settings.  
 
 The Module requires the GURPS Game Aid System.
 For background information on how this works, see *[here](background.md)*.
@@ -35,7 +35,7 @@ For background information on how this works, see *[here](background.md)*.
 
 2.  **Locked Rotation Tokens** – Some limitations exist for tokens with locked rotation. See the token setup section for details.
 
-3. **Incompatible with the Z-Scatter module** - and propably with any other moudule that modifies the token positioning.
+3. **Incompatible with the Z-Scatter module** - and probably with any other module that modifies the token positioning.
 
 ### Tips for gridless play
 In the Foundry scene set the Grid Type to gridless, the Grid Scale to 1, the Grid Unit to Yd and the Grid Size to the number of pixel for 1 yard.
@@ -65,25 +65,25 @@ With portrait style tokens, it is usually not desirable to let the token image r
 
 That works without problems for 1 hex creatures.
 
-For bigger creatures there are some limitations: The center of the image will be on the center of rotation. By default, this is in the front of the crature with this module. That will look odd in some situations. 
-You can move the center of rotation back to the center of rotation unsing the _Lengthwise Offset_, but in many cases that would be against the GURPS movement rules.
+For bigger creatures there are some limitations: The center of the image will be on the center of rotation. By default, this is in the front of the creature with this module. That will look odd in some situations. 
+You can move the center of rotation back to the center of rotation using the _Lengthwise Offset_, but in many cases that would be against the GURPS movement rules.
 
-With elongated token sizes, it will be even more problematic, because the border will rotate out of allingment with the image.
-For elogated tokens, I recommend not locking rotation, even for portrait style tokens.
+With elongated token sizes, it will be even more problematic, because the border will rotate out of alignment with the image.
+For elongated tokens, I recommend not locking rotation, even for portrait style tokens.
 
 #### **With the _Enable GURPS tokens shapes and movement on Hex-Grids_ disabled (legacy)**
 
-- If you use **portrait style tokens** just set the dimension of the Token on the Appearance tab and "Look rotation" on the Identity tab. Note that this will give somtimes odd results for elongated tokens.
+- If you use **portrait style tokens** just set the dimension of the Token on the Appearance tab and "Look rotation" on the Identity tab. Note that this will give sometimes odd results for elongated tokens.
 
 - For rotating **top down style tokens** set the dimension of the Token on the Appearance tab. 
   If the token image has the same aspect ratio as the token, use the Image Fit Mode "Contain".  
   If the token image is square, use the image fit mode "Full Height" for long tokens and "Full Width" for wide tokens.
   I don't think any different aspect ratio will work.
 
-- For multi hex tokens adjust the Anchor settings to move center of rotation to the head of the creature, if nessesary.
-  To move the the center of rotation to center of the first hex of a token of lenght X (in hexes), set the Anchor Y to <br/>1 - 0.5 / x
+- For multi hex tokens adjust the Anchor settings to move center of rotation to the head of the creature, if necessary.
+  To move the the center of rotation to center of the first hex of a token of length X (in hexes), set the Anchor Y to <br/>1 - 0.5 / x
 
-- If you have to scale your token image, this will be interfer with the translation, because the anchor is used as the center of scaling. In this case, the formular will become <br/>(0.5 - 0.5 / x) / scale + 0.5
+- If you have to scale your token image, this will be interferer with the translation, because the anchor is used as the center of scaling. In this case, the formula will become <br/>(0.5 - 0.5 / x) / scale + 0.5
 
 **Examples**:
 
@@ -101,7 +101,7 @@ Long three hex creatures with an image scaling of 1.5: Width: 1, Height: 3, Anch
 
 ### API
 
-If you want to set the token dimenions, scale and offset from a macro or from another module, youn need to set them through this module if it is active. Changes to the normal token attributes will have no effect, because they will be  overwriten by the module.
+If you want to set the token dimensions, scale and offset from a macro or from another module, you need to set them through this module if it is active. Changes to the normal token attributes will have no effect, because they will be  overwritten by the module.
 
 You can get the api with this call:
 
@@ -109,19 +109,19 @@ const gurpsGridlessApi = game.modules.get('gurps-gridless')?.api;
 
 The api has the following functions:
 
-async function setTokenDimensions(tokenDokument, length, width)
+async function setTokenDimensions(tokenDocument, length, width)
 
-async function setTokenOffsetX(tokenDokument, offset) 
+async function setTokenOffsetX(tokenDocument, offset) 
 
-async function setTokenOffsetY(tokenDokument, offset)
+async function setTokenOffsetY(tokenDocument, offset)
 
-async function setTokenScale(tokenDokument, scale) 
+async function setTokenScale(tokenDocument, scale) 
 
-async function setTokenImageOffsetX(tokenDokument, offset) 
+async function setTokenImageOffsetX(tokenDocument, offset) 
 
-async function setTokenImageOffsetY(tokenDokument, offset) 
+async function setTokenImageOffsetY(tokenDocument, offset) 
 
-If you are doing a module and need to accses the api during startup, you can do so savely in the hook 'gurpsGridlessReady'. For convinience, the api is given as the hook argument:
+If you are doing a module and need to access the api during startup, you can do so safely in the hook 'gurpsGridlessReady'. For convenience, the api is given as the hook argument:
 
 ```
 // if I need to do something as soon as the gurps-gridless is ready
@@ -130,7 +130,7 @@ Hooks.on('gurpsGridlessReady', (api) => {
 });
 ```
 
-Excample macro to set an alternat image and adjust token size and scaling:
+Example macro to set an alternate image and adjust token size and scaling:
 
 ```
 tokens = canvas.tokens.controlled;
@@ -157,7 +157,7 @@ await game.modules.get('gurps-gridless').api.setTokenDimensions(token.document,2
 
 The material presented here is my original creation, intended for use with the [GURPS](http://www.sjgames.com/gurps) system from [Steve Jackson Games](ttp://www.sjgames.com). This material is not official and is not endorsed by Steve Jackson Games.
 
-[GURPS](http://www.sjgames.com/gurps) is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This tool is the original creation of Stefan Leng and is released for free distributionunder the permissions granted in the [Steve Jackson Games Online Policy](http://www.sjgames.com/general/online_policy.html)
+[GURPS](http://www.sjgames.com/gurps) is a trademark of Steve Jackson Games, and its rules and art are copyrighted by Steve Jackson Games. All rights are reserved by Steve Jackson Games. This tool is the original creation of Stefan Leng and is released for free distribution under the permissions granted in the [Steve Jackson Games Online Policy](http://www.sjgames.com/general/online_policy.html)
 
 ## Installation
 

@@ -1,4 +1,4 @@
-import { setTokenDimensions, setTokenDimesionsOnEnable, resetTokenDimensionsOnDisable } from './token.js';
+import { setTokenDimensions, setTokenDimensionsOnEnable, resetTokenDimensionsOnDisable } from './token.js';
 
 export function updateSceneTokens(sceneDocument, changed) {
   if (changed.grid) {
@@ -6,18 +6,18 @@ export function updateSceneTokens(sceneDocument, changed) {
   }
 }
 
-export function enableGURPSMovmentforScene(sceneDocument) {
-  sceneDocument.tokens.forEach((t) => setTokenDimesionsOnEnable(t));
+export function enableGURPSMovementForScene(sceneDocument) {
+  sceneDocument.tokens.forEach((t) => setTokenDimensionsOnEnable(t));
 }
 
-export function disableURPSMovmentforScene(sceneDocument) {
+export function disableGURPSMovementForScene(sceneDocument) {
   sceneDocument.tokens.forEach((t) => resetTokenDimensionsOnDisable(t));
 }
 
-export function enableGURPSMovmentforAllScenes() {
-  game.scenes.forEach((t) => enableGURPSMovmentforScene(t));
+export function enableGURPSMovementForAllScenes() {
+  game.scenes.forEach((t) => enableGURPSMovementForScene(t));
 }
 
-export function disableGURPSMovmentforAllScenes() {
-  game.scenes.forEach((t) => disableURPSMovmentforScene(t));
+export function disableGURPSMovementForAllScenes() {
+  game.scenes.forEach((t) => disableGURPSMovementForScene(t));
 }

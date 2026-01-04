@@ -1,13 +1,13 @@
 import { bodyShape, hexBodyShape } from './shapes.js';
 import { MODULE_ID } from './constants.js';
-import { getcolorConfig } from './rangeindicator.js';
+import { getColorConfig } from './rangeIndicator.js';
 import { getDirection, rotatePoint } from './rotation.js';
 import { isHexGrid } from './token.js';
 
 const PIXI = window.PIXI;
 
-export function doborder(token) {
-  const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getcolorConfig();
+export function doBorder(token) {
+  const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getColorConfig();
 
   if (!token.GURPSGridlessOuterBorder) {
     token.GURPSGridlessOuterBorder = new PIXI.Graphics();
@@ -115,5 +115,5 @@ export function doborder(token) {
 }
 
 export function doEachBorder() {
-  canvas.tokens.objects.children.forEach(doborder);
+  canvas.tokens.objects.children.forEach(doBorder);
 }

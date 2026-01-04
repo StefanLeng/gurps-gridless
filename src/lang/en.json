@@ -2,7 +2,7 @@
         "keybindings": {
             "showRangeIndicator":{
                 "name": "Show reach indicator",
-                "hint": "Show reach indicator for controled token."
+                "hint": "Show reach indicator for controlled token."
             },
             "showRangeIndicatorAll": {
                 "name": "Show reach indicator for all",
@@ -10,7 +10,7 @@
             },
             "toggleRotationOnMove": {
                 "name": "Toggle Rotation on Move",
-                "hint": "Temporarily turn on or off automatic rotation on move for this user. Will only have an effect if Automatc Rotation on Move is turend on in the core settings."
+                "hint": "Temporarily turn on or off automatic rotation on move for this user. Will only have an effect if Automatic Rotation on Move is turned on in the core settings."
             },
             "retreat": {
                 "name": "Retreat",
@@ -59,7 +59,7 @@
             },
             "alwaysShowOuterBorder": {
                 "name": "Always show outer border",
-                "description": "When on, the outer border with the facing colors will be always shown for all visible tokens. When off, it will only be shown for the selected token or on hover (as the inner bortder)."
+                "description": "When on, the outer border with the facing colors will be always shown for all visible tokens. When off, it will only be shown for the selected token or on hover (as the inner border)."
             },
             "showToggleRotaionButton": {
                 "name": "Show Toggle Rotation on Movement Button",
@@ -68,7 +68,7 @@
 
             "showFacingIndicator": {
                 "name": "Show facing arrow",
-                "description": "Show arror indicating token facing."
+                "description": "Show arrow indicating token facing."
             },
             "facingIndicatorGap": {
                 "name": "Facing arrow offset",
@@ -119,11 +119,11 @@
             },
             "tokenWidth": {
                 "name": "Width",
-                "note": "Will be rounded to full hexes on hex grids. Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids."
+                "note": "Will be rounded to full hexes on hex grids. Warning: There is no useful shape for tokens with a length of 1 and a width > 1 on hex grids."
             },
             "tokenLength": {
                 "name": "Length",
-                "note": "Will be rounded to full hexes on hex grids.  Warnig: There is no usefull shape for tokens with a length of 1 and a width > 1 on hex grids."
+                "note": "Will be rounded to full hexes on hex grids.  Warning: There is no useful shape for tokens with a length of 1 and a width > 1 on hex grids."
             },
             "rotationOffsetY": {
                 "name": "Lengthwise Offset",
@@ -131,7 +131,7 @@
             },
             "rotationOffsetX": {
                 "name": "Sideward Offset",
-                "note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shiftig by a number of hexes not dividable by two will move the border of grid."
+                "note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shifting by a number of hexes not dividable by two will move the border of grid."
             },
         
             "facingIndicator": {
@@ -139,7 +139,7 @@
             },
             "facingIndicatorEnabled": {
                 "name": "Enable facing arrow",
-                "note": "Enables the facing arrow if facing arrows are enabeld in the global settings."
+                "note": "Enables the facing arrow if facing arrows are enabled in the global settings."
             },
             "facingIndicatorScale": {
                 "name": "Facing arrow scale",

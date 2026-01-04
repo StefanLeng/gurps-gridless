@@ -1,28 +1,28 @@
 /* eslint-disable prettier/prettier */
-import { drawEachReachIndicator } from './rangeindicator.js';
+import { drawEachReachIndicator } from './rangeIndicator.js';
 import { MODULE_ID } from './constants.js';
 import { defaultColors } from './constants.js';
-import { enableGURPSMovmentforAllScenes, disableGURPSMovmentforAllScenes } from './scene.js';
+import { enableGURPSMovementForAllScenes, disableGURPSMovementForAllScenes } from './scene.js';
 import { setVisionAdjustment } from './vision.js';
 import { doEachBorder } from './borders.js';
-import { toggleRotationOnMovement, retreatControledTokens } from './toggleRotation.js';
+import { toggleRotationOnMovement, retreatControlledTokens } from './toggleRotation.js';
 
 export class GURPSGridLess {
   constructor() {
     this.showRangeIndicator = false;
     this.showRangeIndicatorAll = false;
-    this.supressRotationOnMove = false;
+    this.suppressRotationOnMove = false;
   }
   showRangeIndicator;
   showRangeIndicatorALL;
-  supressRotationOnMove;
+  suppressRotationOnMove;
 }
 
 export function onGURPSMovementEnabledChanged(enabled) {
   if (enabled) {
-    enableGURPSMovmentforAllScenes();
+    enableGURPSMovementForAllScenes();
   } else {
-    disableGURPSMovmentforAllScenes();
+    disableGURPSMovementForAllScenes();
   }
 }
 
@@ -89,7 +89,7 @@ export function registerSettings() {
         key: 'KeyB',
       },
     ],
-    onUp: retreatControledTokens,
+    onUp: retreatControlledTokens,
     restricted: false,
     precedence: CONST.KEYBINDING_PRECEDENCE.NORMAL,
   });
@@ -313,7 +313,7 @@ function generateElement(html) {
 
 export function modifyTokenConfig(app, html, data) {
   if (game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
-    html.classList.add('gurp-gridless-active');
+    html.classList.add('gurps-gridless-active');
 
     const injectionPoint = html.querySelector('.tab[data-tab="appearance"] file-picker[name="texture.src"]').parentNode.parentNode;
     const injectHtml = generateElement(`<div class="form-group slim"><label>${game.i18n.localize(

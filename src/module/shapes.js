@@ -1,21 +1,21 @@
 import { faceAngels } from './constants.js';
 import { isHexRowGrid } from './token.js';
 
-export function hex(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+export function hex(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAlpha) {
   const w = canvas.grid.sizeX / 2;
   const wHalf = w / 2;
   const h = canvas.grid.sizeY / 2;
   drawing
     .moveTo(w, 0)
-    .lineStyle(lineWidth, frontColor, lineAplha)
+    .lineStyle(lineWidth, frontColor, lineAlpha)
     .lineTo(wHalf, h)
     .lineTo(-wHalf, h)
     .lineTo(-w, 0)
-    .lineStyle(lineWidth, sideColor, lineAplha)
+    .lineStyle(lineWidth, sideColor, lineAlpha)
     .lineTo(-wHalf, -h)
-    .lineStyle(lineWidth, backColor, lineAplha)
+    .lineStyle(lineWidth, backColor, lineAlpha)
     .lineTo(wHalf, -h)
-    .lineStyle(lineWidth, sideColor, lineAplha)
+    .lineStyle(lineWidth, sideColor, lineAlpha)
     .lineTo(w, 0);
 }
 
@@ -163,42 +163,42 @@ export function doHexBodyShape(width, height, f) {
   }
 }
 
-function longBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+function longBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAlpha) {
   const radius = width / 2;
   const side = (height - width) / 2;
   drawing
     .moveTo(radius, side)
-    .lineStyle(lineWidth, frontColor, lineAplha)
+    .lineStyle(lineWidth, frontColor, lineAlpha)
     .arc(0, side, radius, faceAngels.frontStart, faceAngels.frontEnd)
-    .lineStyle(lineWidth, sideColor, lineAplha)
+    .lineStyle(lineWidth, sideColor, lineAlpha)
     .lineTo(-radius, -side)
     .arc(0, -side, radius, faceAngels.frontEnd, faceAngels.rightEnd)
-    .lineStyle(lineWidth, backColor, lineAplha)
+    .lineStyle(lineWidth, backColor, lineAlpha)
     .arc(0, -side, radius, faceAngels.rightEnd, faceAngels.backEnd)
-    .lineStyle(lineWidth, sideColor, lineAplha)
+    .lineStyle(lineWidth, sideColor, lineAlpha)
     .arc(0, -side, radius, faceAngels.backEnd, faceAngels.leftEnd)
     .lineTo(radius, side);
 }
 
-function longFacingShape(drawing, width, height, frontColor, sideColor, backColor, fillAplha) {
+function longFacingShape(drawing, width, height, frontColor, sideColor, backColor, lineAlpha) {
   const radius = width / 2;
   const side = (height - width) / 2;
   drawing
     .lineStyle(0, 1, 0)
     .moveTo(radius, side)
-    .beginFill(frontColor, fillAplha)
+    .beginFill(frontColor, lineAlpha)
     .arc(0, side, radius, faceAngels.frontStart, faceAngels.frontEnd)
     .lineTo(radius, side)
     .endFill()
     .moveTo(0, -side)
-    .beginFill(sideColor, fillAplha)
+    .beginFill(sideColor, lineAlpha)
     .lineTo(0, side)
     .lineTo(-radius, side)
     .lineTo(-radius, -side)
     .arc(0, -side, radius, faceAngels.frontEnd, faceAngels.rightEnd)
     .lineTo(0, -side)
     .endFill()
-    .beginFill(sideColor, fillAplha)
+    .beginFill(sideColor, lineAlpha)
     .lineTo(0, side)
     .lineTo(radius, side)
     .lineTo(radius, -side)
@@ -206,58 +206,58 @@ function longFacingShape(drawing, width, height, frontColor, sideColor, backColo
     .lineTo(0, -side)
     .endFill()
     .moveTo(0, -side)
-    .beginFill(backColor, fillAplha)
+    .beginFill(backColor, lineAlpha)
     .arc(0, -side, radius, faceAngels.rightEnd, faceAngels.backEnd)
     .lineTo(0, -side)
     .endFill();
 }
 
-function wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+function wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAlpha) {
   const radius = height / 2;
   const side = (width - height) / 2;
   drawing
     .moveTo(-side, radius)
-    .lineStyle(lineWidth, frontColor, lineAplha)
+    .lineStyle(lineWidth, frontColor, lineAlpha)
     .arc(-side, 0, radius, faceAngels.forward, faceAngels.frontEnd)
-    .lineStyle(lineWidth, sideColor, lineAplha)
+    .lineStyle(lineWidth, sideColor, lineAlpha)
     .arc(-side, 0, radius, faceAngels.frontEnd, faceAngels.rightEnd)
-    .lineStyle(lineWidth, backColor, lineAplha)
+    .lineStyle(lineWidth, backColor, lineAlpha)
     .arc(-side, 0, radius, faceAngels.rightEnd, faceAngels.backward)
     .lineTo(side, -radius)
     .arc(side, 0, radius, faceAngels.backward, faceAngels.backEnd)
-    .lineStyle(lineWidth, sideColor, lineAplha)
+    .lineStyle(lineWidth, sideColor, lineAlpha)
     .arc(side, 0, radius, faceAngels.backEnd, faceAngels.leftEnd)
-    .lineStyle(lineWidth, frontColor, lineAplha)
+    .lineStyle(lineWidth, frontColor, lineAlpha)
     .arc(side, 0, radius, faceAngels.leftEnd, faceAngels.forward)
     .lineTo(-side, radius);
 }
 
-function wideFacingShape(drawing, width, height, frontColor, sideColor, backColor, fillAplha) {
+function wideFacingShape(drawing, width, height, frontColor, sideColor, backColor, lineAlpha) {
   const radius = height / 2;
   const side = (width - height) / 2;
   drawing
     .lineStyle(0, 1, 0)
     .moveTo(-side, radius)
-    .beginFill(frontColor, fillAplha)
+    .beginFill(frontColor, lineAlpha)
     .arc(-side, 0, radius, faceAngels.forward, faceAngels.frontEnd)
     .lineTo(side, 0)
     .arc(side, 0, radius, faceAngels.leftEnd, faceAngels.forward)
     .lineTo(-side, radius)
     .endFill()
     .moveTo(-side, 0)
-    .beginFill(sideColor, fillAplha)
+    .beginFill(sideColor, lineAlpha)
     .lineTo(-side - radius, 0)
     .arc(-side, 0, radius, faceAngels.frontEnd, faceAngels.rightEnd)
     .lineTo(-side, 0)
     .endFill()
     .moveTo(side, 0)
-    .beginFill(sideColor, fillAplha)
+    .beginFill(sideColor, lineAlpha)
     .lineTo(side + radius, 0)
     .arc(side, 0, radius, faceAngels.leftEnd, faceAngels.backEnd, true)
     .lineTo(side, 0)
     .endFill()
     .moveTo(-side, 0)
-    .beginFill(backColor, fillAplha)
+    .beginFill(backColor, lineAlpha)
     .arc(-side, 0, radius, faceAngels.rightEnd, faceAngels.backward)
     .lineTo(side, -radius)
     .arc(side, 0, radius, faceAngels.backward, faceAngels.backEnd)
@@ -266,20 +266,20 @@ function wideFacingShape(drawing, width, height, frontColor, sideColor, backColo
     .endFill();
 }
 
-export function bodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha) {
+export function bodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAlpha) {
   if (width > height) {
-    wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
+    wideBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAlpha);
   } else {
-    longBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAplha);
+    longBodyShape(drawing, width, height, lineWidth, frontColor, sideColor, backColor, lineAlpha);
   }
 }
 
-//Because line segment dont join nice when the color changes, draw the line segment as trapezoides.
-//This only works correctly at convex angles. But the artifact at concave anges is hidden by the drawing order, so we don't care.
+//Because line segment don't join nice when the color changes, draw the line segment as trapezoids.
+//This only works correctly at convex angles. But the artifact at concave angels is hidden by the drawing order, so we don't care.
 function drawHexSegment(drawing, startX, startY, endX, endY, width, offset) {
   let points = [];
 
-  //half the amount a hex edege get longer when translated 1 outward
+  //half the amount a hex edge get longer when translated 1 outward
   const fact = 1 / Math.sqrt(3);
 
   //direction vector
@@ -296,7 +296,7 @@ function drawHexSegment(drawing, startX, startY, endX, endY, width, offset) {
 
   points.push(nx, ny);
 
-  //start point, translated (offset+widht) outward and moved tho lengthen the line (offset+widht) + fact
+  //start point, translated (offset+width) outward and moved tho lengthen the line (offset+width) + fact
   const nx2 = startX + udy * (offset + width) - udx * (offset + width) * fact;
   const ny2 = startY - udx * (offset + width) - udy * (offset + width) * fact;
 
@@ -326,14 +326,14 @@ export function hexBodyShape(
   frontColor,
   sideColor,
   backColor,
-  lineAplha,
+  lineAlpha,
 ) {
   let lastX = null;
   let lastY = null;
 
   let f = (x, y, face) => {
     const faceColor = face === 'FRONT' ? frontColor : face === 'SIDE' ? sideColor : backColor;
-    drawing.lineStyle(lineWidth, faceColor, lineAplha);
+    drawing.lineStyle(lineWidth, faceColor, lineAlpha);
 
     if (lastX === null || lastY === null) {
       drawing.moveTo(x, y);
@@ -346,8 +346,8 @@ export function hexBodyShape(
 
   let f2 = (x, y, face) => {
     const faceColor = face === 'FRONT' ? frontColor : face === 'SIDE' ? sideColor : backColor;
-    drawing.lineStyle(1, faceColor, lineAplha, 0);
-    drawing.beginFill(faceColor, lineAplha);
+    drawing.lineStyle(1, faceColor, lineAlpha, 0);
+    drawing.beginFill(faceColor, lineAlpha);
 
     if (lastX !== null && lastY !== null) {
       drawHexSegment(
@@ -368,10 +368,10 @@ export function hexBodyShape(
   doHexBodyShape(width, height, lineWidth > 1 ? f2 : f);
 }
 
-export function facingShape(drawing, width, height, frontColor, sideColor, backColor, fillAplha) {
+export function facingShape(drawing, width, height, frontColor, sideColor, backColor, lineAlpha) {
   if (width > height) {
-    wideFacingShape(drawing, width, height, frontColor, sideColor, backColor, fillAplha);
+    wideFacingShape(drawing, width, height, frontColor, sideColor, backColor, lineAlpha);
   } else {
-    longFacingShape(drawing, width, height, frontColor, sideColor, backColor, fillAplha);
+    longFacingShape(drawing, width, height, frontColor, sideColor, backColor, lineAlpha);
   }
 }

@@ -3,7 +3,7 @@ import { MODULE_ID } from './constants.js';
 import { defaultColors } from './constants.js';
 import { getDirection } from './rotation.js';
 
-export function getcolorConfig() {
+export function getColorConfig() {
   const config = Object.assign({}, defaultColors);
   config.lineAlpha = game.settings.get(MODULE_ID, 'reachLineAlpha') ?? defaultColors.lineAlpha;
   config.fillAlpha = game.settings.get(MODULE_ID, 'facingAlpha') ?? defaultColors.fillAlpha;
@@ -48,7 +48,7 @@ export function drawReachIndicator(token) {
     const graphics = token.reachIndicator.graphics;
     graphics.clear();
 
-    const { lineAlpha, fillAlpha, lineColor, frontColor, sideColor, backColor } = getcolorConfig();
+    const { lineAlpha, fillAlpha, lineColor, frontColor, sideColor, backColor } = getColorConfig();
 
     const gridSize = canvas.grid.size;
 
@@ -65,11 +65,11 @@ export function drawReachIndicator(token) {
       );
     }
 
-    const overdarw = game.settings.get(MODULE_ID, 'reachIndicatorOverdraw') ?? 0.5;
+    const overdraw = game.settings.get(MODULE_ID, 'reachIndicatorOverdraw') ?? 0.5;
     facingShape(
       graphics,
-      widthG + (maxReach * 2 + overdarw * 2) * gridSize,
-      height + (maxReach * 2 + overdarw * 2) * gridSize,
+      widthG + (maxReach * 2 + overdraw * 2) * gridSize,
+      height + (maxReach * 2 + overdraw * 2) * gridSize,
       frontColor,
       sideColor,
       backColor,

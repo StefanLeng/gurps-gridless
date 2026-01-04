@@ -31,7 +31,7 @@ function scalingsDim(width, length, fit) {
 }
 
 /*
-    scale for the immage from 1 hex to the real dimension
+    scale for the image from 1 hex to the real dimension
 */
 function calcTokenHexScale(width, length, scaling, fit) {
   const l = fit === 'height' ? Math.round(length) : Math.round(width);
@@ -40,27 +40,27 @@ function calcTokenHexScale(width, length, scaling, fit) {
 
 /*
     factor (distance of an edge center to the hex center) / (distance of a corner to the hex center)
-    note: the distance of a corner to the hex center is the same as an edge lengh
+    note: the distance of a corner to the hex center is the same as an edge length
 */
 const edgeFactor = Math.sqrt(3) / 2;
 
 /*
-    distance of hex centers ortogonal to the main hex direction in grid units as mesured in the main hex direction
+    distance of hex centers orthogonal to the main hex direction in grid units as measured in the main hex direction
     hexes is the distance in hexes
-    The factor 0.75 is becus the hex Rows/colums overlap by 25%
+    The factor 0.75 is because the hex rows/columns overlap by 25%
 */
 function hexCenterToHexCenterOnMinorAxis(hexes) {
   return (hexes * 0.75) / edgeFactor;
 }
 
 /*
-    width of the bounding box ortogonal to the main hex direction in grid units as mesured in the main hex direction.
-    the additional + 0.25 to the previous formula is because the bounding box inclued the overlaping part on boht edges.
+    width of the bounding box orthogonal to the main hex direction in grid units as measured in the main hex direction.
+    the additional + 0.25 to the previous formula is because the bounding box included the overlapping part on both edges.
 */
 const hexBoundingBoxOnMinorAxis = 1 / edgeFactor;
 
 /*
-  Because on hex rows the token length is ortogonal to the hex main axis in token space, we have to correct for the boxFitting on hexRows
+  Because on hex rows the token length is orthogonal to the hex main axis in token space, we have to correct for the boxFitting on hexRows
 */
 function rowScaleCorrection() {
   if (isHexRowGrid()) {
@@ -78,17 +78,17 @@ function imageScaleCorrection(fit) {
   }
 }
 
-function calcOffsetFromFront(lenght, scale, hOffset) {
-  return 0.5 + (0.5 - hOffset / lenght) / scale;
+function calcOffsetFromFront(length, scale, hOffset) {
+  return 0.5 + (0.5 - hOffset / length) / scale;
 }
 
-function calcOffsetFromCenter(lenght, scale, hOffset) {
-  return 0.5 + hOffset / lenght / scale;
+function calcOffsetFromCenter(length, scale, hOffset) {
+  return 0.5 + hOffset / length / scale;
 }
 
 /*
-    Offest the token so that the middle front hex is on the center of rotation.
-    We have to take the scale into account, because foundry will scale from the offset and we need to corrcet for that.
+    Offset the token so that the middle front hex is on the center of rotation.
+    We have to take the scale into account, because foundry will scale from the offset and we need to correct for that.
 */
 function calcTokenHexOffset(length, scaling, offsetY, offsetX, imageOffsetY, imageOffsetX, lookedRotation) {
   const roundedLength = Math.round(length);
@@ -97,7 +97,7 @@ function calcTokenHexOffset(length, scaling, offsetY, offsetX, imageOffsetY, ima
   //set the rotation center a half hex from the front (if the explicit offset is 0)
   const hOffset = -roundedLength * 0.5 + 1 - roundedOffsetY;
 
-  //Because the widht is ortogonal to the hex main axis, we have to correct both the bounding box and the distance
+  //Because the width is orthogonal to the hex main axis, we have to correct both the bounding box and the distance
   const wDim = hexBoundingBoxOnMinorAxis;
   const wOffset = hexCenterToHexCenterOnMinorAxis(roundedOffsetX);
 
@@ -246,7 +246,7 @@ export function setTokenDimensions(tokenDocument) {
   tokenDocument.update(newChanges);
 }
 
-export function setTokenDimensionsonUpdate(tokenDocument, changes, options) {
+export function setTokenDimensionsOnUpdate(tokenDocument, changes, options) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
 
   if ((changes?.flags?.[MODULE_ID]?.tokenWidth ?? 1) < 0.2) {
@@ -310,7 +310,7 @@ export function setTokenDimensionsonUpdate(tokenDocument, changes, options) {
   }
 }
 
-export function setTokenDimesionsOnCreate(tokenDocument, data) {
+export function setTokenDimensionsOnCreate(tokenDocument, data) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
 
   const width =
@@ -326,7 +326,7 @@ export function setTokenDimesionsOnCreate(tokenDocument, data) {
       ? 1
       : data.flags[MODULE_ID]?.tokenScaling ?? data.texture?.scaleX ?? 1;
   const offsetY = data.flags[MODULE_ID]?.tokenOffsetY ?? 0;
-  const offsetX = data.flags[MODULE_ID]?.tokenOffsetx ?? 0;
+  const offsetX = data.flags[MODULE_ID]?.tokenOffsetX ?? 0;
   const imageOffsetY = data.flags[MODULE_ID]?.tokenImageOffsetY ?? 0;
   const imageOffsetX = data.flags[MODULE_ID]?.tokenImageOffsetX ?? 0;
   const fit = scalingsDim(width, length, data.texture?.fit ?? 'height');
@@ -362,12 +362,12 @@ export function setTokenDimesionsOnCreate(tokenDocument, data) {
   tokenDocument.updateSource(newData);
 }
 
-export function setTokenDimesionsOnEnable(tokenDocument) {
+export function setTokenDimensionsOnEnable(tokenDocument) {
   const width = tokenDocument.width ?? 1;
   const length = tokenDocument.height ?? 1;
   const scaling = tokenDocument.texture?.scaleX ?? 1;
   const offsetY = tokenDocument.flags[MODULE_ID]?.tokenOffsetY ?? 0;
-  const offsetX = tokenDocument.flags[MODULE_ID]?.tokenOffsetx ?? 0;
+  const offsetX = tokenDocument.flags[MODULE_ID]?.tokenOffsetX ?? 0;
   const imageOffsetY = tokenDocument.flags[MODULE_ID]?.tokenImageOffsetY ?? 0;
   const imageOffsetX = tokenDocument.flags[MODULE_ID]?.tokenImageOffsetX ?? 0;
   const fit = scalingsDim(width, length, tokenDocument.texture?.fit ?? 'height');
