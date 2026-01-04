@@ -24,7 +24,7 @@ This module enable GURPS compatible shapes and movment for larger (multi hex) to
 
 8. **Facing Indicator** - A facing indicator arrow can be displayed. You cann set a custom arrow immage in the settings (globaly or per token).
 
-9. **Expermintal: Shift tokens in the same hex** - When mutiple tokens are in the same hex on hex grids, the tokens are shifted outward to make them better selectable. this featture can be activated in the settings.  
+9. **Experimential: Shift tokens in the same hex** - When mutiple tokens are in the same hex on hex grids, the tokens are shifted outward to make them better selectable. this featture can be activated in the settings.  
 
 The Module requires the GURPS Game Aid System.
 For background information on how this works, see *[here](background.md)*.
