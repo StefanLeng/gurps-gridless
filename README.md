@@ -12,7 +12,7 @@ This module enable GURPS compatible shapes and movment for larger (multi hex) to
 
 3. **Support for Non-Square and Multi-Sized Tokens** – Ensures proper GURPS movement for all token sizes, centering movement on the head of the creature while the body follows. See the token setup section for details.
 
-4. **Hex Grid Support** – Draws hex borders on hex grids and enables correct GURPS movement (Version 0.7.0). To implement this, custom token settings override some Foundry defaults, affecting all tokens across all scenes. This feature must be explicitly enabled in the module settings. **It is crucial to disable this setting before uninstalling the module** to prevent token configuration issues. If problems arise, reinstall the module and disable the setting before removal. **The About Face module (version 3.26.5 or higher) is required for correct movement on hex maps.**
+4. **Hex Grid Support** – Draws hex borders on hex grids and enables correct GURPS movement (Version 0.7.0). To implement this, custom token settings override some Foundry defaults, affecting all tokens across all scenes. This feature must be explicitly enabled in the module settings. **It is crucial to disable this setting before uninstalling the module** to prevent token configuration issues. If problems arise, reinstall the module and disable the setting before removal. 
 
   ![hex border example](hexborder.png "Hex Border example")
 
@@ -20,7 +20,13 @@ This module enable GURPS compatible shapes and movment for larger (multi hex) to
 
 6. **Retreat Hotkey** – Press a hotkey (default `B`) to move the selectet token(s) one grid unit backwards without changing facing, regardless of the Movement On Rotation toggle.
 
-The Module requires the GURPS Game Aid System and the About Face Module (at least version 3.26.5).
+7. **Snap Rotation to Hex Directions** - On hex grids, the token rotation is automaticaly snapped to face hex borders.
+
+8. **Facing Indicator** - A facing indicator arrow can be displayed. You cann set a custom arrow immage in the settings (globaly or per token),
+
+9. **Expermintal: Shift tokens in the same hex** - When mutiple tokens are in the same hex on hex grids, the tokens are shifted outward to make them better selectable. this featture can be activated in the settings.  
+
+The Module requires the GURPS Game Aid System.
 For background information on how this works, see *[here](background.md)*.
 
 ## Limitations
