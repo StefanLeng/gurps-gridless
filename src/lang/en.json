@@ -49,11 +49,11 @@
                 "name": "Facing area opacity",
                 "description": "Opacity of the facing areas in the reach indicator."
             },
-            "GURPSMovmentEnabled": {
+            "GURPSMovementEnabled": {
                 "name": "Enable GURPS tokens shapes and movement on Hex-Grids",
                 "description": "Enable GURPS specific movement and hex shapes on hex-Grids. WARNING: This will change token settings on all scenes in this world. Disabling this option will revert the changes. Please disable the setting before removing this module, otherwise the changes will persist."
             },
-            "VisionAdjustmetEnabled": {
+            "VisionAdjustmentEnabled": {
                 "name": "Adjust Vision",
                 "description": "Adjusts vision origin for multihex tokens so that the complete token is visible to itself."
             },
@@ -61,7 +61,7 @@
                 "name": "Always show outer border",
                 "description": "When on, the outer border with the facing colors will be always shown for all visible tokens. When off, it will only be shown for the selected token or on hover (as the inner border)."
             },
-            "showToggleRotaionButton": {
+            "showToggleRotationButton": {
                 "name": "Show Toggle Rotation on Movement Button",
                 "description": "When on, the Toggle Rotation on Movement Button will be shown in the left toolbar. In order for this setting change to take effect you will need to reload Foundry."
             },
@@ -78,7 +78,15 @@
                 "name": "Facing arrow scale",
                 "description": "Scale of the facing arrow."
             },
-            "shiftTokensinSameHex": {
+            "facingIndicatorFillColor": {
+                "name": "Default facing arrow fill color",
+                "description": "Fill color of the default facing arrow."
+            },
+            "facingIndicatorLineColor": {
+               "name": "Default facing arrow outline color",
+                "description": "Outline color of the default facing arrow."
+            },
+            "shiftTokensInSameHex": {
                 "name": "Shift Tokens in same hex",
                 "description": "Experimental: When enabled, tokens that are in the same hex with other tokens will be shifted outward so they can better be selected. Only on hex grids."
             },

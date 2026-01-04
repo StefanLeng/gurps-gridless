@@ -196,8 +196,8 @@ export function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, 'GURPSMovementEnabled', {
-    name: 'gurps-gridless.settings.GURPSMovmentEnabled.name',
-    hint: 'gurps-gridless.settings.GURPSMovmentEnabled.description',
+    name: 'gurps-gridless.settings.GURPSMovementEnabled.name',
+    hint: 'gurps-gridless.settings.GURPSMovementEnabled.description',
     scope: 'world',
     config: true,
     default: false,
@@ -207,8 +207,8 @@ export function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, 'VisionAdjustmetEnabled', {
-    name: 'gurps-gridless.settings.VisionAdjustmetEnabled.name',
-    hint: 'gurps-gridless.settings.VisionAdjustmetEnabled.description',
+    name: 'gurps-gridless.settings.VisionAdjustmentEnabled.name',
+    hint: 'gurps-gridless.settings.VisionAdjustmentEnabled.description',
     scope: 'world',
     config: true,
     default: true,
@@ -217,8 +217,8 @@ export function registerSettings() {
   });
 
   game.settings.register(MODULE_ID, 'showToggleRotaionButton', {
-    name: 'gurps-gridless.settings.showToggleRotaionButton.name',
-    hint: 'gurps-gridless.settings.showToggleRotaionButton.description',
+    name: 'gurps-gridless.settings.showToggleRotationButton.name',
+    hint: 'gurps-gridless.settings.showToggleRotationButton.description',
     scope: 'world',
     config: true,
     default: true,
@@ -266,6 +266,26 @@ game.settings.register(MODULE_ID, 'facingIndicatorScale', {
     requiresReload: true,
   });
 
+game.settings.register(MODULE_ID, 'facingIndicatorFillColor', {
+    name: 'gurps-gridless.settings.facingIndicatorFillColor.name',
+    hint: 'gurps-gridless.settings.facingIndicatorFillColor.description',
+    scope: 'world',
+    type: new foundry.data.fields.ColorField(),
+    config: true,
+    default: "#000000",
+    requiresReload: true,
+  });
+
+game.settings.register(MODULE_ID, 'facingIndicatorLineColor', {
+    name: 'gurps-gridless.settings.facingIndicatorLineColor.name',
+    hint: 'gurps-gridless.settings.facingIndicatorLineColor.description',
+    scope: 'world',
+    type: new foundry.data.fields.ColorField(),
+    config: true,
+    default: "#ffffff",
+    requiresReload: true,
+  });
+
 game.settings.register(MODULE_ID, 'facingIndicatorImage', {
     name: 'gurps-gridless.settings.facingIndicatorImage.name',
     hint: 'gurps-gridless.settings.facingIndicatorImage.description',
@@ -277,8 +297,8 @@ game.settings.register(MODULE_ID, 'facingIndicatorImage', {
   });
 
   game.settings.register(MODULE_ID, 'shiftTokensinSameHex', {
-    name: 'gurps-gridless.settings.shiftTokensinSameHex.name',
-    hint: 'gurps-gridless.settings.shiftTokensinSameHex.description',
+    name: 'gurps-gridless.settings.shiftTokensInSameHex.name',
+    hint: 'gurps-gridless.settings.shiftTokensInSameHex.description',
     scope: 'world',
     config: true,
     default: false,
