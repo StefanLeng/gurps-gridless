@@ -7,6 +7,10 @@ export const defaultColors = {
   frontColor: 0x00ff00,
   sideColor: 0xffff00,
   backColor: 0xff0000,
+  borderAlpha: 1.0,
+  indicatorAlpha: 1.0,
+  indicatorFillColor: '#000000',
+  indicatorLineColor: '#ffffff',
 };
 
 export const faceAngels = {

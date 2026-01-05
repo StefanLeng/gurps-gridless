@@ -1,13 +1,18 @@
 import { bodyShape, hexBodyShape } from './shapes.js';
 import { MODULE_ID } from './constants.js';
-import { getColorConfig } from './rangeIndicator.js';
+import { getColorConfig } from './settings.js';
 import { getDirection, rotatePoint } from './rotation.js';
 import { isHexGrid } from './token.js';
 
 const PIXI = window.PIXI;
 
 export function doBorder(token) {
-  const { frontColor: frontColor, sideColor: sideColor, backColor: backColor } = getColorConfig();
+  const {
+    frontColor: frontColor,
+    sideColor: sideColor,
+    backColor: backColor,
+    borderAlpha: borderAlpha,
+  } = getColorConfig();
 
   if (!token.GURPSGridlessOuterBorder) {
     token.GURPSGridlessOuterBorder = new PIXI.Graphics();
@@ -45,7 +50,7 @@ export function doBorder(token) {
       frontColor,
       sideColor,
       backColor,
-      1,
+      borderAlpha,
     );
     hexBodyShape(
       token.border,
@@ -56,7 +61,7 @@ export function doBorder(token) {
       borderColor,
       borderColor,
       borderColor,
-      1,
+      borderAlpha,
     );
   } else {
     bodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor, 1);
@@ -68,7 +73,7 @@ export function doBorder(token) {
       frontColor,
       sideColor,
       backColor,
-      1,
+      borderAlpha,
     );
   }
 

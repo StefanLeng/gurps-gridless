@@ -195,6 +195,20 @@ export function registerSettings() {
     onChange: doEachBorder,
   });
 
+   game.settings.register(MODULE_ID, 'borderAlpha', {
+    name: 'gurps-gridless.settings.borderAlpha.name',
+    hint: 'gurps-gridless.settings.borderAlpha.description',
+    scope: 'world',
+    config: true,
+    default: defaultColors.borderAlpha,
+    type: Number,
+    range: {
+      min: 0.0,
+      max: 1.0,
+      step: 0.05,
+    },
+  });
+
   game.settings.register(MODULE_ID, 'GURPSMovementEnabled', {
     name: 'gurps-gridless.settings.GURPSMovementEnabled.name',
     hint: 'gurps-gridless.settings.GURPSMovementEnabled.description',
@@ -286,6 +300,21 @@ game.settings.register(MODULE_ID, 'facingIndicatorLineColor', {
     requiresReload: true,
   });
 
+game.settings.register(MODULE_ID, 'facingIndicatorAlpha', {
+    name: 'gurps-gridless.settings.facingIndicatorAlpha.name',
+    hint: 'gurps-gridless.settings.facingIndicatorAlpha.description',
+    scope: 'world',
+    config: true,
+    default: defaultColors.indicatorAlpha,
+    type: Number,
+    range: {
+      min: 0.0,
+      max: 1.0,
+      step: 0.05,
+    },
+    requiresReload: true,
+  });
+
 game.settings.register(MODULE_ID, 'facingIndicatorImage', {
     name: 'gurps-gridless.settings.facingIndicatorImage.name',
     hint: 'gurps-gridless.settings.facingIndicatorImage.description',
@@ -361,3 +390,15 @@ export function addTokenConfigTab(app) {
     }
     app.PARTS.footer = footer;
 }
+
+export function getColorConfig() {
+    const config = Object.assign({}, defaultColors);
+    config.lineAlpha = game.settings.get(MODULE_ID, 'reachLineAlpha') ?? defaultColors.lineAlpha;
+    config.fillAlpha = game.settings.get(MODULE_ID, 'facingAlpha') ?? defaultColors.fillAlpha;
+    config.indicatorAlpha = game.settings.get(MODULE_ID, 'facingIndicatorAlpha') ?? defaultColors.indicatorAlpha;
+    config.borderAlpha = game.settings.get(MODULE_ID, 'borderAlpha') ?? defaultColors.borderAlpha;
+    config.indicatorFillColor = game.settings.get(MODULE_ID, 'facingIndicatorFillColor') ?? defaultColors.indicatorFillColor;
+    config.indicatorLineColor = game.settings.get(MODULE_ID, 'facingIndicatorLineColor') ?? defaultColors.indicatorLineColor;
+    return config;
+}
+

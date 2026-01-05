@@ -41,6 +41,10 @@
                 "name": "Outer border width",
                 "description": "Width of the outer border in px."
             },
+            "borderAlpha": {
+                "name": "Border opacity",
+                "description": "Opacity of the token border."
+            },
             "reachLineAlpha": {
                 "name": "Reach indicator line opacity",
                 "description": "Opacity of the reach lines in the reach indicator."
@@ -65,10 +69,13 @@
                 "name": "Show Toggle Rotation on Movement Button",
                 "description": "When on, the Toggle Rotation on Movement Button will be shown in the left toolbar. In order for this setting change to take effect you will need to reload Foundry."
             },
-
             "showFacingIndicator": {
                 "name": "Show facing arrow",
                 "description": "Show arrow indicating token facing."
+            },
+            "facingIndicatorImage": {
+                "name": "Custom facing arrow",
+                "description": "Image file for a custom facing indicator. Keep empty to use the default indicator."
             },
             "facingIndicatorGap": {
                 "name": "Facing arrow offset",
@@ -85,6 +92,10 @@
             "facingIndicatorLineColor": {
                "name": "Default facing arrow outline color",
                 "description": "Outline color of the default facing arrow."
+            },
+            "facingIndicatorAlpha": {
+                "name": "Default facing arrow opacity",
+                "description": "Opacity of the default facing arrow."
             },
             "shiftTokensInSameHex": {
                 "name": "Shift Tokens in same hex",

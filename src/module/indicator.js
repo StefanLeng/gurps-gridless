@@ -1,17 +1,17 @@
 import { MODULE_ID } from './constants.js';
 import { isHexColumnGrid } from './token.js';
+import { getColorConfig } from './settings.js';
 
 const PIXI = window.PIXI;
 
 function drawDefaultArrow() {
-  const lineColor = game.settings.get(MODULE_ID, 'facingIndicatorLineColor') ?? '#ffffff';
-  const fillColor = game.settings.get(MODULE_ID, 'facingIndicatorFillColor') ?? '#000000';
+  const { indicatorLineColor: lineColor, indicatorFillColor: fillColor, indicatorAlpha: alpha } = getColorConfig();
   const indicator = new PIXI.Graphics();
   const halfSide = 25;
   const halfHeight = (halfSide * Math.sqrt(3)) / 3;
   indicator
-    .lineStyle(3, lineColor, 1)
-    .beginFill(fillColor)
+    .lineStyle(3, lineColor, alpha)
+    .beginFill(fillColor, alpha)
     .moveTo(0, -halfHeight)
     .lineTo(-halfSide, -halfHeight)
     .lineTo(0, halfHeight)

@@ -1,14 +1,7 @@
 import { bodyShape, facingShape } from './shapes.js';
 import { MODULE_ID } from './constants.js';
-import { defaultColors } from './constants.js';
 import { getDirection } from './rotation.js';
-
-export function getColorConfig() {
-  const config = Object.assign({}, defaultColors);
-  config.lineAlpha = game.settings.get(MODULE_ID, 'reachLineAlpha') ?? defaultColors.lineAlpha;
-  config.fillAlpha = game.settings.get(MODULE_ID, 'facingAlpha') ?? defaultColors.fillAlpha;
-  return config;
-}
+import { getColorConfig } from './settings.js';
 
 export function drawReachIndicator(token) {
   try {

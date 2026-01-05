@@ -24,7 +24,8 @@ function getGridType() {
 
 export function clipRotationToFaces(tokenDocument, updates) {
   const noRotation = updates.rotation === undefined || tokenDocument.rotation === updates.rotation;
-  if (noRotation) return;
+  const noMovement = !(Number.isNumeric(updates.x) || Number.isNumeric(updates.y));
+  if (noRotation || noMovement) return;
   if (!canvas.grid?.type) return;
 
   const tokenDirection = updates.rotation + 90;
