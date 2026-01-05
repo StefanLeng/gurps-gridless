@@ -28,7 +28,7 @@ export function drawHitArea(token) {
 
   const { w: width, h: height } = token;
   let anchorX, anchorY;
-  if (token.document.gurpsGridless) {
+  if (token.document.gurpsGridless?.anchorY) {
     ({ anchorX, anchorY } = token.document.gurpsGridless);
   } else {
     ({ anchorX, anchorY } = token.document.texture);

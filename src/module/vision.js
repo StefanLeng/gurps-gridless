@@ -26,10 +26,20 @@ import { isHexGrid } from './token.js';
 export function _getVisionSourceData() {
   const d = canvas.dimensions;
   const { x, y } = this.center;
-  const radius = isHexGrid()
-    ? this.externalRadius *
-      (this.document.flags[MODULE_ID]?.tokenLength + (this.document.gurpsGridless?.anchorY - 0.5) * 2 ?? 1)
-    : this.h * this.document.gurpsGridless?.anchorY ?? this.externalRadius;
+
+  const GURPSMovementEnabled = game.settings.get(MODULE_ID, 'GURPSMovementEnabled');
+  const anchorY = GURPSMovementEnabled
+    ? this.document.gurpsGridless?.anchorY ?? this.document.texture.anchorY
+    : this.document.texture.anchorY;
+
+  const length = GURPSMovementEnabled
+    ? this.document.flags[MODULE_ID]?.tokenLength ?? this.document.height
+    : this.document.height;
+
+  const radius =
+    isHexGrid() ?? GURPSMovementEnabled
+      ? this.externalRadius * (length + (anchorY - 0.5) * 2 ?? 1)
+      : this.h * anchorY ?? this.externalRadius;
 
   const { elevation, rotation } = this.document;
   const sight = this.document.sight;
