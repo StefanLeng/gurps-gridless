@@ -1,7 +1,7 @@
 {
   "id": "gurps-gridless",
   "title": "GURPS Token Shape and Movement (with Tools for Gridless GURPS)",
-  "description": "Multihex tokens with GRURPS Rules compatilbe movement and helpers for gridless GURPS play with the GURPS Game Aid",
+  "description": "Multihex tokens with GURPS Rules compatible movement and helpers for gridless GURPS play with the GURPS Game Aid",
   "authors": [
     {
       "name": "Stefan Leng",
@@ -13,8 +13,7 @@
   "version": "This is auto replaced",
   "compatibility": {
     "minimum": "13",
-    "verified": "13"
-  },
+    "verified": "14" },
   "scripts": [],
   "esmodules": ["module/gurps-gridless.js"],
   "styles": ["styles/gurps-gridless.css"],
