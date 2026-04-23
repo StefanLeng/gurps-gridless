@@ -36,45 +36,50 @@ export function doBorder(token) {
 
   token.border.tint = 0xffffff;
 
-  const borderColor = token._getBorderColor();
-  const innerWidth = game.settings.get(MODULE_ID, 'innerBorderWidth') ?? 6;
-  const outerWidth = game.settings.get(MODULE_ID, 'outerBorderWidth') ?? 6;
+  const show =
+    (token.document.flags[MODULE_ID]?.borderEnabled ?? true) &&
+    !(game.settings.get(MODULE_ID, 'hideBorderOnDeathTokens') && token.document.actor.statuses.has('dead'));
+  if (show) {
+    const borderColor = token._getBorderColor();
+    const innerWidth = game.settings.get(MODULE_ID, 'innerBorderWidth') ?? 6;
+    const outerWidth = game.settings.get(MODULE_ID, 'outerBorderWidth') ?? 6;
 
-  if (isHexGrid() && game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
-    hexBodyShape(
-      token.GURPSGridlessOuterBorder,
-      token.document.flags[MODULE_ID]?.tokenWidth,
-      token.document.flags[MODULE_ID]?.tokenLength,
-      outerWidth,
-      0,
-      frontColor,
-      sideColor,
-      backColor,
-      borderAlpha,
-    );
-    hexBodyShape(
-      token.border,
-      token.document.flags[MODULE_ID]?.tokenWidth,
-      token.document.flags[MODULE_ID]?.tokenLength,
-      innerWidth,
-      -innerWidth,
-      borderColor,
-      borderColor,
-      borderColor,
-      borderAlpha,
-    );
-  } else {
-    bodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor, 1);
-    bodyShape(
-      token.GURPSGridlessOuterBorder,
-      width + 2 * innerWidth,
-      height + 2 * innerWidth,
-      outerWidth,
-      frontColor,
-      sideColor,
-      backColor,
-      borderAlpha,
-    );
+    if (isHexGrid() && game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) {
+      hexBodyShape(
+        token.GURPSGridlessOuterBorder,
+        token.document.flags[MODULE_ID]?.tokenWidth,
+        token.document.flags[MODULE_ID]?.tokenLength,
+        outerWidth,
+        0,
+        frontColor,
+        sideColor,
+        backColor,
+        borderAlpha,
+      );
+      hexBodyShape(
+        token.border,
+        token.document.flags[MODULE_ID]?.tokenWidth,
+        token.document.flags[MODULE_ID]?.tokenLength,
+        innerWidth,
+        -innerWidth,
+        borderColor,
+        borderColor,
+        borderColor,
+        borderAlpha,
+      );
+    } else {
+      bodyShape(token.border, width, height, innerWidth, borderColor, borderColor, borderColor, 1);
+      bodyShape(
+        token.GURPSGridlessOuterBorder,
+        width + 2 * innerWidth,
+        height + 2 * innerWidth,
+        outerWidth,
+        frontColor,
+        sideColor,
+        backColor,
+        borderAlpha,
+      );
+    }
   }
 
   //move the token image when shifted because of close range

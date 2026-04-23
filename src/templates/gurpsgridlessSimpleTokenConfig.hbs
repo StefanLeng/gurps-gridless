@@ -5,6 +5,14 @@
            placeholder="{{localize "gurps-gridless.tokenSettings.maxReachShown.placeholder"}}">
     </div>
     <fieldset>
+        <legend>{{localize "gurps-gridless.tokenSettings.border.legend"}}</legend>
+        <div class="form-group">
+            <label for="borderEnabled">{{localize "gurps-gridless.tokenSettings.borderEnabled.name"}}</label>
+            <input type="checkbox" name="flags.gurps-gridless.borderEnabled" {{checked source.flags.gurps-gridless.borderEnabled ?? true}}>
+            <p class="hint">{{localize "gurps-gridless.tokenSettings.borderEnabled.note"}}</p>
+        </div>
+    </fieldset>
+    <fieldset>
         <legend>{{localize "gurps-gridless.tokenSettings.facingIndicator.legend"}}</legend>
         <div class="form-group">
             <label for="facingIndicatorEnabled">{{localize "gurps-gridless.tokenSettings.facingIndicatorEnabled.name"}}</label>

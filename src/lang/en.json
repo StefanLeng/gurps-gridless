@@ -29,6 +29,10 @@
                 "name": "Maximal reach shown",
                 "description": "Maximal Reach shown in reach indicator."
             },
+            "hideBorderOnDeathTokens": {
+                "name": "Hide border on death tokens",
+                "description": "When enabled, the token border will be hidden when the token has the Dead status."
+            },
             "reachIndicatorOverdraw": {
                 "name": "Reach indicator Color overdraw",
                 "description": "How far the facing color is drawn beyond max reach. 0: not at all, 1: full yard"
@@ -160,7 +164,13 @@
                 "name": "Sideward Offset",
                 "note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shifting by a number of hexes not dividable by two will move the border of grid."
             },
-        
+            "border": {
+                "legend": "Border"
+            },
+            "borderEnabled": {
+                "name": "Enable border",
+                "note": "Enables the border for the token."
+            },
             "facingIndicator": {
                 "legend": "Facing Arrow"
             },

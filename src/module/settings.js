@@ -195,6 +195,17 @@ export function registerSettings() {
     onChange: doEachBorder,
   });
 
+    game.settings.register(MODULE_ID, 'hideBorderOnDeathTokens', {
+    name: 'gurps-gridless.settings.hideBorderOnDeathTokens.name',
+    hint: 'gurps-gridless.settings.hideBorderOnDeathTokens.description',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: doEachBorder,
+  });
+
+
    game.settings.register(MODULE_ID, 'borderAlpha', {
     name: 'gurps-gridless.settings.borderAlpha.name',
     hint: 'gurps-gridless.settings.borderAlpha.description',
@@ -390,10 +401,15 @@ export function modifyTokenConfig(app, html, data) {
         )}</label></div>`,)
     injectionPoint.after(injectHtml);
 
-     const indicatorEnabled = data.source.flags?.[MODULE_ID]?.facingIndicatorEnabled;
+    const indicatorEnabled = data.source.flags?.[MODULE_ID]?.facingIndicatorEnabled;
     if (indicatorEnabled === undefined){
        const indicatorEnabledCheckbox = html.querySelector('input[name="flags.gurps-gridless.facingIndicatorEnabled"]');
        indicatorEnabledCheckbox.checked = true;
+    }
+    const borderEnabled = data.source.flags?.[MODULE_ID]?.borderEnabled;
+    if (borderEnabled === undefined){
+       const borderEnabledCheckbox = html.querySelector('input[name="flags.gurps-gridless.borderEnabled"]');
+       borderEnabledCheckbox.checked = true;
     }
   }
 
