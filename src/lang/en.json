@@ -73,7 +73,15 @@
                 "name": "Show facing arrow",
                 "description": "Show arrow indicating token facing."
             },
-            "facingIndicatorImage": {
+            "showFacingIndicatorOnSelectedOnly": {
+                "name": "Only on selected token",
+                "description": "Show facing arrow only for the selected (or hovered) token, similar to the border."
+            },
+             "hideFacingIndicatorOnDeath": {
+                "name": "Hide facing arrow on death",
+                "description": "Hide the facing arrow when the token has the Dead status."
+            },
+             "facingIndicatorImage": {
                 "name": "Custom facing arrow",
                 "description": "Image file for a custom facing indicator. Keep empty to use the default indicator."
             },

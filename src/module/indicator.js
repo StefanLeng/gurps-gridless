@@ -29,7 +29,10 @@ async function doIndicator(tokenDocument) {
   const scaling =
     (game.settings.get(MODULE_ID, 'facingIndicatorScale') ?? 1) *
     (tokenDocument.flags[MODULE_ID]?.facingIndicatorScale ?? 1);
-  const show = tokenDocument.flags[MODULE_ID]?.facingIndicatorEnabled ?? true;
+  const show =
+    (tokenDocument.flags[MODULE_ID]?.facingIndicatorEnabled ?? true) &&
+    (game.settings.get(MODULE_ID, 'showFacingIndicatorOnSelectedOnly') ? tokenDocument.object.border.visible : true) &&
+    !(game.settings.get(MODULE_ID, 'hideFacingIndicatorOnDeath') && tokenDocument.actor?.statuses.has('dead'));
   const indicatorImage =
     tokenDocument.flags[MODULE_ID]?.facingIndicatorImage?.trim() ?? '' !== ''
       ? tokenDocument.flags[MODULE_ID]?.facingIndicatorImage.trim()
@@ -71,7 +74,12 @@ export function drawIndicator(token) {
 
 export function updateIndicatorDirection(token) {
   if (!token?.GURPSGridlessIndicator) return;
+  const show =
+    (token.document.flags[MODULE_ID]?.facingIndicatorEnabled ?? true) &&
+    (game.settings.get(MODULE_ID, 'showFacingIndicatorOnSelectedOnly') ? token.border.visible : true) &&
+    !(game.settings.get(MODULE_ID, 'hideFacingIndicatorOnDeath') && token.document.actor.statuses.has('dead'));
   token.GURPSGridlessIndicator.angle = token.document.rotation;
+  token.GURPSGridlessIndicator.visible = show;
 }
 
 export function updateIndicator(tokenDocument, changes) {

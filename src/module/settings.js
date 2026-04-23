@@ -250,6 +250,26 @@ export function registerSettings() {
     requiresReload: true,
   });
 
+  game.settings.register(MODULE_ID, 'showFacingIndicatorOnSelectedOnly', {
+    name: 'gurps-gridless.settings.showFacingIndicatorOnSelectedOnly.name',
+    hint: 'gurps-gridless.settings.showFacingIndicatorOnSelectedOnly.description',
+    scope: 'world',
+    config: true,
+    default: false,
+    type: Boolean,
+    requiresReload: true,
+  });
+
+  game.settings.register(MODULE_ID, 'hideFacingIndicatorOnDeath', {
+    name: 'gurps-gridless.settings.hideFacingIndicatorOnDeath.name',
+    hint: 'gurps-gridless.settings.hideFacingIndicatorOnDeath.description',
+    scope: 'world',
+    config: true,
+    default: true,
+    type: Boolean,
+    requiresReload: true,
+  });
+
   game.settings.register(MODULE_ID, 'facingIndicatorGap', {
     name: 'gurps-gridless.settings.facingIndicatorGap.name',
     hint: 'gurps-gridless.settings.facingIndicatorGap.description',
