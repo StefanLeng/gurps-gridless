@@ -37,7 +37,7 @@ export function toggleRotationOnMovement() {
 export async function retreat(token) {
   const point = { x: token.document.x, y: token.document.y, elevation: token.document.elevation };
   const direction = token.document.rotation - 90;
-  const newPoint = canvas.grid.getTranslatedPoint(point, direction, 1);
+  const newPoint = { ...canvas.grid.getTranslatedPoint(point, direction, 1), explicit: true };
   const [, constraint] = token.constrainMovementPath([point, newPoint]);
   if (!constraint) {
     token.document.move(newPoint, { autoRotate: false, constrainOptions: { ignoreWalls: false } });
