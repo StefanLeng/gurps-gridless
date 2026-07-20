@@ -243,7 +243,13 @@ export function setTokenDimensions(tokenDocument) {
 
   newChanges.flags = flags;
 
-  tokenDocument.update(newChanges);
+  if (hasChanges(tokenDocument, newChanges)) {
+    tokenDocument.update(newChanges);
+  }
+}
+
+function hasChanges(tokenDocument, changes) {
+  return !foundry.utils.isEmpty(foundry.utils.diffObject(tokenDocument, changes));
 }
 
 export function setTokenDimensionsOnUpdate(tokenDocument, changes, options) {
