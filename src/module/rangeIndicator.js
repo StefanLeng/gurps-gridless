@@ -1,7 +1,6 @@
 import { bodyShape, facingShape } from './shapes.js';
-import { MODULE_ID } from './constants.js';
+import { MODULE_ID, getColorConfig } from './constants.js';
 import { getDirection } from './rotation.js';
-import { getColorConfig } from './settings.js';
 
 export function drawReachIndicator(token) {
   try {

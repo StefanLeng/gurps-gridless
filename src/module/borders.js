@@ -1,6 +1,5 @@
 import { bodyShape, hexBodyShape } from './shapes.js';
-import { MODULE_ID } from './constants.js';
-import { getColorConfig } from './settings.js';
+import { MODULE_ID, getColorConfig } from './constants.js';
 import { getDirection, rotatePoint } from './rotation.js';
 import { isHexGrid } from './token.js';
 

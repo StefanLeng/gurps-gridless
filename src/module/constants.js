@@ -22,3 +22,16 @@ export const faceAngels = {
   backEnd: Math.PI + (Math.PI / 3) * 2,
   leftEnd: 2 * Math.PI,
 };
+
+export function getColorConfig() {
+  const config = Object.assign({}, defaultColors);
+  config.lineAlpha = game.settings.get(MODULE_ID, 'reachLineAlpha') ?? defaultColors.lineAlpha;
+  config.fillAlpha = game.settings.get(MODULE_ID, 'facingAlpha') ?? defaultColors.fillAlpha;
+  config.indicatorAlpha = game.settings.get(MODULE_ID, 'facingIndicatorAlpha') ?? defaultColors.indicatorAlpha;
+  config.borderAlpha = game.settings.get(MODULE_ID, 'borderAlpha') ?? defaultColors.borderAlpha;
+  config.indicatorFillColor =
+    game.settings.get(MODULE_ID, 'facingIndicatorFillColor') ?? defaultColors.indicatorFillColor;
+  config.indicatorLineColor =
+    game.settings.get(MODULE_ID, 'facingIndicatorLineColor') ?? defaultColors.indicatorLineColor;
+  return config;
+}

@@ -1,4 +1,4 @@
-import { registerSettings, GURPSGridLess, modifyTokenConfig, addTokenConfigTab } from './settings.js';
+import { registerSettings, modifyTokenConfig, addTokenConfigTab } from './settings.js';
 import { drawEachReachIndicator } from './rangeIndicator.js';
 import { doBorder } from './borders.js';
 import { drawHitArea } from './hitArea.js';
@@ -12,6 +12,17 @@ import { drawIndicator, updateIndicator, updateIndicatorDirection } from './indi
 import { applyCloseRangeShift } from './closeCombatShift.js';
 
 const version = '0.7.0';
+
+export class GURPSGridLess {
+  constructor() {
+    this.showRangeIndicator = false;
+    this.showRangeIndicatorAll = false;
+    this.suppressRotationOnMove = false;
+  }
+  showRangeIndicator;
+  showRangeIndicatorALL;
+  suppressRotationOnMove;
+}
 
 // Initialize module
 Hooks.once('init', async () => {

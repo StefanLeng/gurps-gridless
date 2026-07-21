@@ -1,6 +1,5 @@
-import { MODULE_ID } from './constants.js';
+import { MODULE_ID, getColorConfig } from './constants.js';
 import { isHexColumnGrid } from './token.js';
-import { getColorConfig } from './settings.js';
 
 const PIXI = window.PIXI;
 

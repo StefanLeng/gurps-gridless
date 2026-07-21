@@ -7,17 +7,6 @@ import { setVisionAdjustment } from './vision.js';
 import { doEachBorder } from './borders.js';
 import { toggleRotationOnMovement, retreatControlledTokens } from './toggleRotation.js';
 
-export class GURPSGridLess {
-  constructor() {
-    this.showRangeIndicator = false;
-    this.showRangeIndicatorAll = false;
-    this.suppressRotationOnMove = false;
-  }
-  showRangeIndicator;
-  showRangeIndicatorALL;
-  suppressRotationOnMove;
-}
-
 export function onGURPSMovementEnabledChanged(enabled) {
   if (enabled) {
     enableGURPSMovementForAllScenes();
@@ -427,14 +416,4 @@ export function addTokenConfigTab(app) {
     app.PARTS.footer = footer;
 }
 
-export function getColorConfig() {
-    const config = Object.assign({}, defaultColors);
-    config.lineAlpha = game.settings.get(MODULE_ID, 'reachLineAlpha') ?? defaultColors.lineAlpha;
-    config.fillAlpha = game.settings.get(MODULE_ID, 'facingAlpha') ?? defaultColors.fillAlpha;
-    config.indicatorAlpha = game.settings.get(MODULE_ID, 'facingIndicatorAlpha') ?? defaultColors.indicatorAlpha;
-    config.borderAlpha = game.settings.get(MODULE_ID, 'borderAlpha') ?? defaultColors.borderAlpha;
-    config.indicatorFillColor = game.settings.get(MODULE_ID, 'facingIndicatorFillColor') ?? defaultColors.indicatorFillColor;
-    config.indicatorLineColor = game.settings.get(MODULE_ID, 'facingIndicatorLineColor') ?? defaultColors.indicatorLineColor;
-    return config;
-}
 
