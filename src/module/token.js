@@ -207,6 +207,7 @@ export function makeTokenUpdates(
 export function setTokenDimensions(tokenDocument) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
   if (!tokenDocument.isOwner) return;
+  if (tokenDocument.gurpsGridless) return; // only set dimensions if not already handled elsewhere
 
   let flags = {};
   flags[MODULE_ID] = {};
