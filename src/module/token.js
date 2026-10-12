@@ -253,6 +253,13 @@ function hasChanges(tokenDocument, changes) {
   return !foundry.utils.isEmpty(foundry.utils.diffObject(tokenDocument, changes));
 }
 
+export function handlePrototypeTokenUpdate(actorDocument, changes) {
+  if (changes?.prototypeToken?.flags?.[MODULE_ID]?.depth) {
+    changes.prototypeToken.depth = changes.prototypeToken.flags[MODULE_ID].depth;
+    changes.prototypeToken.flags[MODULE_ID].depth = undefined;
+  }
+}
+
 export function setTokenDimensionsOnUpdate(tokenDocument, changes, options) {
   if (!game.settings.get(MODULE_ID, 'GURPSMovementEnabled')) return;
 

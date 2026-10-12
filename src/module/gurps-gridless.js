@@ -2,7 +2,12 @@ import { registerSettings, modifyTokenConfig, addTokenConfigTab } from './settin
 import { drawEachReachIndicator } from './rangeIndicator.js';
 import { doBorder } from './borders.js';
 import { drawHitArea } from './hitArea.js';
-import { setTokenDimensionsOnUpdate, setTokenDimensionsOnCreate, setTokenDimensions } from './token.js';
+import {
+  setTokenDimensionsOnUpdate,
+  setTokenDimensionsOnCreate,
+  setTokenDimensions,
+  handlePrototypeTokenUpdate,
+} from './token.js';
 import { updateSceneTokens } from './scene.js';
 import { MODULE_ID } from './constants.js';
 import { gurpsGridlessAPI } from './api.js';
@@ -60,6 +65,10 @@ Hooks.on('refreshToken', (token) => {
   drawHitArea(token);
   doBorder(token);
   updateIndicatorDirection(token);
+});
+
+Hooks.on('preUpdateActor', (d, c) => {
+  handlePrototypeTokenUpdate(d, c);
 });
 
 Hooks.on('preUpdateToken', (d, c, o) => {
