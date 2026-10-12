@@ -3,11 +3,10 @@ import { isHexGrid } from './token.js';
 
 /* original function
   _getVisionSourceData() {
-    const {x, y} = this.#adjustedCenter;
-    const {elevation, rotation} = this.document;
-    const sight = this.document.sight;
+    const {x, y, elevation} = this.document.getVisionOrigin();
+    const {level, rotation, sight} = this.document;
     return {
-      x, y, elevation, rotation,
+      x, y, elevation, level, rotation,
       radius: this.sightRange,
       lightRadius: this.lightPerceptionRange,
       externalRadius: this.externalRadius,
@@ -25,7 +24,7 @@ import { isHexGrid } from './token.js';
   */
 export function _getVisionSourceData() {
   const d = canvas.dimensions;
-  const { x, y } = this.center;
+  const { x, y, elevation } = this.document.getVisionOrigin();
 
   const GURPSMovementEnabled = game.settings.get(MODULE_ID, 'GURPSMovementEnabled');
   const anchorY = GURPSMovementEnabled
@@ -41,12 +40,12 @@ export function _getVisionSourceData() {
       ? this.externalRadius * (length + (anchorY - 0.5) * 2 ?? 1)
       : this.h * anchorY ?? this.externalRadius;
 
-  const { elevation, rotation } = this.document;
-  const sight = this.document.sight;
+  const { rotation, sight, level } = this.document;
   return {
     x,
     y,
     elevation,
+    level,
     rotation,
     radius: Math.clamp(this.sightRange, 0, d.maxR),
     lightRadius: Math.clamp(this.lightPerceptionRange, 0, d.maxR),
