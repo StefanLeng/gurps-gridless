@@ -266,6 +266,11 @@ export function setTokenDimensionsOnUpdate(tokenDocument, changes, options) {
     changes.flags[MODULE_ID].tokenScaling = 0.1;
   }
 
+  if (changes?.flags?.[MODULE_ID]?.depth) {
+    changes.depth = changes?.flags?.[MODULE_ID]?.depth;
+    changes.flags[MODULE_ID].depth = undefined;
+  }
+
   const width = Math.max(
     changes?.flags?.[MODULE_ID]?.tokenWidth ?? tokenDocument.flags[MODULE_ID]?.tokenWidth ?? tokenDocument.width,
     0.2,

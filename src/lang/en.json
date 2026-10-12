@@ -120,72 +120,76 @@
         },
 
         "tokenSettings": {
-            "tab": {
-                "name": "GURPS Token Shape"
-            },
-            "explanation": "Note from GURPS Token Shape and Movement: Some token properties have been removed from this section and can now be set in the GURPS Token Shape tab.",
+          "tab": {
+            "name": "GURPS Token Shape"
+          },
+          "explanation": "Note from GURPS Token Shape and Movement: Some token properties have been removed from this section and can now be set in the GURPS Token Shape tab.",
 
-            "maxReachShown": {
-                "placeholder": "Leave empty to use global setting",
-                "name": "Maximal reach shown"
-            },
-            
-            "image": {
-                "legend": "Token image settings"
-            },
-            "tokenScaling": {
-                "name": "Scaling"
-            },
-            "imageOffsetY": {
-                "name": "Lengthwise Image Offset",
-                "note": "Shifts the token image forward on positive values and back on negative values relative to the token border"
-            },
-            "imageOffsetX": {
-                "name": "Sideward Image Offset",
-                "note": "Shifts the token image right on positive values and left on negative values relative to the token border"
-            },
-            
-            "tokenDimensions": {
-                "legend": "Token dimensions in grid units"
-            },
-            "tokenWidth": {
-                "name": "Width",
-                "note": "Will be rounded to full hexes on hex grids. Warning: There is no useful shape for tokens with a length of 1 and a width > 1 on hex grids."
-            },
-            "tokenLength": {
-                "name": "Length",
-                "note": "Will be rounded to full hexes on hex grids.  Warning: There is no useful shape for tokens with a length of 1 and a width > 1 on hex grids."
-            },
-            "rotationOffsetY": {
-                "name": "Lengthwise Offset",
-                "note": "With this module, the default center of rotation will be the center front hex of the token shape. Use this setting to shift it along the length oft the token. Will be rounded to full hexes on hex grids."
-            },
-            "rotationOffsetX": {
-                "name": "Sideward Offset",
-                "note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shifting by a number of hexes not dividable by two will move the border of grid."
-            },
-            "border": {
-                "legend": "Border"
-            },
-            "borderEnabled": {
-                "name": "Enable border",
-                "note": "Enables the border for the token."
-            },
-            "facingIndicator": {
-                "legend": "Facing Arrow"
-            },
-            "facingIndicatorEnabled": {
-                "name": "Enable facing arrow",
-                "note": "Enables the facing arrow if facing arrows are enabled in the global settings."
-            },
-            "facingIndicatorScale": {
-                "name": "Facing arrow scale",
-                "note": "Cumulative with global scale."
-            },
-            "facingIndicatorImage": {
-                "name": "Custom facing arrow",
-                "note": "Custom facing arrow image. Leave empty to use the default arrow."
-            }
+          "maxReachShown": {
+            "placeholder": "Leave empty to use global setting",
+            "name": "Maximal reach shown"
+          },
+
+          "image": {
+            "legend": "Token image settings"
+          },
+          "tokenScaling": {
+            "name": "Scaling"
+          },
+          "imageOffsetY": {
+            "name": "Lengthwise Image Offset",
+            "note": "Shifts the token image forward on positive values and back on negative values relative to the token border"
+          },
+          "imageOffsetX": {
+            "name": "Sideward Image Offset",
+            "note": "Shifts the token image right on positive values and left on negative values relative to the token border"
+          },
+
+          "tokenDimensions": {
+            "legend": "Token dimensions in grid units"
+          },
+          "tokenWidth": {
+            "name": "Width",
+            "note": "Will be rounded to full hexes on hex grids. Warning: There is no useful shape for tokens with a length of 1 and a width > 1 on hex grids."
+          },
+          "tokenLength": {
+            "name": "Length",
+            "note": "Will be rounded to full hexes on hex grids.  Warning: There is no useful shape for tokens with a length of 1 and a width > 1 on hex grids."
+          },
+          "tokenDepth": {
+            "name": "Height",
+            "note": "The height of token in grid units."
+          },
+          "rotationOffsetY": {
+            "name": "Lengthwise Offset",
+            "note": "With this module, the default center of rotation will be the center front hex of the token shape. Use this setting to shift it along the length oft the token. Will be rounded to full hexes on hex grids."
+          },
+          "rotationOffsetX": {
+            "name": "Sideward Offset",
+            "note": "Use this setting to shift the center of rotation along the width oft the token. Will be rounded to full hexes on hex grids. Note that shifting by a number of hexes not dividable by two will move the border of grid."
+          },
+          "border": {
+            "legend": "Border"
+          },
+          "borderEnabled": {
+            "name": "Enable border",
+            "note": "Enables the border for the token."
+          },
+          "facingIndicator": {
+            "legend": "Facing Arrow"
+          },
+          "facingIndicatorEnabled": {
+            "name": "Enable facing arrow",
+            "note": "Enables the facing arrow if facing arrows are enabled in the global settings."
+          },
+          "facingIndicatorScale": {
+            "name": "Facing arrow scale",
+            "note": "Cumulative with global scale."
+          },
+          "facingIndicatorImage": {
+            "name": "Custom facing arrow",
+            "note": "Custom facing arrow image. Leave empty to use the default arrow."
+          }
         }
     }
 }
